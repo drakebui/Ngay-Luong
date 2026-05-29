@@ -3,10 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ngay_luong/core/db/app_database.dart';
 import 'package:ngay_luong/core/db/image_storage.dart';
 import 'package:ngay_luong/core/notifications/notification_service.dart';
-import 'package:ngay_luong/features/crush/domain/crush_models.dart';
 import 'package:ngay_luong/features/income/data/income_repository.dart';
 import 'package:ngay_luong/features/income/data/income_storage.dart';
 import 'package:ngay_luong/features/income/domain/income_profile.dart';
+import 'package:ngay_luong/features/save_card/data/card_renderer.dart';
 import 'package:ngay_luong/features/settings/data/data_reset_service.dart';
 import 'package:ngay_luong/features/settings/data/settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +16,15 @@ class _RecordingImageStorage extends ImageStorage {
   static bool deleted = false;
   @override
   Future<void> deleteAllImages() async {
+    deleted = true;
+  }
+}
+
+class _RecordingCardRenderer extends CardRenderer {
+  const _RecordingCardRenderer();
+  static bool deleted = false;
+  @override
+  Future<void> deleteAllSavedCards() async {
     deleted = true;
   }
 }
@@ -92,6 +101,7 @@ void main() {
         );
 
     _RecordingImageStorage.deleted = false;
+    _RecordingCardRenderer.deleted = false;
 
     final service = DataResetService(
       database: db,
@@ -99,6 +109,7 @@ void main() {
       notificationService: notiService,
       incomeRepository: incomeRepo,
       settingsRepository: settingsRepo,
+      cardRenderer: const _RecordingCardRenderer(),
     );
 
     await service.wipeEverything();
@@ -107,6 +118,8 @@ void main() {
         reason: 'must cancel scheduled notifications first');
     expect(await db.select(db.crushCards).get(), isEmpty);
     expect(_RecordingImageStorage.deleted, true);
+    expect(_RecordingCardRenderer.deleted, true,
+        reason: 'derived save-card PNGs must be wiped too');
     expect(await incomeRepo.loadProfile(), isNull);
     expect(incomeRepo.isOnboardingDone(), false);
     expect(settingsRepo.appLockEnabled, false);

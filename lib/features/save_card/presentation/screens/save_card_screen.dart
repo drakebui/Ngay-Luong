@@ -67,6 +67,7 @@ class _SaveCardScreenState extends State<SaveCardScreen> {
               ),
             ),
             _TemplatePicker(
+              available: widget.input.availableTemplates(),
               current: _template,
               onPick: (t) => setState(() => _template = t),
             ),
@@ -93,8 +94,13 @@ class _SaveCardScreenState extends State<SaveCardScreen> {
 }
 
 class _TemplatePicker extends StatelessWidget {
-  const _TemplatePicker({required this.current, required this.onPick});
+  const _TemplatePicker({
+    required this.available,
+    required this.current,
+    required this.onPick,
+  });
 
+  final List<SaveCardTemplate> available;
   final SaveCardTemplate current;
   final ValueChanged<SaveCardTemplate> onPick;
 
@@ -104,7 +110,7 @@ class _TemplatePicker extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.base),
       child: Row(
-        children: SaveCardTemplate.values
+        children: available
             .map(
               (t) => Padding(
                 padding: const EdgeInsets.only(right: AppSpacing.sm),

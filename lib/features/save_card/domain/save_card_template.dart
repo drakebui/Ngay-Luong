@@ -19,7 +19,20 @@ class SaveCardInput {
 
   /// Picks a sensible default template from the available signal.
   SaveCardTemplate defaultTemplate() {
-    if (percentOff != null && percentOff! > 0) return SaveCardTemplate.onSale;
+    if (hasRealSalePercent) return SaveCardTemplate.onSale;
     return SaveCardTemplate.sleepOnIt;
+  }
+
+  /// True only when the user actually provided a positive discount.
+  /// `onSale` template is only valid in this case — otherwise it would
+  /// fabricate a "Sale 50%" badge on a shareable card.
+  bool get hasRealSalePercent => percentOff != null && percentOff! > 0;
+
+  /// Templates the user is allowed to pick for this input. Filters out
+  /// `onSale` when no real percent was provided.
+  List<SaveCardTemplate> availableTemplates() {
+    return SaveCardTemplate.values
+        .where((t) => t != SaveCardTemplate.onSale || hasRealSalePercent)
+        .toList();
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ngay_luong/features/crush/presentation/providers/crush_providers.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
+import 'package:ngay_luong/features/save_card/data/card_renderer.dart';
 import 'package:ngay_luong/features/settings/data/app_lock_service.dart';
 import 'package:ngay_luong/features/settings/data/data_reset_service.dart';
 import 'package:ngay_luong/features/settings/data/settings_repository.dart';
@@ -14,6 +15,10 @@ final appLockServiceProvider = Provider<AppLockService>((ref) {
   return AppLockService();
 });
 
+final cardRendererProvider = Provider<CardRenderer>((ref) {
+  return const CardRenderer();
+});
+
 final dataResetServiceProvider = Provider<DataResetService>((ref) {
   return DataResetService(
     database: ref.watch(appDatabaseProvider),
@@ -21,6 +26,7 @@ final dataResetServiceProvider = Provider<DataResetService>((ref) {
     notificationService: ref.watch(notificationServiceProvider),
     incomeRepository: ref.watch(incomeRepositoryProvider),
     settingsRepository: ref.watch(settingsRepositoryProvider),
+    cardRenderer: ref.watch(cardRendererProvider),
   );
 });
 

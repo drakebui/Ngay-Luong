@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ngay_luong/core/theme/app_spacing.dart';
@@ -22,7 +24,9 @@ class _AppLockGateState extends ConsumerState<AppLockGate> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeUnlock());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(_maybeUnlock());
+    });
   }
 
   Future<void> _maybeUnlock() async {

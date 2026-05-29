@@ -20,4 +20,17 @@ void main() {
   test('three templates exist in the enum', () {
     expect(SaveCardTemplate.values.length, 3);
   });
+
+  test('availableTemplates excludes onSale when no real percent', () {
+    const input = SaveCardInput(days: 3.4);
+    expect(input.hasRealSalePercent, false);
+    expect(input.availableTemplates(), isNot(contains(SaveCardTemplate.onSale)));
+    expect(input.availableTemplates(), contains(SaveCardTemplate.sleepOnIt));
+    expect(input.availableTemplates(), contains(SaveCardTemplate.skipped));
+  });
+
+  test('availableTemplates includes onSale when percent provided', () {
+    const input = SaveCardInput(days: 3.4, percentOff: 30);
+    expect(input.availableTemplates(), contains(SaveCardTemplate.onSale));
+  });
 }

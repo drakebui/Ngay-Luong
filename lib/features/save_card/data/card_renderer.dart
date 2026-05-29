@@ -23,14 +23,29 @@ class CardRenderer {
   /// Returns the absolute path the user can find later (and, in a future
   /// share-plus integration, share).
   Future<String> writePng(Uint8List bytes) async {
+    final outDir = await _ensureDir();
+    final filename = 'card_${DateTime.now().millisecondsSinceEpoch}.png';
+    final file = File(p.join(outDir.path, filename));
+    await file.writeAsBytes(bytes);
+    return file.path;
+  }
+
+  /// Removes every previously-saved card. Called by the data reset flow so
+  /// "Xóa toàn bộ dữ liệu" doesn't leave derived day-lương PNGs on disk.
+  Future<void> deleteAllSavedCards() async {
+    final docsDir = await getApplicationDocumentsDirectory();
+    final outDir = Directory(p.join(docsDir.path, 'save_cards'));
+    if (await outDir.exists()) {
+      await outDir.delete(recursive: true);
+    }
+  }
+
+  Future<Directory> _ensureDir() async {
     final docsDir = await getApplicationDocumentsDirectory();
     final outDir = Directory(p.join(docsDir.path, 'save_cards'));
     if (!await outDir.exists()) {
       await outDir.create(recursive: true);
     }
-    final filename = 'card_${DateTime.now().millisecondsSinceEpoch}.png';
-    final file = File(p.join(outDir.path, filename));
-    await file.writeAsBytes(bytes);
-    return file.path;
+    return outDir;
   }
 }
