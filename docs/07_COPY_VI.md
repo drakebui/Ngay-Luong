@@ -32,6 +32,9 @@
 - `onboarding.customize` = "Tùy chỉnh ngày/giờ làm"
 - `onboarding.done` = "Xong"
 - `onboarding.skip` = "Để sau"
+- `onboarding.currencySuffix` = "đ"
+- `onboarding.daySuffix` = "ngày"
+- `onboarding.hourSuffix` = "giờ"
 
 ## 3. Privacy
 
@@ -78,6 +81,22 @@ Microcopy theo ngữ cảnh (chọn trong `result_phrasing.dart`):
   (Cần thật / Đang sale / Thấy review / TikTok làm tôi yếu lòng / Tự thưởng / Stress / Không biết nữa, thấy thích)
 - `fomo.recall` = "{n} ngày trước bạn muốn mua vì: \"{reason}\". Giờ còn mê không?"
 
+## 7.1. Crush Card Editor
+
+- `crushEditor.newTitle` = "Lưu món"
+- `crushEditor.editTitle` = "Sửa món"
+- `crushEditor.save` = "Lưu"
+- `crushEditor.nameLabel` = "Tên món (không bắt buộc)"
+- `crushEditor.priceLabel` = "Giá"
+- `crushEditor.imageLabel` = "Ảnh món đồ"
+- `crushEditor.pickGallery` = "Chọn ảnh"
+- `crushEditor.pickCamera` = "Chụp ảnh"
+- `crushEditor.removeImage` = "Xóa ảnh"
+- `crushEditor.reminderLabel` = "Chọn mốc nhắc"
+- `crushEditor.loadError` = "Không tải được món này."
+- `crushEditor.missingArgs` = "Thiếu dữ liệu để lưu món."
+- `crushEditor.saveError` = "Chưa lưu được món. Thử lại nhé."
+
 ## 8. Reminder presets
 
 - `remind.tonight` = "Tối nay"
@@ -87,10 +106,28 @@ Microcopy theo ngữ cảnh (chọn trong `result_phrasing.dart`):
 - `remind.untilPayday` = "Đợi tới ngày lương"
 - `remind.custom` = "Chọn ngày khác"
 
+## 8.1. Crush Calendar
+
+- `calendar.title` = "Crush Calendar"
+- `calendar.today` = "Hôm nay"
+- `calendar.upcoming` = "Sắp tới"
+- `calendar.month` = "Tháng"
+- `calendar.filterPending` = "Đang treo"
+- `calendar.filterOverIt` = "Hết mê"
+- `calendar.filterBought` = "Đã mua"
+- `calendar.filterAll` = "Tất cả"
+- `calendar.emptyToday` = "Hôm nay chưa có món nào cần xem lại."
+- `calendar.emptyUpcoming` = "Chưa có món nào đang chờ ngày nhắc."
+- `calendar.emptyMonth` = "Tháng này chưa có mốc nhắc nào."
+- `calendar.unnamedItem` = "món này"
+- `calendar.itemQuestion` = "Còn mê {name}?"
+- `calendar.tomorrow` = "Ngày mai"
+- `calendar.inDays` = "{count} ngày nữa"
+
 ## 9. Notification (mặc định private)
 
 - `noti.defaultTitle` = "Còn mê không?"
-- `noti.defaultBody` = "Có một món đang chờ bạn xem lại."
+- `noti.defaultBody` = "Mở app xem lại."
 - Detail mode (chỉ khi `noti_detail_mode = true`):
   - `noti.detailNamed` = "Còn mê {name} không?"
   - `noti.detailDays` = "Món này từng lấy của bạn {days} ngày đi làm."
@@ -110,6 +147,18 @@ Microcopy theo ngữ cảnh (chọn trong `result_phrasing.dart`):
 - `still.remindAgain` = "Nhắc lại lần nữa"
 - `still.delete` = "Xóa món này"
 - `still.overItCheer` = "+{days} ngày lương còn sống."
+
+- `stillScreen.heroUnit` = "ngày đi làm"
+- `stillScreen.question` = "Còn mê không?"
+- `stillScreen.boughtDaysAgo` = "Bạn muốn mua món này {days} ngày trước."
+- `stillScreen.reasonLabel` = "Lúc đó bạn thích vì: {reason}."
+- `stillScreen.savedDays` = "+{days} ngày lương còn sống"
+- `stillScreen.btn.stillCrushing` = "Vẫn mê"
+- `stillScreen.btn.overIt` = "Hết mê rồi"
+- `stillScreen.btn.waitingSale` = "Chờ sale"
+- `stillScreen.btn.bought` = "Mua rồi"
+- `stillScreen.btn.remindAgain` = "Nhắc lại lần nữa"
+- `stillScreen.btn.delete` = "Xóa"
 
 ## 11. Anti-haul recap (Phase 2)
 

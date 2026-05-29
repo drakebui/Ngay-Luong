@@ -190,6 +190,24 @@ abstract class AppLocalizations {
   /// **'Để sau'**
   String get onboardingSkip;
 
+  /// No description provided for @onboardingCurrencySuffix.
+  ///
+  /// In vi, this message translates to:
+  /// **'đ'**
+  String get onboardingCurrencySuffix;
+
+  /// No description provided for @onboardingDaySuffix.
+  ///
+  /// In vi, this message translates to:
+  /// **'ngày'**
+  String get onboardingDaySuffix;
+
+  /// No description provided for @onboardingHourSuffix.
+  ///
+  /// In vi, this message translates to:
+  /// **'giờ'**
+  String get onboardingHourSuffix;
+
   /// No description provided for @privacyOnboarding.
   ///
   /// In vi, this message translates to:
@@ -346,6 +364,84 @@ abstract class AppLocalizations {
   /// **'{n} ngày trước bạn muốn mua vì: \"{reason}\". Giờ còn mê không?'**
   String fomoRecall(int n, String reason);
 
+  /// No description provided for @crushEditorNewTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu món'**
+  String get crushEditorNewTitle;
+
+  /// No description provided for @crushEditorEditTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sửa món'**
+  String get crushEditorEditTitle;
+
+  /// No description provided for @crushEditorSave.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu'**
+  String get crushEditorSave;
+
+  /// No description provided for @crushEditorNameLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên món (không bắt buộc)'**
+  String get crushEditorNameLabel;
+
+  /// No description provided for @crushEditorPriceLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giá'**
+  String get crushEditorPriceLabel;
+
+  /// No description provided for @crushEditorImageLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ảnh món đồ'**
+  String get crushEditorImageLabel;
+
+  /// No description provided for @crushEditorPickGallery.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn ảnh'**
+  String get crushEditorPickGallery;
+
+  /// No description provided for @crushEditorPickCamera.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chụp ảnh'**
+  String get crushEditorPickCamera;
+
+  /// No description provided for @crushEditorRemoveImage.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa ảnh'**
+  String get crushEditorRemoveImage;
+
+  /// No description provided for @crushEditorReminderLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn mốc nhắc'**
+  String get crushEditorReminderLabel;
+
+  /// No description provided for @crushEditorLoadError.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không tải được món này.'**
+  String get crushEditorLoadError;
+
+  /// No description provided for @crushEditorMissingArgs.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thiếu dữ liệu để lưu món.'**
+  String get crushEditorMissingArgs;
+
+  /// No description provided for @crushEditorSaveError.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa lưu được món. Thử lại nhé.'**
+  String get crushEditorSaveError;
+
   /// No description provided for @remindTonight.
   ///
   /// In vi, this message translates to:
@@ -382,6 +478,96 @@ abstract class AppLocalizations {
   /// **'Chọn ngày khác'**
   String get remindCustom;
 
+  /// No description provided for @calendarTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Crush Calendar'**
+  String get calendarTitle;
+
+  /// No description provided for @calendarToday.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay'**
+  String get calendarToday;
+
+  /// No description provided for @calendarUpcoming.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sắp tới'**
+  String get calendarUpcoming;
+
+  /// No description provided for @calendarMonth.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tháng'**
+  String get calendarMonth;
+
+  /// No description provided for @calendarFilterPending.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang treo'**
+  String get calendarFilterPending;
+
+  /// No description provided for @calendarFilterOverIt.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hết mê'**
+  String get calendarFilterOverIt;
+
+  /// No description provided for @calendarFilterBought.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã mua'**
+  String get calendarFilterBought;
+
+  /// No description provided for @calendarFilterAll.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tất cả'**
+  String get calendarFilterAll;
+
+  /// No description provided for @calendarEmptyToday.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay chưa có món nào cần xem lại.'**
+  String get calendarEmptyToday;
+
+  /// No description provided for @calendarEmptyUpcoming.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có món nào đang chờ ngày nhắc.'**
+  String get calendarEmptyUpcoming;
+
+  /// No description provided for @calendarEmptyMonth.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tháng này chưa có mốc nhắc nào.'**
+  String get calendarEmptyMonth;
+
+  /// No description provided for @calendarUnnamedItem.
+  ///
+  /// In vi, this message translates to:
+  /// **'món này'**
+  String get calendarUnnamedItem;
+
+  /// No description provided for @calendarItemQuestion.
+  ///
+  /// In vi, this message translates to:
+  /// **'Còn mê {name}?'**
+  String calendarItemQuestion(String name);
+
+  /// No description provided for @calendarTomorrow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày mai'**
+  String get calendarTomorrow;
+
+  /// No description provided for @calendarInDays.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} ngày nữa'**
+  String calendarInDays(int count);
+
   /// No description provided for @notiDefaultTitle.
   ///
   /// In vi, this message translates to:
@@ -391,7 +577,7 @@ abstract class AppLocalizations {
   /// No description provided for @notiDefaultBody.
   ///
   /// In vi, this message translates to:
-  /// **'Có một món đang chờ bạn xem lại.'**
+  /// **'Mở app xem lại.'**
   String get notiDefaultBody;
 
   /// No description provided for @notiDetailNamed.
@@ -453,6 +639,72 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'+{days} ngày lương còn sống.'**
   String stillOverItCheer(String days);
+
+  /// No description provided for @stillScreenHeroUnit.
+  ///
+  /// In vi, this message translates to:
+  /// **'ngày đi làm'**
+  String get stillScreenHeroUnit;
+
+  /// No description provided for @stillScreenQuestion.
+  ///
+  /// In vi, this message translates to:
+  /// **'Còn mê không?'**
+  String get stillScreenQuestion;
+
+  /// No description provided for @stillScreenBoughtDaysAgo.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn muốn mua món này {days} ngày trước.'**
+  String stillScreenBoughtDaysAgo(int days);
+
+  /// No description provided for @stillScreenReasonLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lúc đó bạn thích vì: {reason}.'**
+  String stillScreenReasonLabel(String reason);
+
+  /// No description provided for @stillScreenSavedDays.
+  ///
+  /// In vi, this message translates to:
+  /// **'+{days} ngày lương còn sống'**
+  String stillScreenSavedDays(String days);
+
+  /// No description provided for @stillScreenBtnStillCrushing.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vẫn mê'**
+  String get stillScreenBtnStillCrushing;
+
+  /// No description provided for @stillScreenBtnOverIt.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hết mê rồi'**
+  String get stillScreenBtnOverIt;
+
+  /// No description provided for @stillScreenBtnWaitingSale.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chờ sale'**
+  String get stillScreenBtnWaitingSale;
+
+  /// No description provided for @stillScreenBtnBought.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mua rồi'**
+  String get stillScreenBtnBought;
+
+  /// No description provided for @stillScreenBtnRemindAgain.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhắc lại lần nữa'**
+  String get stillScreenBtnRemindAgain;
+
+  /// No description provided for @stillScreenBtnDelete.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa'**
+  String get stillScreenBtnDelete;
 
   /// No description provided for @cardSleepOnIt.
   ///

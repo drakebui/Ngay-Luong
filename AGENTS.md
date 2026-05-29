@@ -105,3 +105,30 @@ Quy ước: **không commit code khi `flutter analyze` còn error hoặc test fa
 - Mâu thuẫn giữa tài liệu và yêu cầu mới → ưu tiên Golden Rules, rồi hỏi lại người dùng.
 - Thiếu thông tin để quyết định UX → chọn phương án ĐƠN GIẢN & NHANH NHẤT, ghi chú TODO, không tự ý mở rộng scope.
 - Tuyệt đối không tự thêm tính năng ngoài `docs/01_PRD.md` (đặc biệt: social, leaderboard, bank-link, AI tâm lý).
+
+---
+
+## 8. Làm việc từ xa — Codex web
+
+Workflow khi không có máy nhà:
+
+```
+Trước khi đi:   git push origin <branch>
+Trên Codex web: đọc AGENTS.md + SESSION_NOTES.md + docs liên quan → thực thi task
+CI tự chạy:     GitHub Actions kiểm flutter analyze + flutter test sau mỗi commit
+Về nhà:         git pull
+                flutter pub get
+                dart run build_runner build --delete-conflicting-outputs
+                flutter test
+```
+
+**Context tối thiểu paste vào mỗi Codex prompt:**
+
+1. Toàn bộ §1 Golden Rules (file này).
+2. Task cụ thể từ `docs/09_BUILD_PLAN.md` milestone hiện tại.
+3. File spec liên quan (thường `docs/03`, `docs/04`, `docs/05`).
+4. Nội dung `SESSION_NOTES.md` — để Codex biết trạng thái hiện tại.
+5. Ràng buộc bắt buộc: **không sửa signature 3 file lõi**, không thêm package mới nếu không ghi lý do, `flutter analyze` phải sạch trước khi kết thúc.
+
+**Kiểm tra kết quả từ điện thoại:**
+Tab **Actions** trên GitHub → xem job "Analyze & Test" xanh hay đỏ.

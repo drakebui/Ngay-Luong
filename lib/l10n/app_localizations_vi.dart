@@ -57,6 +57,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get onboardingSkip => 'Để sau';
 
   @override
+  String get onboardingCurrencySuffix => 'đ';
+
+  @override
+  String get onboardingDaySuffix => 'ngày';
+
+  @override
+  String get onboardingHourSuffix => 'giờ';
+
+  @override
   String get privacyOnboarding =>
       'Thu nhập của bạn chỉ dùng để tính trên máy. Mình không cần biết bạn kiếm bao nhiêu.';
 
@@ -156,6 +165,45 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String get crushEditorNewTitle => 'Lưu món';
+
+  @override
+  String get crushEditorEditTitle => 'Sửa món';
+
+  @override
+  String get crushEditorSave => 'Lưu';
+
+  @override
+  String get crushEditorNameLabel => 'Tên món (không bắt buộc)';
+
+  @override
+  String get crushEditorPriceLabel => 'Giá';
+
+  @override
+  String get crushEditorImageLabel => 'Ảnh món đồ';
+
+  @override
+  String get crushEditorPickGallery => 'Chọn ảnh';
+
+  @override
+  String get crushEditorPickCamera => 'Chụp ảnh';
+
+  @override
+  String get crushEditorRemoveImage => 'Xóa ảnh';
+
+  @override
+  String get crushEditorReminderLabel => 'Chọn mốc nhắc';
+
+  @override
+  String get crushEditorLoadError => 'Không tải được món này.';
+
+  @override
+  String get crushEditorMissingArgs => 'Thiếu dữ liệu để lưu món.';
+
+  @override
+  String get crushEditorSaveError => 'Chưa lưu được món. Thử lại nhé.';
+
+  @override
   String get remindTonight => 'Tối nay';
 
   @override
@@ -174,10 +222,59 @@ class AppLocalizationsVi extends AppLocalizations {
   String get remindCustom => 'Chọn ngày khác';
 
   @override
+  String get calendarTitle => 'Crush Calendar';
+
+  @override
+  String get calendarToday => 'Hôm nay';
+
+  @override
+  String get calendarUpcoming => 'Sắp tới';
+
+  @override
+  String get calendarMonth => 'Tháng';
+
+  @override
+  String get calendarFilterPending => 'Đang treo';
+
+  @override
+  String get calendarFilterOverIt => 'Hết mê';
+
+  @override
+  String get calendarFilterBought => 'Đã mua';
+
+  @override
+  String get calendarFilterAll => 'Tất cả';
+
+  @override
+  String get calendarEmptyToday => 'Hôm nay chưa có món nào cần xem lại.';
+
+  @override
+  String get calendarEmptyUpcoming => 'Chưa có món nào đang chờ ngày nhắc.';
+
+  @override
+  String get calendarEmptyMonth => 'Tháng này chưa có mốc nhắc nào.';
+
+  @override
+  String get calendarUnnamedItem => 'món này';
+
+  @override
+  String calendarItemQuestion(String name) {
+    return 'Còn mê $name?';
+  }
+
+  @override
+  String get calendarTomorrow => 'Ngày mai';
+
+  @override
+  String calendarInDays(int count) {
+    return '$count ngày nữa';
+  }
+
+  @override
   String get notiDefaultTitle => 'Còn mê không?';
 
   @override
-  String get notiDefaultBody => 'Có một món đang chờ bạn xem lại.';
+  String get notiDefaultBody => 'Mở app xem lại.';
 
   @override
   String notiDetailNamed(String name) {
@@ -214,6 +311,45 @@ class AppLocalizationsVi extends AppLocalizations {
   String stillOverItCheer(String days) {
     return '+$days ngày lương còn sống.';
   }
+
+  @override
+  String get stillScreenHeroUnit => 'ngày đi làm';
+
+  @override
+  String get stillScreenQuestion => 'Còn mê không?';
+
+  @override
+  String stillScreenBoughtDaysAgo(int days) {
+    return 'Bạn muốn mua món này $days ngày trước.';
+  }
+
+  @override
+  String stillScreenReasonLabel(String reason) {
+    return 'Lúc đó bạn thích vì: $reason.';
+  }
+
+  @override
+  String stillScreenSavedDays(String days) {
+    return '+$days ngày lương còn sống';
+  }
+
+  @override
+  String get stillScreenBtnStillCrushing => 'Vẫn mê';
+
+  @override
+  String get stillScreenBtnOverIt => 'Hết mê rồi';
+
+  @override
+  String get stillScreenBtnWaitingSale => 'Chờ sale';
+
+  @override
+  String get stillScreenBtnBought => 'Mua rồi';
+
+  @override
+  String get stillScreenBtnRemindAgain => 'Nhắc lại lần nữa';
+
+  @override
+  String get stillScreenBtnDelete => 'Xóa';
 
   @override
   String cardSleepOnIt(String days) {
