@@ -11,6 +11,7 @@ import 'package:ngay_luong/features/crush/domain/crush_models.dart';
 import 'package:ngay_luong/features/crush/presentation/screens/crush_editor_screen.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
 import 'package:ngay_luong/features/quick_check/domain/result_phrasing.dart';
+import 'package:ngay_luong/features/save_card/domain/save_card_template.dart';
 import 'package:ngay_luong/l10n/app_localizations.dart';
 
 class ResultScreen extends ConsumerWidget {
@@ -116,6 +117,17 @@ class _ResultBody extends StatelessWidget {
           const SizedBox(height: AppSpacing.xxl),
           // Decision row
           _DecisionRow(result: result, price: price),
+          const SizedBox(height: AppSpacing.base),
+          Center(
+            child: TextButton.icon(
+              icon: const Icon(Icons.share_outlined, size: 18),
+              label: const Text('Tạo Save Card'),
+              onPressed: () => context.push(
+                Routes.saveCard,
+                extra: SaveCardInput(days: result.daysOfWage),
+              ),
+            ),
+          ),
         ],
       ),
     );

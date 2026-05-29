@@ -4,6 +4,46 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 
 ---
 
+## 2026-05-29 — Session 8
+
+### Hoàn thành: M7 — Save Card + Settings + App lock
+
+**Đã làm:**
+- `lib/features/settings/data/settings_repository.dart` — wrap `SharedPreferences` cho `app_lock_enabled`, `noti_detail_mode`, `theme_mode`, `payday_day`, `mascot_enabled`; default `paydayDay = 5`, clamp 1..31; `resetAll()` xoá luôn `onboarding_done`.
+- `lib/features/settings/data/app_lock_service.dart` — `AppLockService` + `AppLockAuthAdapter` (testable). `LocalAuthAdapter` bọc `local_auth`, swallow exception → false.
+- `lib/features/settings/data/data_reset_service.dart` — orchestrator: cancel notifications → wipe DB → xoá thư mục ảnh → clear income (secure storage) → reset settings (+ onboarding flag).
+- `lib/features/settings/presentation/providers/settings_provider.dart` — legacy Riverpod providers (không codegen): `settingsRepositoryProvider`, `appLockServiceProvider`, `dataResetServiceProvider`, `settingsControllerProvider` (`StateNotifierProvider<SettingsController, SettingsState>`).
+- `lib/features/settings/presentation/screens/settings_screen.dart` — S7: sửa thu nhập, payday picker, app lock toggle (xin biometric trước khi bật), noti detail toggle, theme picker, xác nhận 2 bước cho "Xóa toàn bộ dữ liệu", success → go `/onboarding`.
+- `lib/features/settings/presentation/widgets/app_lock_gate.dart` — sit trong `MaterialApp.router(builder: …)`, chặn UI tới khi xác thực xong nếu lock bật.
+- `lib/features/save_card/domain/save_card_template.dart` — enum 3 mẫu + `SaveCardInput` (chỉ chứa `days`/`percentOff`/`itemName`, KHÔNG có thu nhập gốc).
+- `lib/features/save_card/data/card_renderer.dart` — capture `RenderRepaintBoundary` → PNG → ghi vào `documents/save_cards/`.
+- `lib/features/save_card/presentation/screens/save_card_screen.dart` — S6: 9:16 AspectRatio + RepaintBoundary, 3 ChoiceChip mẫu, nút "Lưu vào ảnh" → snackbar đường dẫn.
+- `lib/core/router/app_router.dart` — nối `/settings` → `SettingsScreen`, `/save-card` → `SaveCardScreen` (extra: `SaveCardInput`), xoá `_PlaceholderScreen`.
+- `lib/features/quick_check/presentation/screens/result_screen.dart` — thêm nút "Tạo Save Card" mở `/save-card` với `SaveCardInput.days = result.daysOfWage`.
+- `lib/features/quick_check/presentation/screens/home_screen.dart` — thêm IconButton "Cài đặt" (`Icons.settings_outlined`) mở `/settings`.
+- `lib/app.dart` — watch `settingsControllerProvider.themeMode`, wrap `MaterialApp.router.builder` bằng `AppLockGate`.
+- `android/app/src/main/AndroidManifest.xml` — `USE_BIOMETRIC` + `USE_FINGERPRINT`.
+- `android/app/src/main/kotlin/.../MainActivity.kt` — đổi `FlutterActivity` → `FlutterFragmentActivity` (yêu cầu của `local_auth`).
+- `ios/Runner/Info.plist` — `NSFaceIDUsageDescription`.
+- `lib/l10n/app_vi.arb` — bổ sung settings/save card/lock copy (`settingsTitle`, `themeLight/Dark/System`, `lockTitle`, `saveCardTitle`, …).
+
+**Tests:**
+- `test/settings/settings_repository_test.dart` — defaults, toggle persistence, theme round-trip, payday clamp, resetAll xóa hết.
+- `test/settings/app_lock_service_test.dart` — forwards `isAvailable`, success/fail của adapter, custom reason.
+- `test/settings/data_reset_service_test.dart` — wipe end-to-end với in-memory Drift + fake notification/image/income, check DB rỗng + onboarding flag tắt + cancelAll được gọi.
+- `test/save_card/save_card_template_test.dart` — default template chọn `sleepOnIt` khi không sale, `onSale` khi `percentOff > 0`, 3 templates.
+
+**Còn lại / Notes:**
+- Chưa wire `noti_detail_mode` vào nội dung notification (`NotificationService.scheduleCard` vẫn dùng `defaultTitle/Body`). UI toggle đã có, persist OK; render detail sẽ làm ở M8 hoặc khi cần.
+- Save Card chỉ "Lưu vào ảnh" → ghi PNG vào app documents dir (snackbar path). Không có nút "Chia sẻ" vì không add `share_plus` package (AGENTS §2: tránh thêm dep ngoài kế hoạch); có thể bổ sung sau.
+- Môi trường Codex web không có Flutter SDK → KHÔNG chạy được `flutter analyze` / `flutter test` / `build_runner` local. CI GitHub Actions sẽ verify. Riverpod codegen tránh được bằng cách dùng legacy `Provider`/`StateNotifierProvider` cho providers mới của Settings.
+- `MainActivity` đổi sang `FlutterFragmentActivity` để `local_auth` hoạt động trên Android.
+
+**Bước tiếp theo — M8 (Polish MVP):**
+- Áp design tokens triệt để, empty/error states, count-up animation hero, smoke test end-to-end.
+
+---
+
 ## 2026-05-29 — Session 7
 
 ### Hoàn thành: M6 — Notifications + "Còn mê không?"

@@ -145,5 +145,25 @@
   "settingsNotiDetail": "Hiện chi tiết trong thông báo",
   "settingsMascot": "Bật mascot ví",
   "settingsTheme": "Giao diện",
-  "settingsDeleteAll": "Xóa toàn bộ dữ liệu"
+  "settingsDeleteAll": "Xóa toàn bộ dữ liệu",
+
+  "settingsTitle": "Cài đặt",
+  "themeLight": "Sáng",
+  "themeDark": "Tối",
+  "themeSystem": "Theo hệ thống",
+  "settingsBiometricsUnavailable": "Thiết bị chưa thiết lập Face ID / vân tay.",
+  "settingsEnableLockReason": "Bật khóa app để bảo vệ Ngày Lương.",
+  "settingsDeleteConfirm2Title": "Bạn chắc chứ?",
+  "settingsDeleteConfirm2Body": "Sau bước này, mình không khôi phục lại được dữ liệu cho bạn.",
+  "settingsDeleteDone": "Đã xóa toàn bộ dữ liệu.",
+  "lockTitle": "Ngày Lương đang khóa",
+  "lockSubtitle": "Xác thực để mở app.",
+  "lockUnlock": "Mở khóa",
+  "lockReason": "Mở khóa Ngày Lương",
+  "saveCardTitle": "Tạo Save Card",
+  "saveCardSaved": "Đã lưu Save Card: {path}",
+  "@saveCardSaved": { "placeholders": { "path": { "type": "String" } } },
+  "saveCardTemplateSleepOnIt": "Để mai tính",
+  "saveCardTemplateOnSale": "Sale gì cũng vẫn lương",
+  "saveCardTemplateSkipped": "Đã không mua"
 }

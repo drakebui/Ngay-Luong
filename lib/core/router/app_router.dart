@@ -7,6 +7,9 @@ import 'package:ngay_luong/features/crush/presentation/screens/still_crushing_sc
 import 'package:ngay_luong/features/income/presentation/screens/onboarding_screen.dart';
 import 'package:ngay_luong/features/quick_check/presentation/screens/home_screen.dart';
 import 'package:ngay_luong/features/quick_check/presentation/screens/result_screen.dart';
+import 'package:ngay_luong/features/save_card/domain/save_card_template.dart';
+import 'package:ngay_luong/features/save_card/presentation/screens/save_card_screen.dart';
+import 'package:ngay_luong/features/settings/presentation/screens/settings_screen.dart';
 
 GoRouter makeAppRouter(String initialLocation) {
   return GoRouter(
@@ -43,13 +46,17 @@ GoRouter makeAppRouter(String initialLocation) {
       ),
       GoRoute(
         path: Routes.settings,
-        builder: (context, state) =>
-            const _PlaceholderScreen(title: 'Settings'),
+        builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
         path: Routes.saveCard,
-        builder: (context, state) =>
-            const _PlaceholderScreen(title: 'Save Card'),
+        builder: (context, state) {
+          final input = state.extra as SaveCardInput?;
+          if (input == null) {
+            return const _InvalidRoute();
+          }
+          return SaveCardScreen(input: input);
+        },
       ),
       GoRoute(
         path: '/crush/:id',
@@ -69,19 +76,6 @@ GoRouter makeAppRouter(String initialLocation) {
       ),
     ],
   );
-}
-
-class _PlaceholderScreen extends StatelessWidget {
-  const _PlaceholderScreen({required this.title});
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text(title)),
-    );
-  }
 }
 
 class _InvalidRoute extends StatelessWidget {
