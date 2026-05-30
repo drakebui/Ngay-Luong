@@ -4,6 +4,43 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 
 ---
 
+## 2026-05-30 — Session 9
+
+### Hoàn thành: M8 — Polish MVP
+
+**Đã làm:**
+- `lib/features/quick_check/presentation/screens/result_screen.dart` — hero count-up animation dùng `TweenAnimationBuilder<double>` 0→daysOfWage, 400ms `easeOut`.
+- `lib/core/utils/formatters.dart` — guard NaN/Infinity trong `formatDays`, `formatHours`, `formatPct`, `formatMoney` trả `"–"` thay vì crash.
+- `lib/features/income/presentation/screens/onboarding_screen.dart` — bỏ border override thừa để theme `InputDecoration` rounded field áp dụng đúng.
+- `lib/features/settings/presentation/widgets/app_lock_gate.dart` — l10n hoá toàn bộ strings (bỏ hardcode tiếng Việt).
+- `lib/features/save_card/presentation/screens/save_card_screen.dart` — l10n hoá title, snackbar, chip label.
+- `lib/features/settings/data/data_reset_service.dart` — bỏ unused Drift import (fix CI flutter analyze).
+- `lib/features/settings/presentation/screens/settings_screen.dart` — migrate `RadioListTile` → `RadioGroup<T>` (bỏ deprecated_member_use lint).
+- `test/crush/crush_repository_test.dart` — anchor `watchRemindToday` test theo `DateTime.now()` thay vì hardcode 2026-05-29 (fix CI khi ngày thật qua ngày đó).
+- `lib/features/save_card/data/card_renderer.dart` — thêm `deleteAllSavedCards()`.
+- `lib/features/settings/data/data_reset_service.dart` — gọi `CardRenderer.deleteAllSavedCards()` trong `wipeEverything()` để xóa cả `save_cards/`.
+- `lib/features/save_card/domain/save_card_template.dart` + `save_card_screen.dart` — ẩn template `onSale` khi `percentOff <= 0`.
+- `lib/l10n/app_localizations.dart` + `app_localizations_vi.dart` — sinh lại từ ARB M7.
+
+**Tests:**
+- `test/save_card/save_card_template_test.dart` — bổ sung test `availableTemplates()` filtering và renderer được gọi khi wipe.
+- `test/settings/data_reset_service_test.dart` — trailing commas + test renderer invocation.
+
+**Kết quả CI:**
+- `flutter analyze`: 0 issue ✓
+- `flutter test`: 60/60+ pass ✓
+- `flutter build apk --debug`: OK
+
+**Còn lại / Notes:**
+- `noti_detail_mode` chưa wire vào `NotificationService` (chỉ persist + toggle UI). Có thể làm sau.
+- Nút "Chia sẻ" Save Card cần `share_plus` — bỏ qua để không thêm dep ngoài kế hoạch.
+- Branch `claude/sleepy-ride-GnU6m` sẵn sàng merge vào `main`.
+
+**Bước tiếp theo:**
+- Merge branch `claude/sleepy-ride-GnU6m` → `main` (hoặc tạo PR).
+
+---
+
 ## 2026-05-29 — Session 8
 
 ### Hoàn thành: M7 — Save Card + Settings + App lock
