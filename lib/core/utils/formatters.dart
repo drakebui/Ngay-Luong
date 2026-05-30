@@ -10,6 +10,7 @@ class AppFormatters {
   /// daysOfWage: 1 chữ số thập phân, locale vi.
   /// Nếu < 0.1 -> "<0,1 ngày". Nếu >= 100 -> 0 thập phân.
   static String formatDays(double days) {
+    if (!days.isFinite) return '—';
     if (days < 0.1) {
       return '<0,1 ngày';
     }
@@ -20,17 +21,20 @@ class AppFormatters {
 
   /// hoursOfWork: luôn 1 chữ số thập phân.
   static String formatHours(double hours) {
+    if (!hours.isFinite) return '—';
     return '${_oneDecimal.format(hours)} giờ';
   }
 
   /// pctOfMonthlyIncome: 0 thập phân nếu >= 10; 1 thập phân nếu < 10.
   static String formatPct(double pct) {
+    if (!pct.isFinite) return '—';
     final formatter = pct >= 10 ? _wholeNumber : _oneDecimal;
     return '${formatter.format(pct)}%';
   }
 
   /// Tiền VND: tách nghìn bằng ".", hậu tố "đ", không thập phân.
   static String formatMoney(double amount) {
+    if (!amount.isFinite) return '—';
     return '${_wholeNumber.format(amount)}đ';
   }
 

@@ -76,7 +76,6 @@ class _ResultBody extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final variant = ResultPhrasing.select(result);
 
-    final daysText = _formatHeroNumber(result.daysOfWage);
     final microcopy = _buildMicrocopy(l10n, variant, result, price);
 
     return SingleChildScrollView(
@@ -87,12 +86,17 @@ class _ResultBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Hero
+          // Hero with count-up animation
           Center(
-            child: HeroNumberView(
-              numberText: daysText,
-              unitText: l10n.resultHeroUnit,
-              subText: l10n.resultHeroSubGeneric,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: result.daysOfWage),
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeOut,
+              builder: (context, value, _) => HeroNumberView(
+                numberText: _formatHeroNumber(value),
+                unitText: l10n.resultHeroUnit,
+                subText: l10n.resultHeroSubGeneric,
+              ),
             ),
           ),
           const SizedBox(height: AppSpacing.xl),

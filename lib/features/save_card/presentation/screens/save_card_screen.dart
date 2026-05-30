@@ -32,8 +32,9 @@ class _SaveCardScreenState extends State<SaveCardScreen> {
       if (bytes == null) return;
       final path = await _renderer.writePng(bytes);
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Đã lưu Save Card: $path')),
+        SnackBar(content: Text(l10n.saveCardSaved(path))),
       );
     } finally {
       if (mounted) setState(() => _saving = false);
@@ -44,7 +45,7 @@ class _SaveCardScreenState extends State<SaveCardScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Tạo Save Card')),
+      appBar: AppBar(title: Text(l10n.saveCardTitle)),
       body: SafeArea(
         child: Column(
           children: [
@@ -115,7 +116,7 @@ class _TemplatePicker extends StatelessWidget {
               (t) => Padding(
                 padding: const EdgeInsets.only(right: AppSpacing.sm),
                 child: ChoiceChip(
-                  label: Text(_label(t)),
+                  label: Text(_label(context, t)),
                   selected: current == t,
                   onSelected: (_) => onPick(t),
                 ),
@@ -126,14 +127,15 @@ class _TemplatePicker extends StatelessWidget {
     );
   }
 
-  String _label(SaveCardTemplate t) {
+  String _label(BuildContext context, SaveCardTemplate t) {
+    final l10n = AppLocalizations.of(context)!;
     switch (t) {
       case SaveCardTemplate.sleepOnIt:
-        return 'Để mai tính';
+        return l10n.saveCardTemplateSleepOnIt;
       case SaveCardTemplate.onSale:
-        return 'Sale gì cũng vẫn lương';
+        return l10n.saveCardTemplateOnSale;
       case SaveCardTemplate.skipped:
-        return 'Đã không mua';
+        return l10n.saveCardTemplateSkipped;
     }
   }
 }
