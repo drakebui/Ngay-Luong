@@ -396,7 +396,6 @@ class _DecisionButton extends StatelessWidget {
 
     return Material(
       color: Theme.of(context).cardColor,
-      borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
