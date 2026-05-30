@@ -777,6 +777,114 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Xóa toàn bộ dữ liệu'**
   String get settingsDeleteAll;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cài đặt'**
+  String get settingsTitle;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sáng'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tối'**
+  String get themeDark;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In vi, this message translates to:
+  /// **'Theo hệ thống'**
+  String get themeSystem;
+
+  /// No description provided for @settingsBiometricsUnavailable.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thiết bị chưa thiết lập Face ID / vân tay.'**
+  String get settingsBiometricsUnavailable;
+
+  /// No description provided for @settingsEnableLockReason.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bật khóa app để bảo vệ Ngày Lương.'**
+  String get settingsEnableLockReason;
+
+  /// No description provided for @settingsDeleteConfirm2Title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn chắc chứ?'**
+  String get settingsDeleteConfirm2Title;
+
+  /// No description provided for @settingsDeleteConfirm2Body.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sau bước này, mình không khôi phục lại được dữ liệu cho bạn.'**
+  String get settingsDeleteConfirm2Body;
+
+  /// No description provided for @settingsDeleteDone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã xóa toàn bộ dữ liệu.'**
+  String get settingsDeleteDone;
+
+  /// No description provided for @lockTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày Lương đang khóa'**
+  String get lockTitle;
+
+  /// No description provided for @lockSubtitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xác thực để mở app.'**
+  String get lockSubtitle;
+
+  /// No description provided for @lockUnlock.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở khóa'**
+  String get lockUnlock;
+
+  /// No description provided for @lockReason.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở khóa Ngày Lương'**
+  String get lockReason;
+
+  /// No description provided for @saveCardTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tạo Save Card'**
+  String get saveCardTitle;
+
+  /// No description provided for @saveCardSaved.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã lưu Save Card: {path}'**
+  String saveCardSaved(String path);
+
+  /// No description provided for @saveCardTemplateSleepOnIt.
+  ///
+  /// In vi, this message translates to:
+  /// **'Để mai tính'**
+  String get saveCardTemplateSleepOnIt;
+
+  /// No description provided for @saveCardTemplateOnSale.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sale gì cũng vẫn lương'**
+  String get saveCardTemplateOnSale;
+
+  /// No description provided for @saveCardTemplateSkipped.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã không mua'**
+  String get saveCardTemplateSkipped;
 }
 
 class _AppLocalizationsDelegate

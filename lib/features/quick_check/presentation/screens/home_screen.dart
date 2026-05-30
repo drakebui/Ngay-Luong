@@ -90,6 +90,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             tooltip: l10n.homeShortcutCalendar,
             onPressed: () => context.push(Routes.calendar),
           ),
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: 'Cài đặt',
+            onPressed: () => context.push(Routes.settings),
+          ),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),

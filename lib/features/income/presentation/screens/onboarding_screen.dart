@@ -344,7 +344,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       ],
       decoration: InputDecoration(
         labelText: label,
-        border: const OutlineInputBorder(),
         suffixText: suffixText,
       ),
       onChanged: (_) => setState(() {}),

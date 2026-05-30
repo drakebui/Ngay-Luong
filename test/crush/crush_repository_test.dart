@@ -123,9 +123,10 @@ void main() {
   });
 
   test('watchRemindToday excludes cards outside today', () async {
-    final today = DateTime(2026, 5, 29, 14);
-    final tomorrow = DateTime(2026, 5, 30, 9);
-    final yesterday = DateTime(2026, 5, 28, 20);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day, 14);
+    final tomorrow = DateTime(now.year, now.month, now.day + 1, 9);
+    final yesterday = DateTime(now.year, now.month, now.day - 1, 20);
 
     await repository.insertCard(
       card(id: 'today', remindAt: today),

@@ -6,6 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ngay_luong/core/router/app_router.dart';
 import 'package:ngay_luong/core/theme/app_theme.dart';
 import 'package:ngay_luong/features/crush/presentation/providers/crush_providers.dart';
+import 'package:ngay_luong/features/settings/presentation/providers/settings_provider.dart';
+import 'package:ngay_luong/features/settings/presentation/widgets/app_lock_gate.dart';
 import 'package:ngay_luong/l10n/app_localizations.dart';
 
 class NgayLuongApp extends ConsumerStatefulWidget {
@@ -47,12 +49,16 @@ class _NgayLuongAppState extends ConsumerState<NgayLuongApp> {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = ref.watch(
+      settingsControllerProvider.select((s) => s.themeMode),
+    );
     return MaterialApp.router(
       title: 'Ngày Lương',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.system,
+      themeMode: themeMode,
       routerConfig: _router,
+      builder: (context, child) => AppLockGate(child: child ?? const SizedBox()),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
