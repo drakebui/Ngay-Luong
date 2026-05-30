@@ -67,6 +67,7 @@ Microcopy theo ngữ cảnh (chọn trong `result_phrasing.dart`):
 ## 6. Decision
 
 - `decision.buy` = "Mua"
+- `decision.bought` = "Chúc mừng! Bạn xứng đáng."
 - `decision.sleepOnIt` = "Để mai tính"
 - `decision.skip` = "Bỏ qua"
 - `decision.saveToCalendar` = "Lưu vào Calendar"

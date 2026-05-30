@@ -3,19 +3,23 @@ import 'package:ngay_luong/core/db/app_database.dart';
 import 'package:ngay_luong/core/db/image_storage.dart';
 import 'package:ngay_luong/core/notifications/notification_service.dart';
 import 'package:ngay_luong/features/crush/domain/crush_models.dart';
+import 'package:ngay_luong/features/settings/data/settings_repository.dart';
 
 class CrushRepository {
   const CrushRepository({
     required AppDatabase database,
     required ImageStorage imageStorage,
     required NotificationService notificationService,
+    required SettingsRepository settingsRepository,
   })  : _database = database,
         _imageStorage = imageStorage,
-        _notificationService = notificationService;
+        _notificationService = notificationService,
+        _settingsRepository = settingsRepository;
 
   final AppDatabase _database;
   final ImageStorage _imageStorage;
   final NotificationService _notificationService;
+  final SettingsRepository _settingsRepository;
 
   Stream<List<CrushCard>> watchAll() {
     final query = _database.select(_database.crushCards)
@@ -93,7 +97,10 @@ class CrushRepository {
   Future<void> insertCard(CrushCard card) async {
     await _database.into(_database.crushCards).insert(_toCompanion(card));
     if (card.status.isPending) {
-      await _notificationService.scheduleCard(card);
+      await _notificationService.scheduleCard(
+        card,
+        detailMode: _settingsRepository.notiDetailMode,
+      );
     }
   }
 
@@ -103,7 +110,10 @@ class CrushRepository {
           ..where((table) => table.id.equals(card.id)))
         .write(_toCompanion(card));
     if (card.status.isPending) {
-      await _notificationService.scheduleCard(card);
+      await _notificationService.scheduleCard(
+        card,
+        detailMode: _settingsRepository.notiDetailMode,
+      );
     }
   }
 

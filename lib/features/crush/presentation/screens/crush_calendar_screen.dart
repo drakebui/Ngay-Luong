@@ -117,7 +117,10 @@ class _TodayTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     if (cards.isEmpty) {
-      return _EmptyState(message: l10n.calendarEmptyToday);
+      return _EmptyState(
+        message: l10n.calendarEmptyToday,
+        icon: Icons.check_circle_outline,
+      );
     }
 
     return ListView.separated(
@@ -143,7 +146,10 @@ class _UpcomingTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     if (groups.isEmpty) {
-      return _EmptyState(message: l10n.calendarEmptyUpcoming);
+      return _EmptyState(
+        message: l10n.calendarEmptyUpcoming,
+        icon: Icons.calendar_today_outlined,
+      );
     }
 
     return ListView.builder(
@@ -362,15 +368,25 @@ class _CrushCalendarTile extends StatelessWidget {
         ? card.status.label
         : '${AppFormatters.formatClockTime(remindAt)} · ${card.status.label}';
 
-    return Material(
-      color: surface,
-      borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-      child: InkWell(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final borderColor = isDark
+        ? AppColors.surfaceAltDark
+        : AppColors.neutral.withValues(alpha: 0.4);
+
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-        onTap: () => context.push('/crush/${card.id}'),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          child: Row(
+        border: Border.all(color: borderColor, width: 1),
+      ),
+      child: Material(
+        color: surface,
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+          onTap: () => context.push('/crush/${card.id}'),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.base),
+            child: Row(
             children: [
               _TileImage(imagePath: card.imagePath),
               const SizedBox(width: AppSpacing.md),
@@ -413,12 +429,11 @@ class _CrushCalendarTile extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: AppSpacing.sm),
-              const Icon(Icons.chevron_right),
             ],
           ),
         ),
       ),
+    ),
     );
   }
 
@@ -500,19 +515,27 @@ class _InfoChip extends StatelessWidget {
 }
 
 class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.message});
+  const _EmptyState({required this.message, this.icon = Icons.inbox_outlined});
 
   final String message;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.screenPadding),
-        child: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium,
+        padding: const EdgeInsets.all(AppSpacing.xxl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 52, color: AppColors.neutral),
+            const SizedBox(height: AppSpacing.base),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
         ),
       ),
     );

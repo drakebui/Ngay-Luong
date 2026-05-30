@@ -124,6 +124,30 @@ abstract class AppLocalizations {
   /// **'Theo dự án'**
   String get onboardingModeProject;
 
+  /// No description provided for @onboardingModeMonthlyDesc.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhận lương cố định hàng tháng'**
+  String get onboardingModeMonthlyDesc;
+
+  /// No description provided for @onboardingModeDailyDesc.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thanh toán theo ngày công'**
+  String get onboardingModeDailyDesc;
+
+  /// No description provided for @onboardingModeHourlyDesc.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tính theo giờ làm việc'**
+  String get onboardingModeHourlyDesc;
+
+  /// No description provided for @onboardingModeProjectDesc.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thu nhập theo từng dự án'**
+  String get onboardingModeProjectDesc;
+
   /// No description provided for @onboardingMonthlyIncome.
   ///
   /// In vi, this message translates to:
@@ -315,6 +339,12 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Mua'**
   String get decisionBuy;
+
+  /// No description provided for @decisionBought.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chúc mừng! Bạn xứng đáng.'**
+  String get decisionBought;
 
   /// No description provided for @decisionSleepOnIt.
   ///

@@ -6,6 +6,10 @@
   "onboardingModeDaily": "Theo ngày",
   "onboardingModeHourly": "Theo giờ",
   "onboardingModeProject": "Theo dự án",
+  "onboardingModeMonthlyDesc": "Nhận lương cố định hàng tháng",
+  "onboardingModeDailyDesc": "Thanh toán theo ngày công",
+  "onboardingModeHourlyDesc": "Tính theo giờ làm việc",
+  "onboardingModeProjectDesc": "Thu nhập theo từng dự án",
   "onboardingMonthlyIncome": "Thu nhập net mỗi tháng",
   "onboardingWorkDays": "Số ngày làm / tháng",
   "onboardingWorkHours": "Số giờ làm / ngày",
@@ -49,6 +53,7 @@
   "@resultMsgTiny": { "placeholders": { "days": { "type": "String" } } },
 
   "decisionBuy": "Mua",
+  "decisionBought": "Chúc mừng! Bạn xứng đáng.",
   "decisionSleepOnIt": "Để mai tính",
   "decisionSkip": "Bỏ qua",
   "decisionSaveToCalendar": "Lưu vào Calendar",

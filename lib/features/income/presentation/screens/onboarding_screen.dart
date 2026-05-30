@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ngay_luong/core/theme/app_colors.dart';
+import 'package:ngay_luong/core/theme/app_spacing.dart';
 import 'package:ngay_luong/core/router/routes.dart';
 import 'package:ngay_luong/features/income/domain/income_profile.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
@@ -165,29 +167,38 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     return KeyedSubtree(
       key: const ValueKey('mode-step'),
       child: ListView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.screenPadding,
+          AppSpacing.xl,
+          AppSpacing.screenPadding,
+          AppSpacing.xxxl,
+        ),
         children: [
           _ModeCard(
             icon: Icons.calendar_month_outlined,
             label: l.onboardingModeMonthly,
+            description: l.onboardingModeMonthlyDesc,
             onTap: () => _selectMode(IncomeMode.monthly),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           _ModeCard(
             icon: Icons.today_outlined,
             label: l.onboardingModeDaily,
+            description: l.onboardingModeDailyDesc,
             onTap: () => _selectMode(IncomeMode.daily),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           _ModeCard(
             icon: Icons.schedule_outlined,
             label: l.onboardingModeHourly,
+            description: l.onboardingModeHourlyDesc,
             onTap: () => _selectMode(IncomeMode.hourly),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           _ModeCard(
             icon: Icons.work_outline,
             label: l.onboardingModeProject,
+            description: l.onboardingModeProjectDesc,
             onTap: () => _selectMode(IncomeMode.project),
           ),
         ],
@@ -355,23 +366,77 @@ class _ModeCard extends StatelessWidget {
   const _ModeCard({
     required this.icon,
     required this.label,
+    required this.description,
     required this.onTap,
   });
 
   final IconData icon;
   final String label;
+  final String description;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(label, style: Theme.of(context).textTheme.titleMedium),
-        trailing: const Icon(Icons.chevron_right),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accent = Theme.of(context).colorScheme.primary;
+    final accentSoft = isDark ? AppColors.accentSoftDark : AppColors.accentSoft;
+    final surface = isDark ? AppColors.surfaceDark : AppColors.surface;
+    final neutral = isDark ? AppColors.surfaceAltDark : AppColors.neutral;
+
+    return Material(
+      color: surface,
+      borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+      child: InkWell(
         onTap: onTap,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+            border: Border.all(
+              color: neutral.withValues(alpha: isDark ? 0.5 : 0.4),
+              width: 1,
+            ),
+          ),
+          padding: const EdgeInsets.all(AppSpacing.base),
+          child: Row(
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: accentSoft,
+                  borderRadius: BorderRadius.circular(AppSpacing.md),
+                ),
+                child: Icon(icon, size: 26, color: accent),
+              ),
+              const SizedBox(width: AppSpacing.base),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      label,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      description,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+                color: Theme.of(context).textTheme.bodySmall?.color,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

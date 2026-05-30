@@ -4,6 +4,8 @@ import 'package:ngay_luong/core/notifications/notification_service.dart';
 import 'package:ngay_luong/features/crush/domain/crush_calendar.dart';
 import 'package:ngay_luong/features/crush/data/crush_repository.dart';
 import 'package:ngay_luong/features/crush/domain/crush_models.dart';
+import 'package:ngay_luong/features/settings/data/settings_repository.dart';
+import 'package:ngay_luong/features/settings/presentation/providers/settings_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'crush_providers.g.dart';
@@ -25,10 +27,13 @@ NotificationService notificationService(NotificationServiceRef ref) {
 
 @Riverpod(keepAlive: true)
 CrushRepository crushRepository(CrushRepositoryRef ref) {
+  final SettingsRepository settingsRepository =
+      ref.watch(settingsRepositoryProvider);
   return CrushRepository(
     database: ref.watch(appDatabaseProvider),
     imageStorage: ref.watch(imageStorageProvider),
     notificationService: ref.watch(notificationServiceProvider),
+    settingsRepository: settingsRepository,
   );
 }
 

@@ -5,7 +5,7 @@ abstract final class AppTypography {
     fontSize: 64,
     fontWeight: FontWeight.w800,
     height: 1.0,
-    letterSpacing: -1,
+    letterSpacing: 0,
   );
 
   static const TextStyle heroUnit = TextStyle(

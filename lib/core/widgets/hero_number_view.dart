@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ngay_luong/core/theme/app_colors.dart';
 import 'package:ngay_luong/core/theme/app_spacing.dart';
 
@@ -26,18 +27,18 @@ class HeroNumberView extends StatelessWidget {
       children: [
         Text(
           numberText,
-          style: TextStyle(
+          style: GoogleFonts.beVietnamPro(
             fontSize: 72,
             fontWeight: FontWeight.w800,
             color: accent,
             height: 1.0,
-            letterSpacing: -1,
+            letterSpacing: 0,
           ),
         ),
         const SizedBox(height: AppSpacing.xs),
         Text(
           unitText,
-          style: TextStyle(
+          style: GoogleFonts.beVietnamPro(
             fontSize: 20,
             fontWeight: FontWeight.w600,
             color: onSurface,
@@ -48,7 +49,7 @@ class HeroNumberView extends StatelessWidget {
           const SizedBox(height: AppSpacing.xs),
           Text(
             subText!,
-            style: TextStyle(
+            style: GoogleFonts.beVietnamPro(
               fontSize: 14,
               color: secondary ?? AppColors.textSecondary,
               height: 1.3,

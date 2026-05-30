@@ -5,18 +5,25 @@ import 'package:ngay_luong/core/db/image_storage.dart';
 import 'package:ngay_luong/core/notifications/notification_service.dart';
 import 'package:ngay_luong/features/crush/data/crush_repository.dart';
 import 'package:ngay_luong/features/crush/domain/crush_models.dart';
+import 'package:ngay_luong/features/settings/data/settings_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late AppDatabase database;
   late CrushRepository repository;
 
-  setUp(() {
+  setUp(() async {
+    SharedPreferences.setMockInitialValues({'noti_detail_mode': false});
+    final prefs = await SharedPreferences.getInstance();
     database = AppDatabase.forTesting(NativeDatabase.memory());
     repository = CrushRepository(
       database: database,
       imageStorage: const ImageStorage(),
       notificationService:
           NotificationService(adapter: _FakeNotificationAdapter()),
+      settingsRepository: SettingsRepository(prefs),
     );
   });
 

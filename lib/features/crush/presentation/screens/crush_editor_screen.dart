@@ -304,15 +304,17 @@ class _CrushEditorScreenState extends ConsumerState<CrushEditorScreen> {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.screenPadding,
-        AppSpacing.base,
+        AppSpacing.xl,
         AppSpacing.screenPadding,
         AppSpacing.xxxl,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // ── Ảnh ──────────────────────────────────
+          _SectionLabel(l10n.crushEditorImageLabel),
+          const SizedBox(height: AppSpacing.sm),
           _ImagePickerBlock(
-            label: l10n.crushEditorImageLabel,
             galleryLabel: l10n.crushEditorPickGallery,
             cameraLabel: l10n.crushEditorPickCamera,
             removeLabel: l10n.crushEditorRemoveImage,
@@ -321,7 +323,10 @@ class _CrushEditorScreenState extends ConsumerState<CrushEditorScreen> {
             onPickCamera: () => _pickImage(ImageSource.camera),
             onRemove: _currentImagePath == null ? null : _removeImage,
           ),
-          const SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.xxl),
+          // ── Chi tiết ─────────────────────────────
+          const _SectionLabel('Chi tiết'),
+          const SizedBox(height: AppSpacing.sm),
           TextField(
             controller: _nameController,
             textInputAction: TextInputAction.done,
@@ -337,15 +342,18 @@ class _CrushEditorScreenState extends ConsumerState<CrushEditorScreen> {
               suffixText: l10n.onboardingCurrencySuffix,
             ),
           ),
-          const SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.xxl),
+          // ── Kết quả nhanh ────────────────────────
           _SnapshotBlock(snapshot: snapshot),
-          const SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.xxl),
+          // ── Lý do ────────────────────────────────
           _ReasonChips(
             title: l10n.fomoQuestion,
             selectedReason: _selectedReason,
             onSelected: (reason) => setState(() => _selectedReason = reason),
           ),
-          const SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.xxl),
+          // ── Mốc nhắc ─────────────────────────────
           _ReminderChips(
             title: l10n.crushEditorReminderLabel,
             selectedPreset: _selectedPreset,
@@ -356,7 +364,7 @@ class _CrushEditorScreenState extends ConsumerState<CrushEditorScreen> {
               }
             },
           ),
-          const SizedBox(height: AppSpacing.xxl),
+          const SizedBox(height: AppSpacing.xxxl),
           FilledButton(
             onPressed: _isSaving ? null : _save,
             child: _isSaving
@@ -390,9 +398,26 @@ class _Snapshot {
   final double? pct;
 }
 
+class _SectionLabel extends StatelessWidget {
+  const _SectionLabel(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.3,
+          ),
+    );
+  }
+}
+
 class _ImagePickerBlock extends StatelessWidget {
   const _ImagePickerBlock({
-    required this.label,
     required this.galleryLabel,
     required this.cameraLabel,
     required this.removeLabel,
@@ -402,7 +427,6 @@ class _ImagePickerBlock extends StatelessWidget {
     required this.onRemove,
   });
 
-  final String label;
   final String galleryLabel;
   final String cameraLabel;
   final String removeLabel;
@@ -420,8 +444,6 @@ class _ImagePickerBlock extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: Theme.of(context).textTheme.titleSmall),
-        const SizedBox(height: AppSpacing.sm),
         AspectRatio(
           aspectRatio: 1.6,
           child: DecoratedBox(
@@ -493,13 +515,21 @@ class _SnapshotBlock extends StatelessWidget {
       subMetrics.add(l10n.resultSubPct(AppFormatters.formatPct(snapshot.pct!)));
     }
 
-    return DecoratedBox(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const _SectionLabel('Kết quả nhanh'),
+        const SizedBox(height: AppSpacing.sm),
+        DecoratedBox(
       decoration: BoxDecoration(
         color: surfaceAlt,
         borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.base),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.base,
+          vertical: AppSpacing.xl,
+        ),
         child: Column(
           children: [
             HeroNumberView(
@@ -518,6 +548,8 @@ class _SnapshotBlock extends StatelessWidget {
           ],
         ),
       ),
+    ),
+      ],
     );
   }
 }
@@ -538,7 +570,7 @@ class _ReasonChips extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleSmall),
+        _SectionLabel(title),
         const SizedBox(height: AppSpacing.sm),
         Wrap(
           spacing: AppSpacing.sm,
@@ -576,7 +608,7 @@ class _ReminderChips extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleSmall),
+        _SectionLabel(title),
         const SizedBox(height: AppSpacing.sm),
         Wrap(
           spacing: AppSpacing.sm,

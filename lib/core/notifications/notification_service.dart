@@ -153,6 +153,13 @@ class NotificationService {
   static const defaultTitle = 'Còn mê không?';
   static const defaultBody = 'Mở app xem lại.';
 
+  static String detailTitle(String name) => 'Còn mê $name không?';
+
+  static String detailBody(double days) {
+    final d = days < 1 ? days.toStringAsFixed(1) : days.round().toString();
+    return 'Món này từng lấy của bạn $d ngày đi làm.';
+  }
+
   final NotificationPluginAdapter _adapter;
   final DateTime Function() _now;
   bool _timeZonesInitialized = false;
@@ -189,7 +196,7 @@ class NotificationService {
     }
   }
 
-  Future<bool> scheduleCard(CrushCard card) async {
+  Future<bool> scheduleCard(CrushCard card, {bool detailMode = false}) async {
     final remindAt = card.remindAt;
     if (remindAt == null || remindAt.isBefore(_now())) {
       return false;
@@ -203,12 +210,17 @@ class NotificationService {
     final granted = await requestPermissions();
     if (!granted) return false;
 
+    final name = card.name ?? '';
+    final useDetail = detailMode && name.isNotEmpty;
+    final title = useDetail ? detailTitle(name) : defaultTitle;
+    final body = useDetail ? detailBody(card.daysOfWageSnapshot) : defaultBody;
+
     try {
       await _adapter.zonedSchedule(
         ScheduledCardNotification(
           id: notificationIdForCard(card.id),
-          title: defaultTitle,
-          body: defaultBody,
+          title: title,
+          body: body,
           scheduledAt: tz.TZDateTime.from(remindAt, tz.local),
           payload: card.id,
         ),

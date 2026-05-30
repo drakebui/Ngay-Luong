@@ -7,15 +7,21 @@ import 'package:ngay_luong/features/crush/data/crush_repository.dart';
 import 'package:ngay_luong/features/crush/domain/crush_models.dart';
 import 'package:ngay_luong/features/crush/domain/remind_at_calculator.dart';
 import 'package:ngay_luong/features/crush/presentation/controllers/still_crushing_actions.dart';
+import 'package:ngay_luong/features/settings/data/settings_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late AppDatabase database;
   late _RecordingNotificationAdapter notificationAdapter;
   late CrushRepository repository;
   late StillCrushingActions actions;
   final fixedNow = DateTime(2026, 5, 29, 10);
 
-  setUp(() {
+  setUp(() async {
+    SharedPreferences.setMockInitialValues({'noti_detail_mode': false});
+    final prefs = await SharedPreferences.getInstance();
     database = AppDatabase.forTesting(NativeDatabase.memory());
     notificationAdapter = _RecordingNotificationAdapter();
     repository = CrushRepository(
@@ -25,6 +31,7 @@ void main() {
         adapter: notificationAdapter,
         now: () => fixedNow,
       ),
+      settingsRepository: SettingsRepository(prefs),
     );
     actions = StillCrushingActions(
       repository: repository,

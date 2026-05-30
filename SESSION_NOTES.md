@@ -4,6 +4,61 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 
 ---
 
+## 2026-05-30 — Session 11
+
+### Hoàn thành: M9b — UI Polish: Onboarding + Calendar + Editor + Router transition
+
+**Đã làm:**
+- `lib/features/income/presentation/screens/onboarding_screen.dart` — redesign `_ModeCard`: icon 52×52 trong container accentSoft, title+description text, arrow icon; thêm 4 l10n description strings.
+- `lib/features/crush/presentation/screens/crush_calendar_screen.dart` — `_EmptyState` thêm icon parameter (check_circle_outline / calendar_today_outlined); `_CrushCalendarTile` thêm border 1px, bỏ chevron icon.
+- `lib/features/crush/presentation/screens/crush_editor_screen.dart` — thêm `_SectionLabel` widget (primary color, w700, letterSpacing 0.3); nhóm form thành sections "Ảnh món đồ / Chi tiết / Kết quả nhanh / Lý do / Nhắc"; tách label ra khỏi `_ImagePickerBlock`.
+- `lib/core/router/app_router.dart` — result route dùng `CustomTransitionPage` slide-up (380ms) + fade-in (0→0.4).
+- `lib/l10n/app_vi.arb` + `app_localizations.dart` + `app_localizations_vi.dart` — thêm 4 strings `onboardingMode*Desc`.
+
+**Kết quả:**
+- `flutter analyze`: 0 issue ✓
+- `flutter test`: 78/78 pass ✓
+
+---
+
+### Hoàn thành: M9a — UI Overhaul: Font + Home Screen + Result Screen
+
+**Đã làm:**
+- `pubspec.yaml` + `pubspec.lock` — thêm `google_fonts` với lý do dùng Be Vietnam Pro cho UI tiếng Việt có cá tính hơn system font mặc định.
+- `lib/core/theme/app_theme.dart` — áp `GoogleFonts.beVietnamProTextTheme()` cho theme và button text style.
+- `lib/features/quick_check/presentation/screens/home_screen.dart` — bỏ AppBar, thêm custom header, price input centered card shadow, bottom CTA pinned; xóa camera shortcut và `_ShortcutButton`.
+- `lib/features/quick_check/presentation/screens/result_screen.dart` — hero section nền `accentSoft`, AppBar transparent, content scroll mới, Decision buttons card/border đồng cấp, Mua/Bỏ qua hiện feedback ngắn rồi auto-pop.
+- `lib/core/widgets/hero_number_view.dart` — hero number/unit/subtext dùng Be Vietnam Pro và accent color.
+- `lib/core/theme/app_typography.dart` — bỏ negative letter spacing ở token hero cũ.
+- `docs/07_COPY_VI.md` + `lib/l10n/app_vi.arb` + generated l10n — thêm copy `decision.bought`.
+
+**Kết quả:**
+- `flutter pub get`: OK
+- `flutter gen-l10n`: OK
+- `flutter analyze`: 0 issue ✓
+- `flutter test`: 78/78 pass ✓
+
+**Ghi chú:**
+- Task yêu cầu ghi Session 10, nhưng file đã có Session 10 cho notification detail mode, nên entry này dùng Session 11 để không sửa lịch sử hiện có.
+
+## 2026-05-30 — Session 10
+
+### Hoàn thành: Wire `noti_detail_mode` vào NotificationService
+
+**Đã làm:**
+- `lib/core/notifications/notification_service.dart` — `scheduleCard()` nhận `{bool detailMode = false}`; mặc định vẫn private, chỉ dùng tên món + ngày lương khi detail mode bật và card có tên.
+- `lib/features/crush/data/crush_repository.dart` — inject `SettingsRepository`, truyền `_settingsRepository.notiDetailMode` khi schedule notification trong `insertCard()` và `updateCard()`.
+- `lib/features/crush/presentation/providers/crush_providers.dart` — watch/inject `settingsRepositoryProvider`; sinh lại `crush_providers.g.dart`.
+
+**Tests:**
+- `test/notifications/notification_service_test.dart` — thêm 2 test detail mode: card có tên dùng detail copy; name rỗng fallback default private.
+- `test/crush/crush_repository_test.dart` + `test/crush/still_crushing_test.dart` — inject `SettingsRepository` qua mock `SharedPreferences`.
+
+**Kết quả:**
+- `dart run build_runner build --delete-conflicting-outputs`: OK
+- `flutter analyze`: 0 issue ✓
+- `flutter test`: 78/78 pass ✓
+
 ## 2026-05-30 — Session 9
 
 ### Hoàn thành: M8 — Polish MVP

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:ngay_luong/core/router/routes.dart';
 import 'package:ngay_luong/core/theme/app_colors.dart';
@@ -75,169 +76,154 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final l10n = AppLocalizations.of(context)!;
     final rawText = ref.watch(priceInputProvider);
     final canCheck = AppFormatters.parsePrice(rawText) != null;
-    final accent = Theme.of(context).colorScheme.primary;
-    final secondary = Theme.of(context).textTheme.bodyMedium?.color;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Ngày Lương',
-          style: TextStyle(fontWeight: FontWeight.w700),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.calendar_month_outlined),
-            tooltip: l10n.homeShortcutCalendar,
-            onPressed: () => context.push(Routes.calendar),
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings_outlined),
-            tooltip: 'Cài đặt',
-            onPressed: () => context.push(Routes.settings),
-          ),
-          const SizedBox(width: AppSpacing.xs),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenPadding),
+      body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(height: AppSpacing.xxxl),
-            // Label
-            Text(
-              l10n.homePriceHint,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.base),
-            // Price input
-            Container(
-              height: AppSpacing.inputHeight + 8,
-              decoration: BoxDecoration(
-                color: Theme.of(context).inputDecorationTheme.fillColor,
-                borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-                border: Border.all(
-                  color: _focusNode.hasFocus
-                      ? accent
-                      : AppColors.neutral.withValues(alpha: 0.4),
-                  width: _focusNode.hasFocus ? 2 : 1,
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.base,
+                vertical: AppSpacing.sm,
               ),
               child: Row(
                 children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _controller,
-                      focusNode: _focusNode,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      onChanged: _onTextChanged,
-                      style: const TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w600,
-                        height: 1.2,
-                      ),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        fillColor: Colors.transparent,
-                        filled: false,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.base,
-                          vertical: AppSpacing.md,
-                        ),
-                        hintText: '0',
-                        hintStyle: TextStyle(
-                          color: secondary?.withValues(alpha: 0.4),
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                  IconButton(
+                    icon: const Icon(Icons.calendar_month_outlined),
+                    tooltip: l10n.homeShortcutCalendar,
+                    onPressed: () => context.push(Routes.calendar),
+                  ),
+                  const Spacer(),
+                  Text(
+                    'Ngày Lương',
+                    style: GoogleFonts.beVietnamPro(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 0,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: AppSpacing.base),
-                    child: Text(
-                      'đ',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        color: secondary,
-                      ),
-                    ),
+                  const Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.settings_outlined),
+                    tooltip: l10n.settingsTitle,
+                    onPressed: () => context.push(Routes.settings),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: AppSpacing.xl),
-            // Check button
-            FilledButton(
-              onPressed: canCheck ? _onCheckPressed : null,
-              child: Text(l10n.homeCheck),
-            ),
-            const SizedBox(height: AppSpacing.xxl),
-            // Shortcut: chụp ảnh (M4+)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _ShortcutButton(
-                  icon: Icons.camera_alt_outlined,
-                  label: l10n.homeShortcutPhoto,
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Sắp có ở bản tiếp theo.'),
-                      ),
-                    );
-                  },
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.screenPadding,
                 ),
-              ],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      l10n.homePriceHint,
+                      style: GoogleFonts.beVietnamPro(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.base),
+                    Container(
+                      height: 88,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.surfaceAltDark
+                            : AppColors.surfaceAlt,
+                        borderRadius: BorderRadius.circular(
+                          AppSpacing.cardRadius,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.06),
+                            blurRadius: 16,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: _controller,
+                              focusNode: _focusNode,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              onChanged: _onTextChanged,
+                              style: GoogleFonts.beVietnamPro(
+                                fontSize: 40,
+                                fontWeight: FontWeight.w700,
+                                height: 1.1,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                fillColor: Colors.transparent,
+                                filled: false,
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: AppSpacing.base,
+                                  vertical: AppSpacing.md,
+                                ),
+                                hintText: '0',
+                                hintStyle: GoogleFonts.beVietnamPro(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w700,
+                                  height: 1.1,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.color
+                                      ?.withValues(alpha: 0.35),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              right: AppSpacing.base,
+                            ),
+                            child: Text(
+                              'đ',
+                              style: GoogleFonts.beVietnamPro(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ShortcutButton extends StatelessWidget {
-  const _ShortcutButton({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final secondary = Theme.of(context).textTheme.bodyMedium?.color;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.base,
-          vertical: AppSpacing.sm,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 18, color: secondary),
-            const SizedBox(width: AppSpacing.xs),
-            Text(
-              label,
-              style: TextStyle(fontSize: 13, color: secondary),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.screenPadding,
+                0,
+                AppSpacing.screenPadding,
+                AppSpacing.base,
+              ),
+              child: FilledButton(
+                onPressed: canCheck ? _onCheckPressed : null,
+                child: Text(l10n.homeCheck),
+              ),
             ),
           ],
         ),

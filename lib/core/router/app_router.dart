@@ -25,12 +25,32 @@ GoRouter makeAppRouter(String initialLocation) {
       ),
       GoRoute(
         path: Routes.result,
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final price = state.extra as double?;
-          if (price == null || price <= 0) {
-            return const _InvalidRoute();
-          }
-          return ResultScreen(price: price);
+          final child = (price == null || price <= 0)
+              ? const _InvalidRoute()
+              : ResultScreen(price: price);
+          return CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: child,
+            transitionDuration: const Duration(milliseconds: 380),
+            reverseTransitionDuration: const Duration(milliseconds: 280),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              final slideTween =
+                  Tween(begin: const Offset(0, 1), end: Offset.zero)
+                      .chain(CurveTween(curve: Curves.easeOutCubic));
+              final fadeTween =
+                  Tween(begin: 0.0, end: 1.0)
+                      .chain(CurveTween(curve: const Interval(0, 0.4)));
+              return FadeTransition(
+                opacity: animation.drive(fadeTween),
+                child: SlideTransition(
+                  position: animation.drive(slideTween),
+                  child: child,
+                ),
+              );
+            },
+          );
         },
       ),
       GoRoute(

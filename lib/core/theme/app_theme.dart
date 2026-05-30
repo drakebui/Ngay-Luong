@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ngay_luong/core/theme/app_colors.dart';
 import 'package:ngay_luong/core/theme/app_spacing.dart';
 
@@ -11,8 +12,10 @@ abstract final class AppTheme {
 
     final bg = isDark ? AppColors.bgDark : AppColors.bg;
     final surface = isDark ? AppColors.surfaceDark : AppColors.surface;
-    final textPrimary = isDark ? AppColors.textPrimaryDark : AppColors.textPrimary;
-    final textSecondary = isDark ? AppColors.textSecondaryDark : AppColors.textSecondary;
+    final textPrimary =
+        isDark ? AppColors.textPrimaryDark : AppColors.textPrimary;
+    final textSecondary =
+        isDark ? AppColors.textSecondaryDark : AppColors.textSecondary;
     final accent = isDark ? AppColors.accentDark : AppColors.accent;
     final neutral = isDark ? AppColors.surfaceAltDark : AppColors.neutral;
 
@@ -28,6 +31,24 @@ abstract final class AppTheme {
       onError: Colors.white,
     );
 
+    final baseTextTheme = TextTheme(
+      bodyLarge: TextStyle(color: textPrimary, fontSize: 16, height: 1.5),
+      bodyMedium: TextStyle(color: textSecondary, fontSize: 14, height: 1.5),
+      bodySmall: TextStyle(color: textSecondary, fontSize: 12, height: 1.4),
+      titleLarge: TextStyle(
+        color: textPrimary,
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+        height: 1.3,
+      ),
+      labelMedium: TextStyle(
+        color: textPrimary,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+    );
+    final gfTextTheme = GoogleFonts.beVietnamProTextTheme(baseTextTheme);
+
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
@@ -35,22 +56,7 @@ abstract final class AppTheme {
       scaffoldBackgroundColor: bg,
       cardColor: surface,
       dividerColor: neutral,
-      textTheme: TextTheme(
-        bodyLarge: TextStyle(color: textPrimary, fontSize: 16, height: 1.4),
-        bodyMedium: TextStyle(color: textSecondary, fontSize: 14, height: 1.4),
-        bodySmall: TextStyle(color: textSecondary, fontSize: 12, height: 1.3),
-        titleLarge: TextStyle(
-          color: textPrimary,
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-          height: 1.3,
-        ),
-        labelMedium: TextStyle(
-          color: textPrimary,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+      textTheme: gfTextTheme,
       appBarTheme: AppBarTheme(
         backgroundColor: bg,
         elevation: 0,
@@ -62,7 +68,7 @@ abstract final class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: accent,
           foregroundColor: Colors.white,
-          textStyle: const TextStyle(
+          textStyle: GoogleFonts.beVietnamPro(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             letterSpacing: 0,

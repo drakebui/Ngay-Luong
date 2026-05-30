@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ngay_luong/core/calc/wage_calculator.dart';
 import 'package:ngay_luong/core/router/routes.dart';
 import 'package:ngay_luong/core/theme/app_colors.dart';
@@ -24,9 +25,13 @@ class ResultScreen extends ConsumerWidget {
     final profileAsync = ref.watch(incomeProfileNotifierProvider);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
         leading: const BackButton(),
-        title: const Text('Kết quả'),
+        title: null,
       ),
       body: profileAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -78,75 +83,49 @@ class _ResultBody extends StatelessWidget {
 
     final microcopy = _buildMicrocopy(l10n, variant, result, price);
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.screenPadding,
-        vertical: AppSpacing.xxxl,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Hero with count-up animation
-          Center(
-            child: TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0, end: result.daysOfWage),
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeOut,
-              builder: (context, value, _) => HeroNumberView(
-                numberText: _formatHeroNumber(value),
-                unitText: l10n.resultHeroUnit,
-                subText: l10n.resultHeroSubGeneric,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _HeroSection(result: result),
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.screenPadding,
+              AppSpacing.xl,
+              AppSpacing.screenPadding,
+              AppSpacing.xxl,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _SubMetricsRow(result: result),
+                const SizedBox(height: AppSpacing.lg),
+                Text(
+                  microcopy,
+                  style: TextStyle(
+                    fontSize: 15,
+                    height: 1.6,
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppSpacing.xxl),
+                _DecisionRow(result: result, price: price),
+                const SizedBox(height: AppSpacing.base),
+                OutlinedButton.icon(
+                  icon: const Icon(Icons.share_outlined, size: 16),
+                  label: const Text('Tạo Save Card'),
+                  onPressed: () => context.push(
+                    Routes.saveCard,
+                    extra: SaveCardInput(days: result.daysOfWage),
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: AppSpacing.xl),
-          // Sub-metrics
-          _SubMetricsRow(result: result),
-          const SizedBox(height: AppSpacing.xl),
-          // Microcopy
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.base),
-            decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.surfaceAltDark
-                  : AppColors.surfaceAlt,
-              borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-            ),
-            child: Text(
-              microcopy,
-              style: const TextStyle(fontSize: 15, height: 1.5),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.xxl),
-          // Decision row
-          _DecisionRow(result: result, price: price),
-          const SizedBox(height: AppSpacing.base),
-          Center(
-            child: TextButton.icon(
-              icon: const Icon(Icons.share_outlined, size: 18),
-              label: const Text('Tạo Save Card'),
-              onPressed: () => context.push(
-                Routes.saveCard,
-                extra: SaveCardInput(days: result.daysOfWage),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
-  }
-
-  String _formatHeroNumber(double days) {
-    if (days < 0.1) return '<0,1';
-    if (days >= 100) {
-      return days.round().toString().replaceAllMapped(
-            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-            (m) => '${m[1]}.',
-          );
-    }
-    // 1 decimal, dùng dấu phẩy
-    return days.toStringAsFixed(1).replaceAll('.', ',');
   }
 
   String _buildMicrocopy(
@@ -168,6 +147,55 @@ class _ResultBody extends StatelessWidget {
       case PhrasingVariant.normal:
         return l10n.resultMsgNormal(daysDisplay);
     }
+  }
+}
+
+class _HeroSection extends StatelessWidget {
+  const _HeroSection({required this.result});
+  final CheckResult result;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accentSoft = isDark ? AppColors.accentSoftDark : AppColors.accentSoft;
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.screenPadding,
+        MediaQuery.of(context).padding.top + 64,
+        AppSpacing.screenPadding,
+        AppSpacing.xxxl,
+      ),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(32),
+          bottomRight: Radius.circular(32),
+        ),
+      ).copyWith(color: accentSoft),
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0, end: result.daysOfWage),
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeOut,
+        builder: (context, value, _) => HeroNumberView(
+          numberText: _formatHeroNumber(value),
+          unitText: l10n.resultHeroUnit,
+          subText: l10n.resultHeroSubGeneric,
+        ),
+      ),
+    );
+  }
+
+  String _formatHeroNumber(double days) {
+    if (days < 0.1) return '<0,1';
+    if (days >= 100) {
+      return days.round().toString().replaceAllMapped(
+            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+            (m) => '${m[1]}.',
+          );
+    }
+    return days.toStringAsFixed(1).replaceAll('.', ',');
   }
 }
 
@@ -251,16 +279,19 @@ class _DecisionRowState extends State<_DecisionRow> {
   String? _feedbackText;
 
   void _onBuy() {
-    setState(() => _feedbackText = null);
-    context.pop();
+    final l10n = AppLocalizations.of(context)!;
+    setState(() => _feedbackText = l10n.decisionBought);
+    Future<void>.delayed(const Duration(milliseconds: 1200), () {
+      if (mounted) context.pop();
+    });
   }
 
   void _onSkip() {
     final l10n = AppLocalizations.of(context)!;
     setState(() => _feedbackText = l10n.decisionSkipped);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(l10n.decisionSkipped)),
-    );
+    Future<void>.delayed(const Duration(milliseconds: 1800), () {
+      if (mounted) context.pop();
+    });
   }
 
   void _onSleepOnIt() {
@@ -311,7 +342,6 @@ class _DecisionRowState extends State<_DecisionRow> {
                 label: l10n.decisionBuy,
                 icon: Icons.check_circle_outline,
                 onTap: _onBuy,
-                isPrimary: false,
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
@@ -320,7 +350,6 @@ class _DecisionRowState extends State<_DecisionRow> {
                 label: l10n.decisionSleepOnIt,
                 icon: Icons.bedtime_outlined,
                 onTap: _onSleepOnIt,
-                isPrimary: false,
               ),
             ),
           ],
@@ -333,7 +362,6 @@ class _DecisionRowState extends State<_DecisionRow> {
                 label: l10n.decisionSkip,
                 icon: Icons.close_outlined,
                 onTap: _onSkip,
-                isPrimary: false,
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
@@ -342,7 +370,6 @@ class _DecisionRowState extends State<_DecisionRow> {
                 label: l10n.decisionSaveToCalendar,
                 icon: Icons.calendar_today_outlined,
                 onTap: _onSaveToCalendar,
-                isPrimary: false,
               ),
             ),
           ],
@@ -357,43 +384,48 @@ class _DecisionButton extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.onTap,
-    required this.isPrimary,
   });
 
   final String label;
   final IconData icon;
   final VoidCallback onTap;
-  final bool isPrimary;
 
   @override
   Widget build(BuildContext context) {
-    final surfaceAlt = Theme.of(context).brightness == Brightness.dark
-        ? AppColors.surfaceAltDark
-        : AppColors.surfaceAlt;
     final textColor = Theme.of(context).colorScheme.onSurface;
-    final secondaryColor = Theme.of(context).textTheme.bodyMedium?.color;
 
     return Material(
-      color: surfaceAlt,
+      color: Theme.of(context).cardColor,
       borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
+        side: BorderSide(
+          color: Theme.of(context).dividerColor.withValues(alpha: 0.5),
+        ),
+      ),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.sm,
-            vertical: AppSpacing.md,
+            vertical: AppSpacing.base,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 20, color: secondaryColor),
+              Icon(
+                icon,
+                size: 24,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               const SizedBox(height: AppSpacing.xs),
               Text(
                 label,
-                style: TextStyle(
+                style: GoogleFonts.beVietnamPro(
                   fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                   color: textColor,
                   height: 1.3,
                 ),

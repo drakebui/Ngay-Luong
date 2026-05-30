@@ -77,6 +77,47 @@ void main() {
       NotificationService.notificationIdForCard('card-1'),
     ]);
   });
+
+  test('scheduleCard with detailMode uses card name and days', () async {
+    final adapter = _RecordingNotificationAdapter();
+    final service = NotificationService(
+      adapter: adapter,
+      now: () => DateTime(2026, 5, 29, 10),
+    );
+    final c = card(remindAt: DateTime(2026, 5, 30, 20));
+
+    final scheduled = await service.scheduleCard(c, detailMode: true);
+
+    expect(scheduled, isTrue);
+    expect(adapter.scheduled.single.title, 'Còn mê Tai nghe không?');
+    expect(adapter.scheduled.single.body, contains('ngày đi làm'));
+  });
+
+  test('scheduleCard with detailMode but empty name falls back to default',
+      () async {
+    final adapter = _RecordingNotificationAdapter();
+    final service = NotificationService(
+      adapter: adapter,
+      now: () => DateTime(2026, 5, 29, 10),
+    );
+    final c = CrushCard(
+      id: 'card-2',
+      name: '',
+      price: 500000,
+      daysOfWageSnapshot: 0.8,
+      hoursOfWorkSnapshot: 6.4,
+      status: CrushStatus.sleepOnIt,
+      createdAt: DateTime(2026, 5, 29),
+      updatedAt: DateTime(2026, 5, 29),
+      remindAt: DateTime(2026, 5, 30, 20),
+    );
+
+    final scheduled = await service.scheduleCard(c, detailMode: true);
+
+    expect(scheduled, isTrue);
+    expect(adapter.scheduled.single.title, NotificationService.defaultTitle);
+    expect(adapter.scheduled.single.body, NotificationService.defaultBody);
+  });
 }
 
 class _RecordingNotificationAdapter implements NotificationPluginAdapter {

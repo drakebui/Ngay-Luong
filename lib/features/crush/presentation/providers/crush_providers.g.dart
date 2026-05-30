@@ -50,7 +50,7 @@ final notificationServiceProvider = Provider<NotificationService>.internal(
 );
 
 typedef NotificationServiceRef = ProviderRef<NotificationService>;
-String _$crushRepositoryHash() => r'91c640433cfda8995deb7a20ea49980ebd9a4b3d';
+String _$crushRepositoryHash() => r'26f92fa55e28ac2c9f466f8fe7fe40d4d30d37dc';
 
 /// See also [crushRepository].
 @ProviderFor(crushRepository)

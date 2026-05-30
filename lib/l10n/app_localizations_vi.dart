@@ -24,6 +24,18 @@ class AppLocalizationsVi extends AppLocalizations {
   String get onboardingModeProject => 'Theo dự án';
 
   @override
+  String get onboardingModeMonthlyDesc => 'Nhận lương cố định hàng tháng';
+
+  @override
+  String get onboardingModeDailyDesc => 'Thanh toán theo ngày công';
+
+  @override
+  String get onboardingModeHourlyDesc => 'Tính theo giờ làm việc';
+
+  @override
+  String get onboardingModeProjectDesc => 'Thu nhập theo từng dự án';
+
+  @override
   String get onboardingMonthlyIncome => 'Thu nhập net mỗi tháng';
 
   @override
@@ -135,6 +147,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get decisionBuy => 'Mua';
+
+  @override
+  String get decisionBought => 'Chúc mừng! Bạn xứng đáng.';
 
   @override
   String get decisionSleepOnIt => 'Để mai tính';
