@@ -92,18 +92,20 @@ class SettingsScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) {
         return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: ThemeMode.values
-                .map(
-                  (mode) => RadioListTile<ThemeMode>(
-                    title: Text(_themeLabel(mode)),
-                    value: mode,
-                    groupValue: current,
-                    onChanged: (value) => Navigator.of(ctx).pop(value),
-                  ),
-                )
-                .toList(),
+          child: RadioGroup<ThemeMode>(
+            groupValue: current,
+            onChanged: (value) => Navigator.of(ctx).pop(value),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: ThemeMode.values
+                  .map(
+                    (mode) => RadioListTile<ThemeMode>(
+                      title: Text(_themeLabel(mode)),
+                      value: mode,
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
         );
       },
@@ -126,42 +128,44 @@ class SettingsScreen extends ConsumerWidget {
           child: StatefulBuilder(
             builder: (ctx, setState) => SizedBox(
               height: 240,
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(AppSpacing.base),
-                    child: Text(
-                      'Ngày lương trong tháng',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+              child: RadioGroup<int>(
+                groupValue: selected,
+                onChanged: (v) {
+                  if (v != null) setState(() => selected = v);
+                },
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(AppSpacing.base),
+                      child: Text(
+                        'Ngày lương trong tháng',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 31,
-                      itemBuilder: (ctx, i) {
-                        final day = i + 1;
-                        return RadioListTile<int>(
-                          title: Text('Ngày $day'),
-                          value: day,
-                          groupValue: selected,
-                          onChanged: (v) {
-                            if (v != null) setState(() => selected = v);
-                          },
-                        );
-                      },
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: 31,
+                        itemBuilder: (ctx, i) {
+                          final day = i + 1;
+                          return RadioListTile<int>(
+                            title: Text('Ngày $day'),
+                            value: day,
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(AppSpacing.base),
-                    child: FilledButton(
-                      onPressed: () => Navigator.of(ctx).pop(selected),
-                      child: const Text('Xong'),
+                    Padding(
+                      padding: const EdgeInsets.all(AppSpacing.base),
+                      child: FilledButton(
+                        onPressed: () => Navigator.of(ctx).pop(selected),
+                        child: const Text('Xong'),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -114,12 +114,18 @@ void main() {
 
     await service.wipeEverything();
 
-    expect(notiAdapter.cancelAllCalled, true,
-        reason: 'must cancel scheduled notifications first');
+    expect(
+      notiAdapter.cancelAllCalled,
+      true,
+      reason: 'must cancel scheduled notifications first',
+    );
     expect(await db.select(db.crushCards).get(), isEmpty);
     expect(_RecordingImageStorage.deleted, true);
-    expect(_RecordingCardRenderer.deleted, true,
-        reason: 'derived save-card PNGs must be wiped too');
+    expect(
+      _RecordingCardRenderer.deleted,
+      true,
+      reason: 'derived save-card PNGs must be wiped too',
+    );
     expect(await incomeRepo.loadProfile(), isNull);
     expect(incomeRepo.isOnboardingDone(), false);
     expect(settingsRepo.appLockEnabled, false);

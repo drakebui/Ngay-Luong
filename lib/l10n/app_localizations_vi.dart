@@ -392,4 +392,62 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get settingsDeleteAll => 'Xóa toàn bộ dữ liệu';
+
+  @override
+  String get settingsTitle => 'Cài đặt';
+
+  @override
+  String get themeLight => 'Sáng';
+
+  @override
+  String get themeDark => 'Tối';
+
+  @override
+  String get themeSystem => 'Theo hệ thống';
+
+  @override
+  String get settingsBiometricsUnavailable =>
+      'Thiết bị chưa thiết lập Face ID / vân tay.';
+
+  @override
+  String get settingsEnableLockReason => 'Bật khóa app để bảo vệ Ngày Lương.';
+
+  @override
+  String get settingsDeleteConfirm2Title => 'Bạn chắc chứ?';
+
+  @override
+  String get settingsDeleteConfirm2Body =>
+      'Sau bước này, mình không khôi phục lại được dữ liệu cho bạn.';
+
+  @override
+  String get settingsDeleteDone => 'Đã xóa toàn bộ dữ liệu.';
+
+  @override
+  String get lockTitle => 'Ngày Lương đang khóa';
+
+  @override
+  String get lockSubtitle => 'Xác thực để mở app.';
+
+  @override
+  String get lockUnlock => 'Mở khóa';
+
+  @override
+  String get lockReason => 'Mở khóa Ngày Lương';
+
+  @override
+  String get saveCardTitle => 'Tạo Save Card';
+
+  @override
+  String saveCardSaved(String path) {
+    return 'Đã lưu Save Card: $path';
+  }
+
+  @override
+  String get saveCardTemplateSleepOnIt => 'Để mai tính';
+
+  @override
+  String get saveCardTemplateOnSale => 'Sale gì cũng vẫn lương';
+
+  @override
+  String get saveCardTemplateSkipped => 'Đã không mua';
 }

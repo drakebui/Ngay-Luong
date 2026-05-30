@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart';
 import 'package:ngay_luong/core/db/app_database.dart';
 import 'package:ngay_luong/core/db/image_storage.dart';
 import 'package:ngay_luong/core/notifications/notification_service.dart';
