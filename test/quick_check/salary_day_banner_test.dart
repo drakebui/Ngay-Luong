@@ -27,8 +27,10 @@ void main() {
       ),
     );
 
-    expect(find.text('Lương vừa về. Có món nào đang chờ bạn mua không?'),
-        findsOneWidget);
+    expect(
+      find.text('Lương vừa về. Có món nào đang chờ bạn mua không?'),
+      findsOneWidget,
+    );
 
     await tester.tap(find.byIcon(Icons.close));
     await tester.pump();
