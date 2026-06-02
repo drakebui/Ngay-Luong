@@ -27,6 +27,13 @@ KHÔNG phải: Income → Budget → Spending → Report
 6. **Tone không phán xét.** Không bao giờ sinh ra microcopy kiểu "bạn tiêu hoang", "bạn không nên mua". Dùng đúng string trong `docs/07_COPY_VI.md`; không tự chế string tiếng Việt mới mà không thêm vào file đó.
 7. **Notification/Widget mặc định private:** không hiện tên món, giá, ảnh, số ngày lương, thu nhập. Default chỉ "Còn mê không?".
 8. **Tốc độ là tính năng.** Quick Check từ lúc mở tới lúc ra kết quả phải ≤ 2 thao tác. Nếu một flow làm chậm việc nhập giá → thiết kế lại.
+9. **Visual language là Midnight Matcha** — xem `docs/06_DESIGN_SYSTEM.md`. Button luôn pill (`rounded-full`), card radius `rounded-xl` (16px/1rem), ảnh hero trong vòng tròn, shadow dùng organic token (tinted primary `rgba(1,45,29,…)`, KHÔNG gray/black). KHÔNG dùng Material Design 3 default shadow, KHÔNG góc vuông, KHÔNG aesthetic ngân hàng/fintech.
+10. **Bottom nav có đúng 2 tab: Tính toán / Crush.** Settings truy cập qua icon top-right của TopAppBar, KHÔNG nằm trong bottom nav. KHÔNG bao giờ thêm tab "Ví tiền" / "Wallet" / "Budget" / "Money" — vi phạm Rule #1.
+11. **Tab "Crush" KHÔNG phải "Wishlist" và KHÔNG phải "Mơ ước".** Giữ nguyên từ "Crush" trong UI. Framing là anti-impulse-buy, không phải aspirational accumulation.
+12. **Thống kê đầu Crush feed phải filter-aware.** Filter mặc định ("Đang mê"): `"Bạn đang cân nhắc {N} món · Tổng {X} ngày lương"`. Khi user chuyển sang filter "Hết mê": `"+{X} ngày lương còn sống"` với tint `secondaryContainer` tích cực — KHÔNG hiện số tổng chi tiêu.
+13. **Ảnh trong app theo photography direction của Midnight Matcha:** ánh sáng sáng sớm tự nhiên, sage undertones, không có stock photo look. Khi user chưa cung cấp ảnh → dùng neutral placeholder (ví dụ: nền `surfaceLow` + icon `shopping_bag`), KHÔNG dùng AI-generated lifestyle photo.
+14. **Icons: Material Symbols Outlined cho tất cả.** Active state dùng Filled variant (`FILL 1`); inactive dùng Outlined (`FILL 0`). KHÔNG mix với Material Icons package cũ hay icon set khác.
+15. **Token `heroNumber` (64sp/w800) chỉ dùng ở 2 nơi:** Result screen hero (S2) và "Còn mê không?" recall (S5). KHÔNG dùng ở chỗ khác. `priceInput` (32sp/w600) là token riêng cho price input field — KHÔNG nhầm lẫn hai token này.
 
 ---
 
@@ -87,6 +94,15 @@ flutter run                                                 # smoke test trên s
 ```
 
 Quy ước: **không commit code khi `flutter analyze` còn error hoặc test fail.**
+
+Sau mọi thay đổi UI — so sánh màn hình với ảnh tham chiếu trong `docs/_stitch_export/`:
+```
+home_screen.png     ← S1 Home / Quick Check
+result_screen.png   ← S2 Result
+wishlist_screen.png ← Crush tab (bỏ qua "Mơ ước" framing, xem visual pattern)
+income_screen.png   ← S0 Onboarding income
+```
+Nếu widget mới lệch rõ khỏi Midnight Matcha (góc vuông, shadow sai, màu sai) → sửa trước khi commit.
 
 ---
 
