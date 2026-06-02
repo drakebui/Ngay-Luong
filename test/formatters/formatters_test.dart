@@ -28,13 +28,17 @@ void main() {
 
     test('formats cost per use', () {
       expect(AppFormatters.formatCostPerUse(11538.46), '~11.500đ/lần');
+      expect(AppFormatters.formatCostPerUse(double.infinity), '—');
     });
 
     test('parses prices', () {
       expect(AppFormatters.parsePrice('3.000.000'), 3000000.0);
       expect(AppFormatters.parsePrice('3000000'), 3000000.0);
+      expect(AppFormatters.parsePrice('3.000.000đ'), 3000000.0);
+      expect(AppFormatters.parsePrice('3 000 000'), 3000000.0);
       expect(AppFormatters.parsePrice('abc'), isNull);
       expect(AppFormatters.parsePrice('0'), isNull);
+      expect(AppFormatters.parsePrice('Infinity'), isNull);
     });
   });
 }

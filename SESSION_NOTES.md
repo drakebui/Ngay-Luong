@@ -4,6 +4,135 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 
 ---
 
+## 2026-06-02 — Session 18
+
+### Hoàn thành: M2a + M2b — Income secure storage + onboarding visual
+
+**Đã làm:**
+- `lib/features/income/data/income_storage.dart` — tách secure-storage adapter `SecureStringStorage` / `FlutterSecureStringStorage` để test không cần plugin thật; giữ `IncomeStorage` là single entry cho JSON `income_profile`, không log thu nhập, corrupted payload trả `null` thay vì crash.
+- `lib/features/income/data/income_repository.dart` — expose `onboardingDoneKey` để bootstrap không hardcode key.
+- `lib/main.dart` — khởi tạo `SharedPreferences`, override `sharedPreferencesProvider`, và mở `/onboarding` khi chưa có `onboarding_done`; đã onboarding thì vào `/`.
+- `lib/core/router/app_router.dart` — thêm route `/onboarding` ngoài M0 shell để onboarding không bị double top app bar.
+- `lib/features/income/presentation/screens/onboarding_screen.dart` — refresh S0 theo Midnight Matcha: đủ 4 income modes, Material Symbols, pill input theo theme, privacy banner, live preview card `GIÁ TRỊ 1 GIỜ CỦA BẠN`, save profile qua `incomeProfileNotifierProvider`, lỗi save dùng l10n không lộ giá trị thu nhập.
+- `docs/07_COPY_VI.md`, `lib/l10n/app_vi.arb`, `lib/l10n/app_localizations.dart`, `lib/l10n/app_localizations_vi.dart` — bổ sung copy chuẩn cho live preview và save error onboarding.
+- `test/income/income_storage_test.dart` — test round-trip secure JSON, corrupted/empty payload, clear.
+- `test/income/income_repository_test.dart` — test save/load đủ 4 `IncomeMode` và `onboarding_done`, clear profile xóa cả secure profile + flag.
+- `test/income/onboarding_screen_test.dart` — widget test route `/onboarding`, assert đủ 4 modes và live preview monthly ra `142.045đ` với input `25.000.000`.
+
+**Kết quả:**
+- `git diff --check`: OK.
+- Không chạy được `dart format`, `flutter analyze`, `flutter test` trong container này vì không có Dart/Flutter SDK (`dart: command not found`, `flutter: command not found`).
+
+## 2026-06-02 — Session 17
+
+### Hoàn thành: M1 audit — calculation engine + formatter tests
+
+**Đã làm:**
+- `lib/core/calc/wage_calculator.dart` — giữ nguyên API/signature, chỉ format lại guard noIncome và pct guard cho dễ đọc.
+- `test/calc/wage_calculator_test.dart` — bổ sung assert chuỗi hiển thị cuối cùng cho examples A–E qua `AppFormatters`; thêm edge cases project-only-days derive hourly/monthly estimate, project thiếu duration → `CalcError.noIncome`, và `usesToWorthIt()` reject acceptable price per use không hợp lệ.
+- `lib/core/utils/formatters.dart` — thêm guard non-finite cho `formatCostPerUse()`; `parsePrice()` chấp nhận thêm input có suffix `đ` và khoảng trắng, đồng thời reject non-finite.
+- `test/formatters/formatters_test.dart` — bổ sung test parse `3.000.000đ`, `3 000 000`, `Infinity`, và guard `formatCostPerUse(double.infinity)`.
+- `docs/04_CALCULATIONS.md` — đồng bộ wording cost-per-use thành “làm tròn hàng trăm gần nhất” để khớp example `~11.500đ/lần` và formatter hiện tại.
+
+**Kết quả:**
+- `git diff --check`: OK.
+- Không chạy được `flutter analyze` / `flutter test` trong container này vì không có Flutter SDK (`flutter: command not found`).
+
+---
+
+## 2026-06-02 — Session 16
+
+### Hoàn thành: Follow-up M0 shell theo feedback
+
+**Đã làm:**
+- `lib/app.dart` — thêm lại localization delegates (`AppLocalizations`, Material/Widgets/Cupertino localizations), `supportedLocales` và locale `vi` cho M0 shell mà không khôi phục notification/app-lock/settings bootstrap.
+- `test/widget_test.dart` — thay placeholder test bằng M0 widget smoke test render `NgayLuongApp`, assert top app bar wordmark `Ngày Lương`, 2 tab labels **Tính toán / Crush**, và Material Symbols settings/calculate/favorite icons.
+- Smoke test tắt Google Fonts runtime fetching để giữ test deterministic như visual smoke test trước đó.
+
+**Kết quả:**
+- `git diff --check`: OK.
+- Không chạy được `flutter analyze` / `flutter test` trong container này vì không có Flutter SDK (`flutter: command not found`).
+
+---
+
+## 2026-06-02 — Session 15
+
+### Hoàn thành: M0 shell — project structure + go_router skeleton
+
+**Đã làm:**
+- `lib/app.dart` + `lib/main.dart` — rút app về M0 shell chạy trực tiếp `/`, không còn redirect onboarding/settings initialization ở bootstrap.
+- `lib/core/router/app_router.dart` — dựng `go_router` skeleton bằng `ShellRoute`: 2 bottom tabs **Tính toán** (`/`) + **Crush** (`/crush`), settings entry point `/settings` qua icon top app bar.
+- `lib/core/router/routes.dart` — thêm route `Routes.crush = '/crush'`, giữ các route constants cũ để code hiện hữu chưa vỡ khi migrate tiếp.
+- Top app bar M0 dùng Midnight Matcha: avatar circle, wordmark `Ngày Lương`, settings action, surface/outline tokens, body trống để smoke được shell.
+- `docs/05_SCREENS.md` + `docs/11_VISUAL_LANGUAGE.md` — đồng bộ lại navigation từ 3 tab sang M0 shell 2 tab + settings entry point để không còn lệch với implementation hiện tại.
+
+**Kết quả:**
+- `git diff --check`: OK.
+- `rg` kiểm tra docs không còn mô tả bottom nav 3 tab / Settings là tab `Tôi`.
+- Không chạy được `flutter analyze` / `flutter test` trong container này vì không có Flutter SDK (`flutter: command not found`).
+
+---
+
+## 2026-06-02 — Session 14
+
+### Hoàn thành: Audit consistency fixes trước M0
+
+**Đã làm:**
+- `docs/06_DESIGN_SYSTEM.md` — chuyển palette sang Midnight Matcha, loại bỏ direction warm-orange/beige cũ, đồng bộ token với `docs/11_VISUAL_LANGUAGE.md`.
+- `lib/core/theme/app_colors.dart` — cập nhật màu runtime sang Midnight Matcha, thêm token/alias mới: `primary`, `primaryContainer`, `secondaryContainer`, `onSurface`, `outlineVariant`, `organicShadow`, `organicShadowPrimaryTint` và dark variants.
+- `lib/core/theme/app_theme.dart` — cập nhật `ColorScheme` và FilledButton/Input focus theo token Midnight Matcha (`primaryContainer`, `onPrimaryContainer`, `primary`) thay vì accent cũ.
+- `docs/11_VISUAL_LANGUAGE.md` — chốt hex cụ thể cho global tokens, định nghĩa rõ `organicShadow = #0F161D1F` và `organicShadowPrimaryTint = #142F4A3F`, đồng bộ Filter Chips với Phương án D: Đang mê / Sắp nhắc / Hết mê / Đã mua / Tất cả.
+- `AGENTS.md` — đổi wording đầu file từ “đọc docs theo thứ tự số” sang “đọc theo đúng thứ tự §4” để không mâu thuẫn với `docs/11_VISUAL_LANGUAGE.md` được liệt kê sau `docs/09_BUILD_PLAN.md`.
+
+**Kết quả:**
+- `git diff --check`: OK.
+- `rg` kiểm tra không còn token màu cũ `#FBF8F3` / `#E8643C` trong docs/theme.
+- `rg` kiểm tra không còn filter mismatch “Để mai tính / Chờ sale” trong `docs/11_VISUAL_LANGUAGE.md` §14.
+- Không chạy được `dart format`, `flutter analyze`, `flutter test` trong container này vì không có Dart/Flutter SDK (`dart: command not found`, `flutter: command not found`).
+
+---
+
+## 2026-06-02 — Session 13
+
+### Hoàn thành: Update `docs/05_SCREENS.md` cho Phương án D
+
+**Đã làm:**
+- `docs/05_SCREENS.md` — rewrite lớn theo Phương án D, thêm navigation map mới với bottom nav 3 tab: **Tính toán / Crush / Tôi**.
+- Bỏ destination Calendar riêng; tab **Crush** hiện là nơi chứa 3 view mode nội bộ **Feed / Lịch / Tháng**.
+- S0 Onboarding giữ đủ 4 income modes theo spec, nhưng áp visual Stitch income screen: heading lớn, pill input, suffix `đ`, live preview card `GIÁ TRỊ 1 GIỜ CỦA BẠN`.
+- S1 Home / Quick Check cập nhật visual Stitch Home: top bar avatar + wordmark + settings, input là focal, CTA `Xem mấy ngày lương`, không dùng hero banner lệch định vị.
+- S2 Result cập nhật theo Stitch Result: hero product image tròn + decorative blur, label `THỜI GIAN QUY ĐỔI`, hero number primary, bento sub-metrics MVP chỉ gồm giờ làm việc + % thu nhập tháng, primary flow `Lưu vào Crush` / `Để mai tính` → S3.
+- S4 Crush feed thay thế Crush Calendar cũ: stat header `TỔNG CỘNG`, filter chips, Feed Pinterest-style cards, Lịch grouped by reminder date, Tháng privacy-safe dots-only grid, FAB + mở Quick Check.
+- S5/S6/S7 cập nhật treatment Midnight Matcha: still-crushing modal, Save Card 9:16 organic shadow, Settings tab `Tôi` với list padding/divider nhẹ.
+- Xóa/né các reference direction cũ: destination `/calendar`, visual hướng biên lai/con dấu/perforation, warm-orange/beige, CTA cũ `Tính toán ngay`, hero banner Stitch không phù hợp, metric `Nỗ lực bỏ ra` ở MVP.
+
+**Kết quả:**
+- `git diff --check`: OK
+- `rg` check các term cũ / route cũ / màu cũ trong `docs/05_SCREENS.md`: không còn match ngoài nội dung hợp lệ đã xử lý.
+- `rg '^## S[0-7]\.' docs/05_SCREENS.md | wc -l`: 8 screen sections (S0–S7).
+- `rg '^\*\*Visual reference:' docs/05_SCREENS.md | wc -l`: 9 visual reference entries (S0–S7 + Widget).
+
+---
+
+## 2026-06-02 — Session 12
+
+### Hoàn thành: Midnight Matcha visual language + typography/dependency prep
+
+**Đã làm:**
+- `docs/11_VISUAL_LANGUAGE.md` — tạo pattern library Midnight Matcha làm single source of truth cho component look & behavior: photography, top app bar, hero product image, hero number block, bento metrics, days-of-wage chip, Crush feed card, CTA, floating bottom nav, inputs, live preview, FAB, filter chips, motion, empty states, anti-patterns.
+- `AGENTS.md` — thêm `docs/11_VISUAL_LANGUAGE.md` vào §4 thứ tự đọc tài liệu.
+- `pubspec.yaml` — thêm `material_symbols_icons` cho Material Symbols Outlined và `cached_network_image` cho ảnh network trong Crush feed; giữ `google_fonts` cho Be Vietnam Pro, không bundle `.ttf`.
+- `lib/core/theme/app_typography.dart` — đổi toàn bộ token typography sang `GoogleFonts.beVietnamPro(...)`, gồm `heroNumber` 64sp / w800.
+- `test/smoke/midnight_matcha_visual_smoke_test.dart` — thêm smoke widget render `4,4 ngày đi làm`, chuỗi dấu tiếng Việt `ờ ợ ữ ũ ắ ặ ề ệ`, `Symbols.calculate` filled và `Symbols.favorite` outlined; tắt runtime font fetching để CI deterministic.
+
+**Kết quả:**
+- Theo PR trước đó: `flutter test test/smoke/midnight_matcha_visual_smoke_test.dart` pass.
+- Theo PR trước đó: `flutter analyze` không có analyzer error.
+- `git diff --check`: OK.
+- `rg`/`wc` xác nhận `docs/11_VISUAL_LANGUAGE.md` có 17 section pattern và 17 screenshot references.
+
+---
+
 ## 2026-05-30 — Session 11
 
 ### Hoàn thành: M9b — UI Polish: Onboarding + Calendar + Editor + Router transition

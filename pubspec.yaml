@@ -17,6 +17,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   # Be Vietnam Pro gives Vietnamese UI a distinct, rounded sans voice.
   google_fonts: ^6.2.0
+  material_symbols_icons: ^4.2928.1
   riverpod_annotation: ^2.3.5
 
   # Routing
@@ -41,6 +42,7 @@ dependencies:
   # Ảnh
   image_picker: ^1.1.2
   flutter_image_compress: ^2.3.0
+  cached_network_image: ^3.4.1
 
   # App lock
   local_auth: ^2.2.0

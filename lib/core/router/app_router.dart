@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:ngay_luong/core/router/routes.dart';
-import 'package:ngay_luong/features/crush/presentation/screens/crush_calendar_screen.dart';
-import 'package:ngay_luong/features/crush/presentation/screens/crush_editor_screen.dart';
-import 'package:ngay_luong/features/crush/presentation/screens/still_crushing_screen.dart';
+import 'package:ngay_luong/core/theme/app_colors.dart';
+import 'package:ngay_luong/core/theme/app_spacing.dart';
 import 'package:ngay_luong/features/income/presentation/screens/onboarding_screen.dart';
-import 'package:ngay_luong/features/quick_check/presentation/screens/home_screen.dart';
-import 'package:ngay_luong/features/quick_check/presentation/screens/result_screen.dart';
-import 'package:ngay_luong/features/save_card/domain/save_card_template.dart';
-import 'package:ngay_luong/features/save_card/presentation/screens/save_card_screen.dart';
-import 'package:ngay_luong/features/settings/presentation/screens/settings_screen.dart';
 
 GoRouter makeAppRouter(String initialLocation) {
   return GoRouter(
@@ -19,78 +14,23 @@ GoRouter makeAppRouter(String initialLocation) {
         path: Routes.onboarding,
         builder: (context, state) => const OnboardingScreen(),
       ),
-      GoRoute(
-        path: Routes.home,
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
-        path: Routes.result,
-        pageBuilder: (context, state) {
-          final price = state.extra as double?;
-          final child = (price == null || price <= 0)
-              ? const _InvalidRoute()
-              : ResultScreen(price: price);
-          return CustomTransitionPage<void>(
-            key: state.pageKey,
-            child: child,
-            transitionDuration: const Duration(milliseconds: 380),
-            reverseTransitionDuration: const Duration(milliseconds: 280),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              final slideTween =
-                  Tween(begin: const Offset(0, 1), end: Offset.zero)
-                      .chain(CurveTween(curve: Curves.easeOutCubic));
-              final fadeTween =
-                  Tween(begin: 0.0, end: 1.0)
-                      .chain(CurveTween(curve: const Interval(0, 0.4)));
-              return FadeTransition(
-                opacity: animation.drive(fadeTween),
-                child: SlideTransition(
-                  position: animation.drive(slideTween),
-                  child: child,
-                ),
-              );
-            },
-          );
-        },
-      ),
-      GoRoute(
-        path: Routes.crushNew,
-        builder: (context, state) {
-          final args = state.extra as CrushEditorArgs?;
-          return CrushEditorScreen(args: args);
-        },
-      ),
-      GoRoute(
-        path: Routes.calendar,
-        builder: (context, state) => const CrushCalendarScreen(),
-      ),
-      GoRoute(
-        path: Routes.settings,
-        builder: (context, state) => const SettingsScreen(),
-      ),
-      GoRoute(
-        path: Routes.saveCard,
-        builder: (context, state) {
-          final input = state.extra as SaveCardInput?;
-          if (input == null) {
-            return const _InvalidRoute();
-          }
-          return SaveCardScreen(input: input);
-        },
-      ),
-      GoRoute(
-        path: '/crush/:id',
-        builder: (context, state) {
-          final id = state.pathParameters['id']!;
-          return CrushEditorScreen(args: CrushEditorArgs.forEdit(cardId: id));
-        },
+      ShellRoute(
+        builder: (context, state, child) => _AppShell(
+          location: state.uri.path,
+          child: child,
+        ),
         routes: [
           GoRoute(
-            path: 'still',
-            builder: (context, state) {
-              final id = state.pathParameters['id']!;
-              return StillCrushingScreen(cardId: id);
-            },
+            path: Routes.home,
+            builder: (context, state) => const _BlankRouteBody(),
+          ),
+          GoRoute(
+            path: Routes.crush,
+            builder: (context, state) => const _BlankRouteBody(),
+          ),
+          GoRoute(
+            path: Routes.settings,
+            builder: (context, state) => const _BlankRouteBody(),
           ),
         ],
       ),
@@ -98,26 +38,88 @@ GoRouter makeAppRouter(String initialLocation) {
   );
 }
 
-class _InvalidRoute extends StatelessWidget {
-  const _InvalidRoute();
+class _AppShell extends StatelessWidget {
+  const _AppShell({required this.location, required this.child});
+
+  final String location;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final surface = isDark ? AppColors.surfaceDark : AppColors.surface;
+    final outline = isDark ? AppColors.outlineVariantDark : AppColors.neutral;
+    final onSurface = isDark ? AppColors.onSurfaceDark : AppColors.onSurface;
     return Scaffold(
-      appBar: AppBar(title: const Text('Lỗi')),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Giá không hợp lệ.'),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: () => context.pop(),
-              child: const Text('Quay lại'),
+      appBar: AppBar(
+        toolbarHeight: 72,
+        backgroundColor: surface.withValues(alpha: 0.9),
+        foregroundColor: onSurface,
+        leadingWidth: 64,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: AppSpacing.lg),
+          child: CircleAvatar(
+            radius: 18,
+            backgroundColor: theme.colorScheme.primaryContainer,
+            foregroundColor: theme.colorScheme.onPrimaryContainer,
+            child: const Text('N'),
+          ),
+        ),
+        title: const Text('Ngày Lương'),
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: AppSpacing.sm),
+            child: IconButton(
+              tooltip: 'Cài đặt',
+              onPressed: () => context.go(Routes.settings),
+              icon: const Icon(Symbols.settings),
             ),
-          ],
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Divider(height: 1, color: outline.withValues(alpha: 0.3)),
         ),
       ),
+      body: child,
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: location == Routes.crush ? 1 : 0,
+        backgroundColor: surface.withValues(alpha: 0.9),
+        indicatorColor: theme.colorScheme.primaryContainer,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Symbols.calculate),
+            selectedIcon: Icon(Symbols.calculate, fill: 1),
+            label: 'Tính toán',
+          ),
+          NavigationDestination(
+            icon: Icon(Symbols.favorite),
+            selectedIcon: Icon(Symbols.favorite, fill: 1),
+            label: 'Crush',
+          ),
+        ],
+        onDestinationSelected: (index) {
+          context.go(index == 0 ? Routes.home : Routes.crush);
+        },
+      ),
+    );
+  }
+}
+
+class _BlankRouteBody extends StatelessWidget {
+  const _BlankRouteBody();
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final bg = isDark ? AppColors.bgDark : AppColors.bg;
+
+    return ColoredBox(
+      color: bg,
+      child: const SizedBox.expand(),
     );
   }
 }

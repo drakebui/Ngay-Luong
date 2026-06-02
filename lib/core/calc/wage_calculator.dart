@@ -52,7 +52,9 @@ class WageCalculator {
 
   WageCalculator(this.profile) {
     _basis = _computeBasis(profile);
-    if (_basis.dailyWage <= 0 || _basis.dailyWage.isNaN || _basis.dailyWage.isInfinite) {
+    if (_basis.dailyWage <= 0 ||
+        _basis.dailyWage.isNaN ||
+        _basis.dailyWage.isInfinite) {
       throw const CalcException(CalcError.noIncome);
     }
   }
@@ -71,7 +73,8 @@ class WageCalculator {
         ? price / _basis.hourlyWage!
         : null;
 
-    final pct = (_basis.monthlyIncomeEstimate != null && _basis.monthlyIncomeEstimate! > 0)
+    final pct = (_basis.monthlyIncomeEstimate != null &&
+            _basis.monthlyIncomeEstimate! > 0)
         ? price / _basis.monthlyIncomeEstimate! * 100
         : null;
 

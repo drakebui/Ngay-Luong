@@ -232,6 +232,18 @@ abstract class AppLocalizations {
   /// **'giờ'**
   String get onboardingHourSuffix;
 
+  /// No description provided for @onboardingLivePreviewLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'GIÁ TRỊ 1 GIỜ CỦA BẠN'**
+  String get onboardingLivePreviewLabel;
+
+  /// No description provided for @onboardingSaveError.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa lưu được hồ sơ. Thử lại nhé.'**
+  String get onboardingSaveError;
+
   /// No description provided for @privacyOnboarding.
   ///
   /// In vi, this message translates to:

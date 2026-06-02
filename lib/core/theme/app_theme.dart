@@ -16,19 +16,36 @@ abstract final class AppTheme {
         isDark ? AppColors.textPrimaryDark : AppColors.textPrimary;
     final textSecondary =
         isDark ? AppColors.textSecondaryDark : AppColors.textSecondary;
-    final accent = isDark ? AppColors.accentDark : AppColors.accent;
-    final neutral = isDark ? AppColors.surfaceAltDark : AppColors.neutral;
+    final primary = isDark ? AppColors.primaryDark : AppColors.primary;
+    final primaryContainer = isDark
+        ? AppColors.primaryContainerDark
+        : AppColors.primaryContainer;
+    final onPrimary = isDark ? AppColors.onPrimaryDark : AppColors.onPrimary;
+    final onPrimaryContainer = isDark
+        ? AppColors.onPrimaryContainerDark
+        : AppColors.onPrimaryContainer;
+    final secondaryContainer = isDark
+        ? AppColors.secondaryContainerDark
+        : AppColors.secondaryContainer;
+    final onSecondaryContainer = isDark
+        ? AppColors.onSecondaryContainerDark
+        : AppColors.onSecondaryContainer;
+    final neutral = isDark ? AppColors.outlineVariantDark : AppColors.neutral;
 
     final colorScheme = ColorScheme(
       brightness: brightness,
-      primary: accent,
-      onPrimary: Colors.white,
-      secondary: accent,
-      onSecondary: Colors.white,
+      primary: primary,
+      onPrimary: onPrimary,
+      primaryContainer: primaryContainer,
+      onPrimaryContainer: onPrimaryContainer,
+      secondary: primary,
+      onSecondary: onPrimary,
+      secondaryContainer: secondaryContainer,
+      onSecondaryContainer: onSecondaryContainer,
       surface: surface,
       onSurface: textPrimary,
-      error: const Color(0xFFB00020),
-      onError: Colors.white,
+      error: isDark ? AppColors.warningDark : AppColors.warning,
+      onError: textPrimary,
     );
 
     final baseTextTheme = TextTheme(
@@ -66,8 +83,8 @@ abstract final class AppTheme {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: accent,
-          foregroundColor: Colors.white,
+          backgroundColor: primaryContainer,
+          foregroundColor: onPrimaryContainer,
           textStyle: GoogleFonts.beVietnamPro(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -107,7 +124,7 @@ abstract final class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-          borderSide: BorderSide(color: accent, width: 2),
+          borderSide: BorderSide(color: primary, width: 2),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.base,

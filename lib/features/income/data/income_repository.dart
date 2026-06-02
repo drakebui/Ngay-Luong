@@ -11,7 +11,8 @@ class IncomeRepository {
   final IncomeStorage storage;
   final SharedPreferences prefs;
 
-  static const _onboardingKey = 'onboarding_done';
+  static const onboardingDoneKey = 'onboarding_done';
+  static const _onboardingKey = onboardingDoneKey;
 
   Future<IncomeProfile?> loadProfile() => storage.read();
 

@@ -35,6 +35,8 @@
 - `onboarding.currencySuffix` = "đ"
 - `onboarding.daySuffix` = "ngày"
 - `onboarding.hourSuffix` = "giờ"
+- `onboarding.livePreviewLabel` = "GIÁ TRỊ 1 GIỜ CỦA BẠN"
+- `onboarding.saveError` = "Chưa lưu được hồ sơ. Thử lại nhé."
 
 ## 3. Privacy
 

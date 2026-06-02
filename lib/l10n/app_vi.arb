@@ -24,6 +24,8 @@
   "onboardingCurrencySuffix": "đ",
   "onboardingDaySuffix": "ngày",
   "onboardingHourSuffix": "giờ",
+  "onboardingLivePreviewLabel": "GIÁ TRỊ 1 GIỜ CỦA BẠN",
+  "onboardingSaveError": "Chưa lưu được hồ sơ. Thử lại nhé.",
 
   "privacyOnboarding": "Thu nhập của bạn chỉ dùng để tính trên máy. Mình không cần biết bạn kiếm bao nhiêu.",
   "privacyImages": "Ảnh món đồ và Crush Calendar nằm trong máy bạn. Mặc định không gửi đi đâu cả.",

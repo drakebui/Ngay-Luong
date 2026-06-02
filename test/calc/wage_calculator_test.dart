@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ngay_luong/core/calc/wage_calculator.dart';
+import 'package:ngay_luong/core/utils/formatters.dart';
 import 'package:ngay_luong/features/income/domain/income_profile.dart';
 
 void main() {
@@ -22,6 +23,9 @@ void main() {
       expect(result.daysOfWage, closeTo(4.4, 0.05));
       expect(result.hoursOfWork, closeTo(35.2, 0.05));
       expect(result.pctOfMonthlyIncome, closeTo(20.0, 0.1));
+      expect(AppFormatters.formatDays(result.daysOfWage), '4,4 ngày');
+      expect(AppFormatters.formatHours(result.hoursOfWork!), '35,2 giờ');
+      expect(AppFormatters.formatPct(result.pctOfMonthlyIncome!), '20%');
     });
 
     test('example B - hourly income', () {
@@ -37,6 +41,9 @@ void main() {
       expect(result.daysOfWage, closeTo(0.62, 0.05));
       expect(result.hoursOfWork, closeTo(4.99, 0.05));
       expect(result.pctOfMonthlyIncome, closeTo(2.83, 0.1));
+      expect(AppFormatters.formatDays(result.daysOfWage), '0,6 ngày');
+      expect(AppFormatters.formatHours(result.hoursOfWork!), '5,0 giờ');
+      expect(AppFormatters.formatPct(result.pctOfMonthlyIncome!), '2,8%');
     });
 
     test('example C - daily income', () {
@@ -52,6 +59,9 @@ void main() {
       expect(result.daysOfWage, closeTo(1.71, 0.05));
       expect(result.hoursOfWork, closeTo(13.7, 0.05));
       expect(result.pctOfMonthlyIncome, closeTo(7.8, 0.1));
+      expect(AppFormatters.formatDays(result.daysOfWage), '1,7 ngày');
+      expect(AppFormatters.formatHours(result.hoursOfWork!), '13,7 giờ');
+      expect(AppFormatters.formatPct(result.pctOfMonthlyIncome!), '7,8%');
     });
 
     test('example D - project income with only total hours', () {
@@ -67,6 +77,8 @@ void main() {
 
       expect(result.daysOfWage, closeTo(2.0, 0.05));
       expect(result.hoursOfWork, closeTo(16.0, 0.05));
+      expect(AppFormatters.formatDays(result.daysOfWage), '2,0 ngày');
+      expect(AppFormatters.formatHours(result.hoursOfWork!), '16,0 giờ');
     });
 
     test('example E - cost per use', () {
@@ -82,6 +94,10 @@ void main() {
       );
 
       expect(result.costPerUse, closeTo(11538.46, 0.05));
+      expect(
+        AppFormatters.formatCostPerUse(result.costPerUse!),
+        '~11.500đ/lần',
+      );
     });
   });
 
@@ -184,19 +200,21 @@ void main() {
       );
     });
 
-    test('missing work hours returns null hoursOfWork when daily wage exists',
-        () {
-      final profile = IncomeProfile(
-        mode: IncomeMode.daily,
-        dailyIncome: 700000,
-        workHoursPerDay: 0,
-        updatedAt: updatedAt,
-      );
+    test(
+      'missing work hours returns null hoursOfWork when daily wage exists',
+      () {
+        final profile = IncomeProfile(
+          mode: IncomeMode.daily,
+          dailyIncome: 700000,
+          workHoursPerDay: 0,
+          updatedAt: updatedAt,
+        );
 
-      final result = WageCalculator(profile).check(1200000);
+        final result = WageCalculator(profile).check(1200000);
 
-      expect(result.hoursOfWork, isNull);
-    });
+        expect(result.hoursOfWork, isNull);
+      },
+    );
 
     test('project with total days and hours uses each matching basis', () {
       final profile = IncomeProfile(
@@ -227,6 +245,73 @@ void main() {
       );
 
       expect(result.costPerUse, isNull);
+    });
+
+    test(
+      'project with only total days derives hourly wage and monthly estimate',
+      () {
+        final profile = IncomeProfile(
+          mode: IncomeMode.project,
+          projectIncome: 20000000,
+          projectTotalDays: 20,
+          workHoursPerDay: 8,
+          workDaysPerMonth: 22,
+          updatedAt: updatedAt,
+        );
+
+        final calculator = WageCalculator(profile);
+        final result = calculator.check(2000000);
+
+        expect(calculator.basis.dailyWage, closeTo(1000000, 0.05));
+        expect(calculator.basis.hourlyWage, closeTo(125000, 0.05));
+        expect(
+          calculator.basis.monthlyIncomeEstimate,
+          closeTo(22000000, 0.05),
+        );
+        expect(result.daysOfWage, closeTo(2.0, 0.05));
+        expect(result.hoursOfWork, closeTo(16.0, 0.05));
+        expect(result.pctOfMonthlyIncome, closeTo(9.1, 0.1));
+      },
+    );
+
+    test('project without total days or hours is rejected as noIncome', () {
+      final profile = IncomeProfile(
+        mode: IncomeMode.project,
+        projectIncome: 20000000,
+        updatedAt: updatedAt,
+      );
+
+      expect(
+        () => WageCalculator(profile),
+        throwsA(
+          isA<CalcException>().having(
+            (error) => error.error,
+            'error',
+            CalcError.noIncome,
+          ),
+        ),
+      );
+    });
+
+    test('usesToWorthIt rejects non-positive acceptable price per use', () {
+      final calculator = WageCalculator(
+        IncomeProfile(
+          mode: IncomeMode.daily,
+          dailyIncome: 700000,
+          updatedAt: updatedAt,
+        ),
+      );
+
+      expect(
+        () => calculator.usesToWorthIt(1200000, 0),
+        throwsA(
+          isA<CalcException>().having(
+            (error) => error.error,
+            'error',
+            CalcError.invalidPrice,
+          ),
+        ),
+      );
     });
   });
 }

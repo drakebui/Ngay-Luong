@@ -40,6 +40,7 @@ class AppFormatters {
 
   /// costPerUse: làm tròn tới hàng trăm gần nhất, hậu tố "đ/lần".
   static String formatCostPerUse(double cost) {
+    if (!cost.isFinite) return '—';
     final rounded = (cost / 100).round() * 100;
     return '~${formatMoney(rounded.toDouble())}/lần';
   }
@@ -63,10 +64,15 @@ class AppFormatters {
   /// Parse giá từ input của user: chấp nhận "3.000.000" hoặc "3000000".
   /// Trả null nếu không parse được hoặc <= 0.
   static double? parsePrice(String raw) {
-    final normalized = raw.trim().replaceAll('.', '');
+    final normalized = raw
+        .trim()
+        .toLowerCase()
+        .replaceAll('đ', '')
+        .replaceAll('.', '')
+        .replaceAll(' ', '');
     final parsed = double.tryParse(normalized);
 
-    if (parsed == null || parsed <= 0) {
+    if (parsed == null || parsed <= 0 || !parsed.isFinite) {
       return null;
     }
 

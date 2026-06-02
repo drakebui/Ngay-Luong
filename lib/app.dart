@@ -1,45 +1,21 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ngay_luong/core/router/app_router.dart';
+import 'package:ngay_luong/core/router/routes.dart';
 import 'package:ngay_luong/core/theme/app_theme.dart';
-import 'package:ngay_luong/features/crush/presentation/providers/crush_providers.dart';
-import 'package:ngay_luong/features/settings/presentation/providers/settings_provider.dart';
-import 'package:ngay_luong/features/settings/presentation/widgets/app_lock_gate.dart';
 import 'package:ngay_luong/l10n/app_localizations.dart';
 
-class NgayLuongApp extends ConsumerStatefulWidget {
-  const NgayLuongApp({super.key, required this.initialLocation});
+class NgayLuongApp extends StatefulWidget {
+  const NgayLuongApp({super.key, this.initialLocation = Routes.home});
 
   final String initialLocation;
 
   @override
-  ConsumerState<NgayLuongApp> createState() => _NgayLuongAppState();
+  State<NgayLuongApp> createState() => _NgayLuongAppState();
 }
 
-class _NgayLuongAppState extends ConsumerState<NgayLuongApp> {
+class _NgayLuongAppState extends State<NgayLuongApp> {
   late final _router = makeAppRouter(widget.initialLocation);
-
-  @override
-  void initState() {
-    super.initState();
-    unawaited(_initializeNotifications());
-  }
-
-  Future<void> _initializeNotifications() async {
-    await ref.read(notificationServiceProvider).initialize(
-          onCardTap: _openCardFromNotification,
-        );
-  }
-
-  void _openCardFromNotification(String cardId) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      _router.go('/crush/$cardId/still');
-    });
-  }
 
   @override
   void dispose() {
@@ -49,16 +25,12 @@ class _NgayLuongAppState extends ConsumerState<NgayLuongApp> {
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = ref.watch(
-      settingsControllerProvider.select((s) => s.themeMode),
-    );
     return MaterialApp.router(
       title: 'Ngày Lương',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      themeMode: themeMode,
+      themeMode: ThemeMode.system,
       routerConfig: _router,
-      builder: (context, child) => AppLockGate(child: child ?? const SizedBox()),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

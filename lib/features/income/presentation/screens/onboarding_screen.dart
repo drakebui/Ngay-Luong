@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_symbols_icons/symbols.dart';
+import 'package:ngay_luong/core/calc/wage_calculator.dart';
+import 'package:ngay_luong/core/router/routes.dart';
 import 'package:ngay_luong/core/theme/app_colors.dart';
 import 'package:ngay_luong/core/theme/app_spacing.dart';
-import 'package:ngay_luong/core/router/routes.dart';
+import 'package:ngay_luong/core/theme/app_typography.dart';
+import 'package:ngay_luong/core/utils/formatters.dart';
 import 'package:ngay_luong/features/income/domain/income_profile.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
 import 'package:ngay_luong/l10n/app_localizations.dart';
@@ -40,21 +44,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   IncomeProfile? _buildProfile() {
-    double? parse(String text) {
-      final value = double.tryParse(
-        text.replaceAll('.', '').replaceAll(',', '.').trim(),
-      );
-      return value != null && value > 0 ? value : null;
+    double? parseUnit(String text) {
+      final normalized = text.trim().replaceAll(' ', '').replaceAll(',', '.');
+      final value = double.tryParse(normalized);
+      return value != null && value.isFinite && value > 0 ? value : null;
     }
 
     int parseIntOrDefault(String text, int fallback) {
-      return int.tryParse(text.trim()) ?? fallback;
+      final parsed = int.tryParse(text.trim());
+      return parsed != null && parsed > 0 ? parsed : fallback;
     }
 
     final now = DateTime.now();
     switch (_mode) {
       case IncomeMode.monthly:
-        final income = parse(_incomeCtrl.text);
+        final income = AppFormatters.parsePrice(_incomeCtrl.text);
         if (income == null) {
           return null;
         }
@@ -62,22 +66,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           mode: _mode,
           monthlyNetIncome: income,
           workDaysPerMonth: parseIntOrDefault(_workDaysCtrl.text, 22),
-          workHoursPerDay: parse(_workHoursCtrl.text) ?? 8,
+          workHoursPerDay: parseUnit(_workHoursCtrl.text) ?? 8,
           updatedAt: now,
         );
       case IncomeMode.daily:
-        final income = parse(_incomeCtrl.text);
+        final income = AppFormatters.parsePrice(_incomeCtrl.text);
         if (income == null) {
           return null;
         }
         return IncomeProfile(
           mode: _mode,
           dailyIncome: income,
-          workHoursPerDay: parse(_workHoursCtrl.text) ?? 8,
+          workHoursPerDay: parseUnit(_workHoursCtrl.text) ?? 8,
           updatedAt: now,
         );
       case IncomeMode.hourly:
-        final income = parse(_incomeCtrl.text);
+        final income = AppFormatters.parsePrice(_incomeCtrl.text);
         if (income == null) {
           return null;
         }
@@ -87,8 +91,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           updatedAt: now,
         );
       case IncomeMode.project:
-        final income = parse(_projectIncomeCtrl.text);
-        final unit = parse(_projectUnitCtrl.text);
+        final income = AppFormatters.parsePrice(_projectIncomeCtrl.text);
+        final unit = parseUnit(_projectUnitCtrl.text);
         if (income == null || unit == null) {
           return null;
         }
@@ -107,7 +111,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     return profile != null && profile.isUsable;
   }
 
-  Future<void> _save() async {
+  String _hourlyPreview() {
+    final profile = _buildProfile();
+    if (profile == null || !profile.isUsable) {
+      return '—';
+    }
+
+    try {
+      final hourlyWage = WageCalculator(profile).basis.hourlyWage;
+      return hourlyWage == null ? '—' : AppFormatters.formatMoney(hourlyWage);
+    } on CalcException {
+      return '—';
+    }
+  }
+
+  Future<void> _save(AppLocalizations l) async {
     final profile = _buildProfile();
     if (profile == null || !profile.isUsable) {
       return;
@@ -119,10 +137,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       if (mounted) {
         context.go(Routes.home);
       }
-    } catch (e) {
+    } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Lưu thất bại: $e')),
+          SnackBar(content: Text(l.onboardingSaveError)),
         );
       }
     } finally {
@@ -175,28 +193,28 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         ),
         children: [
           _ModeCard(
-            icon: Icons.calendar_month_outlined,
+            icon: Symbols.calendar_month,
             label: l.onboardingModeMonthly,
             description: l.onboardingModeMonthlyDesc,
             onTap: () => _selectMode(IncomeMode.monthly),
           ),
           const SizedBox(height: AppSpacing.md),
           _ModeCard(
-            icon: Icons.today_outlined,
+            icon: Symbols.today,
             label: l.onboardingModeDaily,
             description: l.onboardingModeDailyDesc,
             onTap: () => _selectMode(IncomeMode.daily),
           ),
           const SizedBox(height: AppSpacing.md),
           _ModeCard(
-            icon: Icons.schedule_outlined,
+            icon: Symbols.schedule,
             label: l.onboardingModeHourly,
             description: l.onboardingModeHourlyDesc,
             onTap: () => _selectMode(IncomeMode.hourly),
           ),
           const SizedBox(height: AppSpacing.md),
           _ModeCard(
-            icon: Icons.work_outline,
+            icon: Symbols.work,
             label: l.onboardingModeProject,
             description: l.onboardingModeProjectDesc,
             onTap: () => _selectMode(IncomeMode.project),
@@ -213,20 +231,35 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         children: [
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.screenPadding,
+                AppSpacing.xl,
+                AppSpacing.screenPadding,
+                AppSpacing.xl,
+              ),
               children: [
                 ..._buildFields(l),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.lg),
+                _LivePreviewCard(
+                  label: l.onboardingLivePreviewLabel,
+                  value: _hourlyPreview(),
+                ),
+                const SizedBox(height: AppSpacing.lg),
                 _PrivacyBanner(text: l.privacyOnboarding),
               ],
             ),
           ),
           SafeArea(
-            minimum: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+            minimum: const EdgeInsets.fromLTRB(
+              AppSpacing.screenPadding,
+              0,
+              AppSpacing.screenPadding,
+              AppSpacing.screenPadding,
+            ),
             child: SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: _isUsable && !_isSaving ? _save : null,
+                onPressed: _isUsable && !_isSaving ? () => _save(l) : null,
                 child: _isSaving
                     ? const SizedBox.square(
                         dimension: 20,
@@ -250,11 +283,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             controller: _incomeCtrl,
             suffixText: l.onboardingCurrencySuffix,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           ExpansionTile(
             tilePadding: EdgeInsets.zero,
             title: Text(l.onboardingCustomize),
-            childrenPadding: const EdgeInsets.only(top: 12),
+            childrenPadding: const EdgeInsets.only(top: AppSpacing.md),
             children: [
               _numField(
                 label: l.onboardingWorkDays,
@@ -262,7 +295,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 suffixText: l.onboardingDaySuffix,
                 isInt: true,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.md),
               _numField(
                 label: l.onboardingWorkHours,
                 controller: _workHoursCtrl,
@@ -278,7 +311,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             controller: _incomeCtrl,
             suffixText: l.onboardingCurrencySuffix,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           _numField(
             label: l.onboardingWorkHours,
             controller: _workHoursCtrl,
@@ -300,10 +333,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             controller: _projectIncomeCtrl,
             suffixText: l.onboardingCurrencySuffix,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           Wrap(
-            spacing: 8,
-            runSpacing: 8,
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.sm,
             children: [
               ChoiceChip(
                 label: Text(l.onboardingProjectHours),
@@ -323,7 +356,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           _numField(
             label: _projectByHours
                 ? l.onboardingProjectHours
@@ -350,7 +383,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           : const TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          isInt ? RegExp('[0-9]') : RegExp('[0-9.,]'),
+          isInt ? RegExp('[0-9]') : RegExp('[0-9., ]'),
         ),
       ],
       decoration: InputDecoration(
@@ -377,14 +410,10 @@ class _ModeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final accent = Theme.of(context).colorScheme.primary;
-    final accentSoft = isDark ? AppColors.accentSoftDark : AppColors.accentSoft;
-    final surface = isDark ? AppColors.surfaceDark : AppColors.surface;
-    final neutral = isDark ? AppColors.surfaceAltDark : AppColors.neutral;
-
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Material(
-      color: surface,
+      color: colorScheme.surface,
       borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
       child: InkWell(
         onTap: onTap,
@@ -393,9 +422,15 @@ class _ModeCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
             border: Border.all(
-              color: neutral.withValues(alpha: isDark ? 0.5 : 0.4),
-              width: 1,
+              color: colorScheme.outlineVariant.withValues(alpha: 0.3),
             ),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.organicShadow,
+                blurRadius: 24,
+                offset: Offset(0, 12),
+              ),
+            ],
           ),
           padding: const EdgeInsets.all(AppSpacing.base),
           child: Row(
@@ -404,10 +439,10 @@ class _ModeCard extends StatelessWidget {
                 width: 52,
                 height: 52,
                 decoration: BoxDecoration(
-                  color: accentSoft,
+                  color: colorScheme.secondaryContainer,
                   borderRadius: BorderRadius.circular(AppSpacing.md),
                 ),
-                child: Icon(icon, size: 26, color: accent),
+                child: Icon(icon, size: 26, color: colorScheme.primary),
               ),
               const SizedBox(width: AppSpacing.base),
               Expanded(
@@ -416,26 +451,73 @@ class _ModeCard extends StatelessWidget {
                   children: [
                     Text(
                       label,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      description,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
+                    Text(description, style: theme.textTheme.bodySmall),
                   ],
                 ),
               ),
               const SizedBox(width: AppSpacing.sm),
               Icon(
-                Icons.arrow_forward_ios,
-                size: 14,
-                color: Theme.of(context).textTheme.bodySmall?.color,
+                Symbols.arrow_forward_ios,
+                size: 16,
+                color: colorScheme.onSurfaceVariant,
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LivePreviewCard extends StatelessWidget {
+  const _LivePreviewCard({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(AppSpacing.xl),
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.organicShadowPrimaryTint,
+            blurRadius: 28,
+            offset: Offset(0, 14),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: AppTypography.caption.copyWith(
+                color: colorScheme.primary,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              value,
+              style: AppTypography.title.copyWith(
+                color: colorScheme.onPrimaryContainer,
+                fontSize: 32,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -452,26 +534,22 @@ class _PrivacyBanner extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(8),
+        color: colorScheme.secondaryContainer,
+        borderRadius: BorderRadius.circular(AppSpacing.lg),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(AppSpacing.base),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              Icons.lock_outline,
-              size: 18,
-              color: colorScheme.onSurfaceVariant,
-            ),
-            const SizedBox(width: 8),
+            Icon(Symbols.lock, size: 20, color: colorScheme.primary),
+            const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Text(
                 text,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                    ),
+                  color: colorScheme.onSecondaryContainer,
+                ),
               ),
             ),
           ],
