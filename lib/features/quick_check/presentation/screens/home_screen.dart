@@ -10,6 +10,7 @@ import 'package:ngay_luong/core/theme/app_spacing.dart';
 import 'package:ngay_luong/core/utils/formatters.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
 import 'package:ngay_luong/features/quick_check/presentation/providers/quick_check_provider.dart';
+import 'package:ngay_luong/features/quick_check/presentation/widgets/salary_day_banner.dart';
 import 'package:ngay_luong/l10n/app_localizations.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -113,6 +114,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ],
               ),
             ),
+            const SalaryDayBanner(),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(

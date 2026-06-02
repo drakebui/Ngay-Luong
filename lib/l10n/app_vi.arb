@@ -1,6 +1,5 @@
 {
   "@@locale": "vi",
-
   "onboardingTitle": "Bạn kiếm tiền thế nào?",
   "onboardingModeMonthly": "Theo tháng",
   "onboardingModeDaily": "Theo ngày",
@@ -26,34 +25,75 @@
   "onboardingHourSuffix": "giờ",
   "onboardingLivePreviewLabel": "GIÁ TRỊ 1 GIỜ CỦA BẠN",
   "onboardingSaveError": "Chưa lưu được hồ sơ. Thử lại nhé.",
-
   "privacyOnboarding": "Thu nhập của bạn chỉ dùng để tính trên máy. Mình không cần biết bạn kiếm bao nhiêu.",
   "privacyImages": "Ảnh món đồ và Crush Calendar nằm trong máy bạn. Mặc định không gửi đi đâu cả.",
   "privacyDeleteConfirm": "Xóa toàn bộ dữ liệu? Không thể hoàn tác.",
-
   "homePriceHint": "Món này giá bao nhiêu?",
   "homeCheck": "Xem mấy ngày lương",
   "homeShortcutPhoto": "Chụp món đồ",
   "homeShortcutCalendar": "Crush Calendar",
   "homeNeedIncome": "Cho mình biết thu nhập trước đã, để tính ngày lương nhé.",
-
   "resultHeroUnit": "ngày đi làm",
   "resultHeroSubGeneric": "để mua món này",
   "resultHeroSubNamed": "để mua {name}",
-  "@resultHeroSubNamed": { "placeholders": { "name": { "type": "String" } } },
+  "@resultHeroSubNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "resultSubHours": "{hours} giờ làm",
-  "@resultSubHours": { "placeholders": { "hours": { "type": "String" } } },
+  "@resultSubHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
   "resultSubPct": "{pct} thu nhập tháng",
-  "@resultSubPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@resultSubPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "resultMsgNormal": "Món này lấy của bạn {days} ngày đi làm.",
-  "@resultMsgNormal": { "placeholders": { "days": { "type": "String" } } },
+  "@resultMsgNormal": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "resultMsgHeavy": "Bạn không trả {price}. Bạn trả bằng {days} ngày đi làm.",
-  "@resultMsgHeavy": { "placeholders": { "price": { "type": "String" }, "days": { "type": "String" } } },
+  "@resultMsgHeavy": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "resultMsgOnSale": "Sale không làm nó miễn phí. Nó vẫn là {days} ngày lương.",
-  "@resultMsgOnSale": { "placeholders": { "days": { "type": "String" } } },
+  "@resultMsgOnSale": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "resultMsgTiny": "Nhỏ thôi — khoảng {days} ngày đi làm.",
-  "@resultMsgTiny": { "placeholders": { "days": { "type": "String" } } },
-
+  "@resultMsgTiny": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "decisionBuy": "Mua",
   "decisionBought": "Chúc mừng! Bạn xứng đáng.",
   "decisionSleepOnIt": "Để mai tính",
@@ -62,11 +102,18 @@
   "decisionSavedToCalendar": "Đã cất vào Crush Calendar. Mai xem còn mê không.",
   "decisionSkipped": "Ví bạn vừa sống sót qua một cú impulse buy.",
   "decisionStillWantAfterCooldown": "Vẫn mê sau 24h? Có thể món này đáng cân nhắc.",
-
   "fomoQuestion": "Vì sao bạn muốn mua món này?",
   "fomoRecall": "{n} ngày trước bạn muốn mua vì: \"{reason}\". Giờ còn mê không?",
-  "@fomoRecall": { "placeholders": { "n": { "type": "int" }, "reason": { "type": "String" } } },
-
+  "@fomoRecall": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
   "crushEditorNewTitle": "Lưu món",
   "crushEditorEditTitle": "Sửa món",
   "crushEditorSave": "Lưu",
@@ -80,14 +127,12 @@
   "crushEditorLoadError": "Không tải được món này.",
   "crushEditorMissingArgs": "Thiếu dữ liệu để lưu món.",
   "crushEditorSaveError": "Chưa lưu được món. Thử lại nhé.",
-
   "remindTonight": "Tối nay",
   "remindAfter24h": "Sau 24 giờ",
   "remindAfter3Days": "Sau 3 ngày",
   "remindAfter7Days": "Sau 7 ngày",
   "remindUntilPayday": "Đợi tới ngày lương",
   "remindCustom": "Chọn ngày khác",
-
   "calendarTitle": "Crush Calendar",
   "calendarToday": "Hôm nay",
   "calendarUpcoming": "Sắp tới",
@@ -101,18 +146,40 @@
   "calendarEmptyMonth": "Tháng này chưa có mốc nhắc nào.",
   "calendarUnnamedItem": "món này",
   "calendarItemQuestion": "Còn mê {name}?",
-  "@calendarItemQuestion": { "placeholders": { "name": { "type": "String" } } },
+  "@calendarItemQuestion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "calendarTomorrow": "Ngày mai",
   "calendarInDays": "{count} ngày nữa",
-  "@calendarInDays": { "placeholders": { "count": { "type": "int" } } },
-
+  "@calendarInDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "notiDefaultTitle": "Còn mê không?",
   "notiDefaultBody": "Mở app xem lại.",
   "notiDetailNamed": "Còn mê {name} không?",
-  "@notiDetailNamed": { "placeholders": { "name": { "type": "String" } } },
+  "@notiDetailNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "notiDetailDays": "Món này từng lấy của bạn {days} ngày đi làm.",
-  "@notiDetailDays": { "placeholders": { "days": { "type": "String" } } },
-
+  "@notiDetailDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "stillQuestion": "Còn mê không?",
   "stillStillCrushing": "Vẫn mê",
   "stillOverIt": "Hết mê rồi",
@@ -121,31 +188,74 @@
   "stillRemindAgain": "Nhắc lại lần nữa",
   "stillDelete": "Xóa món này",
   "stillOverItCheer": "+{days} ngày lương còn sống.",
-  "@stillOverItCheer": { "placeholders": { "days": { "type": "String" } } },
+  "@stillOverItCheer": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "stillScreenHeroUnit": "ngày đi làm",
   "stillScreenQuestion": "Còn mê không?",
   "stillScreenBoughtDaysAgo": "Bạn muốn mua món này {days} ngày trước.",
-  "@stillScreenBoughtDaysAgo": { "placeholders": { "days": { "type": "int" } } },
+  "@stillScreenBoughtDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "stillScreenReasonLabel": "Lúc đó bạn thích vì: {reason}.",
-  "@stillScreenReasonLabel": { "placeholders": { "reason": { "type": "String" } } },
+  "@stillScreenReasonLabel": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
   "stillScreenSavedDays": "+{days} ngày lương còn sống",
-  "@stillScreenSavedDays": { "placeholders": { "days": { "type": "String" } } },
+  "@stillScreenSavedDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "stillScreenBtnStillCrushing": "Vẫn mê",
   "stillScreenBtnOverIt": "Hết mê rồi",
   "stillScreenBtnWaitingSale": "Chờ sale",
   "stillScreenBtnBought": "Mua rồi",
   "stillScreenBtnRemindAgain": "Nhắc lại lần nữa",
   "stillScreenBtnDelete": "Xóa",
-
   "cardSleepOnIt": "Món này = {days} ngày đi làm.\nĐể mai tính.",
-  "@cardSleepOnIt": { "placeholders": { "days": { "type": "String" } } },
+  "@cardSleepOnIt": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "cardOnSale": "Sale {percent}%\nnhưng vẫn là {days} ngày đi làm.",
-  "@cardOnSale": { "placeholders": { "percent": { "type": "String" }, "days": { "type": "String" } } },
+  "@cardOnSale": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "cardSkipped": "Tôi vừa không mua món này.\n+{days} ngày lương còn sống.",
-  "@cardSkipped": { "placeholders": { "days": { "type": "String" } } },
+  "@cardSkipped": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "cardShare": "Chia sẻ",
   "cardSave": "Lưu vào ảnh",
-
   "settingsEditIncome": "Sửa thu nhập",
   "settingsPayday": "Ngày lương trong tháng",
   "settingsAppLock": "Khóa app (Face ID / vân tay)",
@@ -153,7 +263,6 @@
   "settingsMascot": "Bật mascot ví",
   "settingsTheme": "Giao diện",
   "settingsDeleteAll": "Xóa toàn bộ dữ liệu",
-
   "settingsTitle": "Cài đặt",
   "themeLight": "Sáng",
   "themeDark": "Tối",
@@ -169,8 +278,92 @@
   "lockReason": "Mở khóa Ngày Lương",
   "saveCardTitle": "Tạo Save Card",
   "saveCardSaved": "Đã lưu Save Card: {path}",
-  "@saveCardSaved": { "placeholders": { "path": { "type": "String" } } },
+  "@saveCardSaved": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
   "saveCardTemplateSleepOnIt": "Để mai tính",
   "saveCardTemplateOnSale": "Sale gì cũng vẫn lương",
-  "saveCardTemplateSkipped": "Đã không mua"
+  "saveCardTemplateSkipped": "Đã không mua",
+  "cardPayday": "Lương về rồi.\nVẫn còn mê {days} ngày đi làm này không?",
+  "@cardPayday": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "cardAntiHaulCelebration": "Tôi đã không mua {count} món.\n+{days} ngày lương còn sống.",
+  "@cardAntiHaulCelebration": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "saveCardTemplatePayday": "Ngày lương",
+  "saveCardTemplateAntiHaulCelebration": "Ăn mừng anti-haul",
+  "crushEditorMoodLabel": "Tâm trạng lúc này",
+  "moodExcited": "Hào hứng",
+  "moodBored": "Chán chán",
+  "moodStressed": "Căng thẳng",
+  "moodHappy": "Vui",
+  "moodTired": "Mệt",
+  "moodNeutral": "Bình thường",
+  "moodImpulsive": "Bốc đồng",
+  "fomoRecallReason": "{n} ngày trước bạn muốn mua vì: \"{reason}\". Giờ còn mê không?",
+  "@fomoRecallReason": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "notiRecallPool1": "Mở app xem lại.",
+  "notiRecallPool2": "Cho mình thêm một nhịp dừng nhé.",
+  "notiRecallPool3": "Giờ còn mê không?",
+  "notiRecallPool4": "Mở app xem cảm giác còn như cũ không.",
+  "antihaulWeekly": "Tuần này bạn đã hết mê {count} món. +{days} ngày lương còn sống.",
+  "@antihaulWeekly": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "antihaulMonthly": "Tháng này bạn đã hết mê {count} món. +{days} ngày lương còn sống.",
+  "@antihaulMonthly": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "paydayPromptTitle": "Lương vừa về. Có món nào đang chờ bạn mua không?",
+  "paydayBannerAction": "Xem Crush",
+  "mascotSawDaysFly": "Tôi vừa thấy {days} ngày lương bay qua cửa sổ.",
+  "@mascotSawDaysFly": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "mascotSurvived": "Tôi sống rồi.",
+  "settingsMascotTitle": "Bật mascot ví"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ngay_luong/core/notifications/notification_copy.dart';
 import 'package:ngay_luong/core/notifications/notification_service.dart';
 import 'package:ngay_luong/features/crush/domain/crush_models.dart';
 
@@ -24,9 +25,8 @@ void main() {
       now: () => DateTime(2026, 5, 29, 10),
     );
 
-    final scheduled = await service.scheduleCard(
-      card(remindAt: DateTime(2026, 5, 30, 20)),
-    );
+    final c = card(remindAt: DateTime(2026, 5, 30, 20));
+    final scheduled = await service.scheduleCard(c);
 
     expect(scheduled, isTrue);
     expect(adapter.scheduled, hasLength(1));
@@ -34,8 +34,13 @@ void main() {
       adapter.scheduled.single.id,
       NotificationService.notificationIdForCard('card-1'),
     );
-    expect(adapter.scheduled.single.title, NotificationService.defaultTitle);
-    expect(adapter.scheduled.single.body, NotificationService.defaultBody);
+    final copy = NotificationCopyPool.selectFor(
+      c,
+      detailMode: false,
+      now: DateTime(2026, 5, 29, 10),
+    );
+    expect(adapter.scheduled.single.title, copy.$1);
+    expect(adapter.scheduled.single.body, copy.$2);
     expect(adapter.scheduled.single.payload, 'card-1');
   });
 
@@ -115,8 +120,13 @@ void main() {
     final scheduled = await service.scheduleCard(c, detailMode: true);
 
     expect(scheduled, isTrue);
-    expect(adapter.scheduled.single.title, NotificationService.defaultTitle);
-    expect(adapter.scheduled.single.body, NotificationService.defaultBody);
+    final copy = NotificationCopyPool.selectFor(
+      c,
+      detailMode: true,
+      now: DateTime(2026, 5, 29, 10),
+    );
+    expect(adapter.scheduled.single.title, copy.$1);
+    expect(adapter.scheduled.single.body, copy.$2);
   });
 }
 

@@ -927,6 +927,31 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Đã không mua'**
   String get saveCardTemplateSkipped;
+
+  String cardPayday(String days);
+  String cardAntiHaulCelebration(int count, String days);
+  String get saveCardTemplatePayday;
+  String get saveCardTemplateAntiHaulCelebration;
+  String get crushEditorMoodLabel;
+  String get moodExcited;
+  String get moodBored;
+  String get moodStressed;
+  String get moodHappy;
+  String get moodTired;
+  String get moodNeutral;
+  String get moodImpulsive;
+  String fomoRecallReason(int n, String reason);
+  String get notiRecallPool1;
+  String get notiRecallPool2;
+  String get notiRecallPool3;
+  String get notiRecallPool4;
+  String antihaulWeekly(int count, String days);
+  String antihaulMonthly(int count, String days);
+  String get paydayPromptTitle;
+  String get paydayBannerAction;
+  String mascotSawDaysFly(String days);
+  String get mascotSurvived;
+  String get settingsMascotTitle;
 }
 
 class _AppLocalizationsDelegate

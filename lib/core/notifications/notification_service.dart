@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:ngay_luong/core/notifications/notification_copy.dart';
 import 'package:ngay_luong/features/crush/domain/crush_models.dart';
 import 'package:timezone/data/latest.dart' as tz_data;
 import 'package:timezone/timezone.dart' as tz;
@@ -13,6 +14,9 @@ class ScheduledCardNotification {
     required this.body,
     required this.scheduledAt,
     required this.payload,
+    this.channelId = 'crush_reminders',
+    this.channelName = 'Crush reminders',
+    this.matchDateTimeComponents,
   });
 
   final int id;
@@ -20,6 +24,9 @@ class ScheduledCardNotification {
   final String body;
   final tz.TZDateTime scheduledAt;
   final String payload;
+  final String channelId;
+  final String channelName;
+  final DateTimeComponents? matchDateTimeComponents;
 }
 
 abstract interface class NotificationPluginAdapter {
@@ -114,21 +121,22 @@ class FlutterLocalNotificationPluginAdapter
       notification.title,
       notification.body,
       notification.scheduledAt,
-      const NotificationDetails(
+      NotificationDetails(
         android: AndroidNotificationDetails(
-          'crush_reminders',
-          'Crush reminders',
+          notification.channelId,
+          notification.channelName,
           channelDescription: 'Private reminders to revisit a saved item.',
           importance: Importance.high,
           priority: Priority.high,
         ),
-        iOS: DarwinNotificationDetails(),
-        macOS: DarwinNotificationDetails(),
+        iOS: const DarwinNotificationDetails(),
+        macOS: const DarwinNotificationDetails(),
       ),
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       payload: notification.payload,
+      matchDateTimeComponents: notification.matchDateTimeComponents,
     );
   }
 
@@ -210,10 +218,13 @@ class NotificationService {
     final granted = await requestPermissions();
     if (!granted) return false;
 
-    final name = card.name ?? '';
-    final useDetail = detailMode && name.isNotEmpty;
-    final title = useDetail ? detailTitle(name) : defaultTitle;
-    final body = useDetail ? detailBody(card.daysOfWageSnapshot) : defaultBody;
+    final copy = NotificationCopyPool.selectFor(
+      card,
+      detailMode: detailMode,
+      now: _now(),
+    );
+    final title = copy.$1;
+    final body = copy.$2;
 
     try {
       await _adapter.zonedSchedule(
