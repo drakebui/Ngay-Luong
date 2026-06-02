@@ -151,9 +151,10 @@ void main() {
 
   test('watchUpcoming returns cards with remindAt after now, sorted asc',
       () async {
-    final soon = DateTime(2026, 5, 30, 20);
-    final later = DateTime(2026, 6, 5, 20);
-    final past = DateTime(2026, 5, 28, 20);
+    final now = DateTime.now();
+    final soon = now.add(const Duration(hours: 2));
+    final later = now.add(const Duration(days: 5));
+    final past = now.subtract(const Duration(days: 2));
 
     await repository.insertCard(card(id: 'soon', remindAt: soon));
     await repository.insertCard(card(id: 'later', remindAt: later));
