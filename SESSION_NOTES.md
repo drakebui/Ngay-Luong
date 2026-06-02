@@ -4,6 +4,88 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 
 ---
 
+## 2026-06-02 — Session 12
+
+### Phương án D — Midnight Matcha design direction + theme token migration
+
+**Context:** Nhận Stitch export từ user (4 màn mockup + DESIGN.md = "Midnight Matcha"
+theme). Thống nhất "Phương án D": giữ toàn bộ product logic / USP / state machine từ
+spec, adopt visual language hoàn toàn từ Stitch.
+
+**Đã làm:**
+
+*Assets:*
+- `docs/_stitch_export/` — thêm 9 file từ zip Stitch: DESIGN.md, 4 screen PNG
+  (home/result/wishlist/income), 4 HTML (component-level detail).
+
+*Docs cập nhật:*
+- `docs/06_DESIGN_SYSTEM.md` — **rewrite hoàn toàn** sang Midnight Matcha:
+  palette đầy đủ light + dark (M3 roles), type scale Be Vietnam Pro,
+  spacing/radius tokens, component guideline (HeroNumberView, DecisionRow,
+  CrushCardTile, BottomNavBar…), motion table, delta vs warm-orange.
+- `docs/05_SCREENS.md` — thêm section "Navigation Architecture": 2-tab floating
+  island (Tính toán + Crush), routing modal/push cho màn ngoài nav.
+- `docs/07_COPY_VI.md` — thêm §1 App Chrome với `nav.tabCrush = "Crush"` +
+  ghi chú KHÔNG đổi tên sang "Mơ ước".
+
+*Flutter theme files (lib/core/theme/):*
+- `app_colors.dart` — **rewrite**: Midnight Matcha full light + dark, đặt tên
+  theo M3 roles (`primary`, `primaryContainer`, `onPrimaryContainer`,
+  `secondaryContainer`, `surfaceLow`, `surfaceContainer`, …). Xóa hoàn toàn
+  palette warm-orange cũ (`accent #E8643C`, `bg #FBF8F3`, `accentSoft`…).
+- `app_typography.dart` — **rewrite**: scale đầy đủ theo Stitch
+  (`displayLg`/`headlineLg`/`headlineLgMobile`/`headlineMd`/`bodyLg`/`bodyMd`/
+  `labelMd`/`labelSm`/`priceInput`); giữ `heroNumber` 64sp/w800 (override bắt
+  buộc vì Stitch chỉ có 40sp headline-xl — không đủ lớn cho Golden Rule #3).
+- `app_spacing.dart` — **rewrite**: 8px base grid theo Stitch
+  (`xs`/`sm`/`md`/`lg`/`xl`/`gutter`/`marginMobile`/`marginDesktop`), thêm
+  radius token set (`radiusSm`→`radiusFull`), legacy alias `cardRadius`/`buttonRadius`.
+- `app_theme.dart` — **rewrite**: full M3 `ColorScheme` (2 const instances
+  `_lightColorScheme` / `_darkColorScheme`), tất cả M3 surface container slots,
+  updated button/input/card/chip/snackbar/nav themes.
+
+**Branch:** `claude/optimistic-tesla-6TjtF` — committed + pushed (2 commits).
+
+**⚠️ QUAN TRỌNG — flutter analyze sẽ FAIL sau session này:**
+Toàn bộ UI code cũ (S1–S7 screens, widgets) vẫn reference các token đã xóa
+từ `app_colors.dart`: `AppColors.accent`, `AppColors.bg`, `AppColors.surfaceAlt`,
+`AppColors.accentSoft`, `AppColors.textPrimary`, `AppColors.textSecondary`,
+`AppColors.positive`, `AppColors.neutral`. **Session tiếp theo phải migrate
+toàn bộ widget code sang token mới trước khi làm gì khác.**
+
+Mapping cũ → mới (để dùng khi migrate):
+| Token cũ | Token mới |
+|---|---|
+| `AppColors.bg` | `colorScheme.surface` (= `AppColors.background`) |
+| `AppColors.surface` | `colorScheme.surfaceContainerLowest` (= `AppColors.surface`) |
+| `AppColors.surfaceAlt` | `colorScheme.surfaceContainerLow` (= `AppColors.surfaceLow`) |
+| `AppColors.textPrimary` | `colorScheme.onSurface` |
+| `AppColors.textSecondary` | `colorScheme.onSurfaceVariant` |
+| `AppColors.accent` | `colorScheme.primaryContainer` |
+| `AppColors.accentSoft` | `colorScheme.secondaryContainer` |
+| `AppColors.positive` | `colorScheme.secondary` |
+| `AppColors.neutral` | `colorScheme.outlineVariant` |
+| `AppColors.accentDark` | `AppColors.primaryContainerDark` |
+
+Last known good state (trước session này): Session 11, `flutter analyze` 0 issue,
+`flutter test` 78/78 pass, branch `claude/sleepy-ride-GnU6m` (đã merge chưa rõ).
+
+**Pending / chưa làm:**
+- `docs/06_DESIGN_SYSTEM.md` có thể cần rewrite thêm lần nữa để dùng đúng
+  Stitch token names (kebab-case: `primary-container`, `on-surface-variant`…)
+  thay vì Dart camelCase hiện tại — user đã interrupt task này, chưa confirm.
+- Migrate tất cả widget/screen/provider code sang token Midnight Matcha mới.
+- `flutter analyze` + `flutter test` xác nhận sau migrate.
+
+**Quyết định sản phẩm đã chốt (Phương án D):**
+- Tab 2: "Mơ ước" → **"Crush"** (Gen Z loanword, không đổi lại).
+- Tab "Ví tiền": **xóa** — vi phạm Golden Rule #1.
+- 4 income modes, "Còn mê không?" loop, DecisionRow, FOMO, Save Card: **giữ nguyên**.
+- Settings: icon `settings` top-right AppBar → route `/settings` (không trong nav).
+- `heroNumber` token: 64sp/w800, dùng ở S2 Result + S5 "Còn mê không?", nowhere else.
+
+---
+
 ## 2026-05-30 — Session 11
 
 ### Hoàn thành: M9b — UI Polish: Onboarding + Calendar + Editor + Router transition
