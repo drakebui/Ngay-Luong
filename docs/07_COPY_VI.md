@@ -14,6 +14,16 @@
 
 ---
 
+## 1. App Chrome (navigation, header)
+
+- `nav.tabCalculate` = "Tính toán"
+- `nav.tabCrush` = "Crush"
+  — Loanword Gen Z, giữ nguyên, KHÔNG dịch/đổi thành "Mơ ước" hay "Danh sách"
+- `nav.settings` = "Cài đặt"
+- `nav.appBarTitle` = "Ngày Lương"
+
+---
+
 ## 2. Onboarding
 
 - `onboarding.title` = "Bạn kiếm tiền thế nào?"

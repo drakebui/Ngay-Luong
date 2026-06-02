@@ -137,6 +137,39 @@ Hero number ("X ngày đi làm") luôn là phần tử lớn nhất ở mọi m�
 
 ---
 
+---
+
+## Navigation Architecture
+
+### Bottom Navigation — 2 tab (floating island)
+
+```
+┌────────────────────────────────────────┐
+│  [ Tính toán ]        ( Crush )        │  ← island pill, bottom-6
+└────────────────────────────────────────┘
+```
+
+| Tab | Icon | Label | Route mặc định | Scope |
+|---|---|---|---|---|
+| 1 | `calculate` (filled khi active) | **Tính toán** | `/` | S1 Home → S2 Result |
+| 2 | `favorite` (filled khi active) | **Crush** | `/calendar` | S3–S5 toàn bộ Crush ecosystem |
+
+- Style: `surface/90` + `backdrop-blur`, radius `radiusMd` (24px), shadow lg.
+- Active tab: bg `primaryContainer`, text `onPrimaryContainer`.
+- Inactive tab: text `onSurfaceVariant`, hover `primary`.
+- **Không có tab "Ví tiền"** — vi phạm Golden Rule #1.
+- "Crush" là loanword Gen Z (KHÔNG đổi thành "Mơ ước" hay "Danh sách").
+
+### Màn không nằm trong bottom nav (push/modal)
+- S0 Onboarding: full-screen modal mở từ Home khi chưa setup income.
+- S2 Result: push từ Home.
+- S3 Crush Card Editor: push từ Result (Lưu/Để mai tính) hoặc từ trong Crush tab.
+- S5 "Còn mê không?": deep link từ notification payload, push.
+- S6 Save Card: push từ Result hoặc từ Crush Card detail.
+- S7 Settings: icon settings trên TopAppBar → push.
+
+---
+
 ## Widget (Phase 1.5) — không phải route, là home-screen widget
 
 - **W1 Quick Price Check:** "Món này tốn mấy ngày lương?" → tap mở thẳng S1 (price input focus).
