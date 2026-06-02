@@ -1,7 +1,7 @@
 # AGENTS.md — Hiến pháp dự án "Ngày Lương"
 
 > File này là điểm vào (entry point) cho mọi AI coding agent (Claude Code / Codex).
-> Đọc file này TRƯỚC TIÊN, rồi đọc `docs/` theo thứ tự số trước khi viết code.
+> Đọc file này TRƯỚC TIÊN, rồi đọc `docs/` theo đúng thứ tự liệt kê ở §4 trước khi viết code.
 > Nếu bạn dùng Claude Code, copy file này thành `CLAUDE.md` (nội dung giống hệt).
 
 ---
@@ -73,6 +73,7 @@ Phiên bản cụ thể: xem `pubspec.yaml`. Nếu cần thêm package, ưu tiê
 7. `docs/07_COPY_VI.md` — toàn bộ microcopy tiếng Việt (nguồn string chuẩn).
 8. `docs/08_DATA_PERSISTENCE.md` — schema Drift + secure storage + lịch notification.
 9. `docs/09_BUILD_PLAN.md` — lộ trình milestone & task; **làm theo thứ tự này**.
+10. `docs/11_VISUAL_LANGUAGE.md` — pattern library Midnight Matcha cho component look & behavior.
 
 ---
 

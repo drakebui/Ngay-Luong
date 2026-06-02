@@ -72,7 +72,7 @@ usesToWorthIt     = price / acceptablePricePerUse (nếu user đặt ngưỡng)
 | `hoursOfWork` | 1 chữ số thập phân | `35,2 giờ` |
 | `pctOfMonthlyIncome` | 0 thập phân nếu ≥ 10; 1 thập phân nếu < 10 | `20%` · `3,4%` |
 | Tiền (VND) | Tách nghìn bằng ".", hậu tố "đ" | `3.000.000đ` |
-| `costPerUse` | Làm tròn nghìn gần nhất | `~11.500đ/lần` |
+| `costPerUse` | Làm tròn hàng trăm gần nhất | `~11.500đ/lần` |
 
 Đơn vị "ngày"/"giờ" số ít/nhiều trong tiếng Việt **không đổi** (không có "days"), nên không cần pluralize.
 

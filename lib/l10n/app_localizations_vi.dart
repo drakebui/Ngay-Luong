@@ -78,6 +78,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get onboardingHourSuffix => 'giờ';
 
   @override
+  String get onboardingLivePreviewLabel => 'GIÁ TRỊ 1 GIỜ CỦA BẠN';
+
+  @override
+  String get onboardingSaveError => 'Chưa lưu được hồ sơ. Thử lại nhé.';
+
+  @override
   String get privacyOnboarding =>
       'Thu nhập của bạn chỉ dùng để tính trên máy. Mình không cần biết bạn kiếm bao nhiêu.';
 
