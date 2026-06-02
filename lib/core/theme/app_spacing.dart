@@ -32,6 +32,10 @@ abstract final class AppSpacing {
   static const double radiusXl = 48;
   static const double radiusFull = 9999;
 
+  /// Legacy spacing values — kept so pre-Midnight-Matcha widget code compiles.
+  static const double xxl = 32;
+  static const double xxxl = 40;
+
   /// Legacy aliases — kept so existing code compiles while being migrated.
   static const double cardRadius = radiusLg;
   static const double buttonRadius = radiusFull;

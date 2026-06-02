@@ -136,8 +136,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       height: 88,
                       decoration: BoxDecoration(
                         color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.surfaceAltDark
-                            : AppColors.surfaceAlt,
+                            ? AppColors.surfaceLowDark
+                            : AppColors.surfaceLow,
                         borderRadius: BorderRadius.circular(
                           AppSpacing.cardRadius,
                         ),

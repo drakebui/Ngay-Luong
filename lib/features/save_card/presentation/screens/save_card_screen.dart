@@ -235,11 +235,11 @@ class _CardCanvas extends StatelessWidget {
   Color _backgroundColor(SaveCardTemplate t) {
     switch (t) {
       case SaveCardTemplate.sleepOnIt:
-        return AppColors.accent;
+        return AppColors.primaryContainer;
       case SaveCardTemplate.onSale:
-        return AppColors.surfaceAltDark;
+        return AppColors.surfaceLowDark;
       case SaveCardTemplate.skipped:
-        return AppColors.positive;
+        return AppColors.secondary;
     }
   }
 

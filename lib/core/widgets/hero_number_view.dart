@@ -51,7 +51,7 @@ class HeroNumberView extends StatelessWidget {
             subText!,
             style: GoogleFonts.beVietnamPro(
               fontSize: 14,
-              color: secondary ?? AppColors.textSecondary,
+              color: secondary ?? AppColors.onSurfaceVariant,
               height: 1.3,
             ),
           ),

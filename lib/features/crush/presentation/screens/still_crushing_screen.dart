@@ -359,8 +359,8 @@ class _ItemImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final surfaceAlt = Theme.of(context).brightness == Brightness.dark
-        ? AppColors.surfaceAltDark
-        : AppColors.surfaceAlt;
+        ? AppColors.surfaceLowDark
+        : AppColors.surfaceLow;
 
     return AspectRatio(
       aspectRatio: 1.4,

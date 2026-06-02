@@ -379,9 +379,9 @@ class _ModeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final accent = Theme.of(context).colorScheme.primary;
-    final accentSoft = isDark ? AppColors.accentSoftDark : AppColors.accentSoft;
+    final accentSoft = isDark ? AppColors.secondaryContainerDark : AppColors.secondaryContainer;
     final surface = isDark ? AppColors.surfaceDark : AppColors.surface;
-    final neutral = isDark ? AppColors.surfaceAltDark : AppColors.neutral;
+    final neutral = isDark ? AppColors.surfaceLowDark : AppColors.outlineVariant;
 
     return Material(
       color: surface,

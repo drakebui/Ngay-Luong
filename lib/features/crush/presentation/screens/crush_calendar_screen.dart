@@ -370,8 +370,8 @@ class _CrushCalendarTile extends StatelessWidget {
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final borderColor = isDark
-        ? AppColors.surfaceAltDark
-        : AppColors.neutral.withValues(alpha: 0.4);
+        ? AppColors.surfaceLowDark
+        : AppColors.outlineVariant.withOpacity(0.4);
 
     return Container(
       decoration: BoxDecoration(
@@ -440,7 +440,7 @@ class _CrushCalendarTile extends StatelessWidget {
   Color _statusColor(BuildContext context, CrushStatus status) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     if (status.countsAsSaved) {
-      return isDark ? AppColors.positiveDark : AppColors.positive;
+      return isDark ? AppColors.secondaryDark : AppColors.secondary;
     }
     if (status == CrushStatus.waitingForSale) {
       return AppColors.warning;
@@ -457,8 +457,8 @@ class _TileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final surfaceAlt = Theme.of(context).brightness == Brightness.dark
-        ? AppColors.surfaceAltDark
-        : AppColors.surfaceAlt;
+        ? AppColors.surfaceLowDark
+        : AppColors.surfaceLow;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(AppSpacing.md),
@@ -528,7 +528,7 @@ class _EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 52, color: AppColors.neutral),
+            Icon(icon, size: 52, color: AppColors.outlineVariant),
             const SizedBox(height: AppSpacing.base),
             Text(
               message,

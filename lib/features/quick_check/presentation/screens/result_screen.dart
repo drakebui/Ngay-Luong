@@ -158,7 +158,7 @@ class _HeroSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final accentSoft = isDark ? AppColors.accentSoftDark : AppColors.accentSoft;
+    final accentSoft = isDark ? AppColors.secondaryContainerDark : AppColors.secondaryContainer;
 
     return Container(
       width: double.infinity,
@@ -455,7 +455,7 @@ class _NoIncomeBody extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.info_outline, size: 48, color: AppColors.neutral),
+            const Icon(Icons.info_outline, size: 48, color: AppColors.outlineVariant),
             const SizedBox(height: AppSpacing.base),
             Text(
               l10n.homeNeedIncome,

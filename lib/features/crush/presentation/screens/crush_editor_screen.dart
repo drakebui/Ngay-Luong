@@ -438,8 +438,8 @@ class _ImagePickerBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final surfaceAlt = Theme.of(context).brightness == Brightness.dark
-        ? AppColors.surfaceAltDark
-        : AppColors.surfaceAlt;
+        ? AppColors.surfaceLowDark
+        : AppColors.surfaceLow;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -504,8 +504,8 @@ class _SnapshotBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final surfaceAlt = Theme.of(context).brightness == Brightness.dark
-        ? AppColors.surfaceAltDark
-        : AppColors.surfaceAlt;
+        ? AppColors.surfaceLowDark
+        : AppColors.surfaceLow;
     final subMetrics = <String>[];
     if (snapshot.hours > 0) {
       subMetrics
