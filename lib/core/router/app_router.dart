@@ -3,8 +3,16 @@ import 'package:go_router/go_router.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:ngay_luong/core/router/routes.dart';
 import 'package:ngay_luong/core/theme/app_colors.dart';
-import 'package:ngay_luong/core/theme/app_spacing.dart';
+import 'package:ngay_luong/features/crush/presentation/screens/crush_calendar_screen.dart';
+import 'package:ngay_luong/features/crush/presentation/screens/crush_editor_screen.dart';
+import 'package:ngay_luong/features/crush/presentation/screens/still_crushing_screen.dart';
 import 'package:ngay_luong/features/income/presentation/screens/onboarding_screen.dart';
+import 'package:ngay_luong/features/quick_check/presentation/screens/home_screen.dart';
+import 'package:ngay_luong/features/quick_check/presentation/screens/result_screen.dart';
+import 'package:ngay_luong/features/save_card/domain/save_card_template.dart';
+import 'package:ngay_luong/features/save_card/presentation/screens/save_card_screen.dart';
+import 'package:ngay_luong/features/settings/presentation/screens/settings_screen.dart';
+import 'package:ngay_luong/features/settings/presentation/widgets/app_lock_gate.dart';
 
 GoRouter makeAppRouter(String initialLocation) {
   return GoRouter(
@@ -15,22 +23,68 @@ GoRouter makeAppRouter(String initialLocation) {
         builder: (context, state) => const OnboardingScreen(),
       ),
       ShellRoute(
-        builder: (context, state, child) => _AppShell(
-          location: state.uri.path,
-          child: child,
+        builder: (context, state, child) => AppLockGate(
+          child: _AppShell(location: state.uri.path, child: child),
         ),
         routes: [
           GoRoute(
             path: Routes.home,
-            builder: (context, state) => const _BlankRouteBody(),
+            builder: (context, state) => const HomeScreen(),
           ),
           GoRoute(
             path: Routes.crush,
-            builder: (context, state) => const _BlankRouteBody(),
+            builder: (context, state) => const CrushCalendarScreen(),
           ),
+          // /calendar is inside the shell so the bottom nav stays visible
+          // (used by HomeScreen shortcut and StillCrushingScreen after action)
           GoRoute(
-            path: Routes.settings,
-            builder: (context, state) => const _BlankRouteBody(),
+            path: Routes.calendar,
+            builder: (context, state) => const CrushCalendarScreen(),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: Routes.settings,
+        builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: Routes.result,
+        builder: (context, state) {
+          final price = state.extra as double;
+          return ResultScreen(price: price);
+        },
+      ),
+      GoRoute(
+        path: Routes.saveCard,
+        builder: (context, state) {
+          final input = state.extra as SaveCardInput;
+          return SaveCardScreen(input: input);
+        },
+      ),
+      // /crush/new must come before /crush/:id so 'new' is not treated as an id
+      GoRoute(
+        path: Routes.crushNew,
+        builder: (context, state) {
+          final args = state.extra as CrushEditorArgs?;
+          return CrushEditorScreen(args: args);
+        },
+      ),
+      GoRoute(
+        path: '/crush/:id',
+        builder: (context, state) {
+          final cardId = state.pathParameters['id']!;
+          final args = state.extra is CrushEditorArgs
+              ? state.extra as CrushEditorArgs
+              : CrushEditorArgs.forEdit(cardId: cardId);
+          return CrushEditorScreen(args: args);
+        },
+        routes: [
+          GoRoute(
+            path: 'still',
+            builder: (context, state) {
+              final cardId = state.pathParameters['id']!;
+              return StillCrushingScreen(cardId: cardId);
+            },
           ),
         ],
       ),
@@ -49,43 +103,11 @@ class _AppShell extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final surface = isDark ? AppColors.surfaceDark : AppColors.surface;
-    final outline = isDark ? AppColors.outlineVariantDark : AppColors.neutral;
-    final onSurface = isDark ? AppColors.onSurfaceDark : AppColors.onSurface;
+
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 72,
-        backgroundColor: surface.withValues(alpha: 0.9),
-        foregroundColor: onSurface,
-        leadingWidth: 64,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: AppSpacing.lg),
-          child: CircleAvatar(
-            radius: 18,
-            backgroundColor: theme.colorScheme.primaryContainer,
-            foregroundColor: theme.colorScheme.onPrimaryContainer,
-            child: const Text('N'),
-          ),
-        ),
-        title: const Text('Ngày Lương'),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: AppSpacing.sm),
-            child: IconButton(
-              tooltip: 'Cài đặt',
-              onPressed: () => context.go(Routes.settings),
-              icon: const Icon(Symbols.settings),
-            ),
-          ),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Divider(height: 1, color: outline.withValues(alpha: 0.3)),
-        ),
-      ),
       body: child,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: location == Routes.crush ? 1 : 0,
+        selectedIndex: _selectedIndex(location),
         backgroundColor: surface.withValues(alpha: 0.9),
         indicatorColor: theme.colorScheme.primaryContainer,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
@@ -107,19 +129,9 @@ class _AppShell extends StatelessWidget {
       ),
     );
   }
-}
 
-class _BlankRouteBody extends StatelessWidget {
-  const _BlankRouteBody();
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bg = isDark ? AppColors.bgDark : AppColors.bg;
-
-    return ColoredBox(
-      color: bg,
-      child: const SizedBox.expand(),
-    );
+  int _selectedIndex(String location) {
+    if (location == Routes.crush || location == Routes.calendar) return 1;
+    return 0;
   }
 }
