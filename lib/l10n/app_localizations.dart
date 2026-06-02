@@ -952,6 +952,14 @@ abstract class AppLocalizations {
   String mascotSawDaysFly(String days);
   String get mascotSurvived;
   String get settingsMascotTitle;
+  String get worthTriggerButton;
+  String get worthCollapseButton;
+  String get worthExpectedUsesHint;
+  String worthCostPerUse(String amount);
+  String get worthGoodValue;
+  String get worthPoorValue;
+  String worthUsesToWorth(int n, String amount);
+  String get worthAcceptablePriceHint;
 }
 
 class _AppLocalizationsDelegate

@@ -170,11 +170,14 @@ Microcopy theo ngữ cảnh (chọn trong `result_phrasing.dart`):
 
 ## 12. Cost-per-use / Worth Check (Phase 3)
 
-- `worth.expectedUses` = "Bạn nghĩ sẽ dùng bao nhiêu lần?"
-- `worth.costPerUse` = "Khoảng {amount} / lần dùng."
-- `worth.goodValue` = "Đắt lúc mua, nhưng nếu dùng đủ nhiều thì không tệ."
-- `worth.poorValue` = "Nếu chỉ dùng vài lần, mỗi lần dùng hơi đau."
-- `worth.usesToWorth` = "Cần dùng khoảng {n} lần để xuống mức {amount}/lần."
+- `worthTriggerButton` = "Tính đáng không?"
+- `worthCollapseButton` = "Thu gọn"
+- `worthExpectedUsesHint` = "Bạn nghĩ sẽ dùng bao nhiêu lần?"
+- `worthCostPerUse` = "Khoảng {amount} / lần dùng."
+- `worthGoodValue` = "Đắt lúc mua, nhưng nếu dùng đủ nhiều thì không tệ."
+- `worthPoorValue` = "Nếu chỉ dùng vài lần, mỗi lần dùng hơi đau."
+- `worthUsesToWorth` = "Cần dùng khoảng {n} lần để xuống mức {amount}/lần."
+- `worthAcceptablePriceHint` = "Muốn xuống mức bao nhiêu đ/lần?"
 
 ## 13. Save Card (mẫu nội dung)
 

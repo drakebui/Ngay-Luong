@@ -556,4 +556,29 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get settingsMascotTitle => 'Bật mascot ví';
+
+  @override
+  String get worthTriggerButton => 'Tính đáng không?';
+
+  @override
+  String get worthCollapseButton => 'Thu gọn';
+
+  @override
+  String get worthExpectedUsesHint => 'Bạn nghĩ sẽ dùng bao nhiêu lần?';
+
+  @override
+  String worthCostPerUse(String amount) => 'Khoảng $amount / lần dùng.';
+
+  @override
+  String get worthGoodValue => 'Đắt lúc mua, nhưng nếu dùng đủ nhiều thì không tệ.';
+
+  @override
+  String get worthPoorValue => 'Nếu chỉ dùng vài lần, mỗi lần dùng hơi đau.';
+
+  @override
+  String worthUsesToWorth(int n, String amount) =>
+      'Cần dùng khoảng $n lần để xuống mức $amount/lần.';
+
+  @override
+  String get worthAcceptablePriceHint => 'Muốn xuống mức bao nhiêu đ/lần?';
 }

@@ -365,5 +365,30 @@
     }
   },
   "mascotSurvived": "Tôi sống rồi.",
-  "settingsMascotTitle": "Bật mascot ví"
+  "settingsMascotTitle": "Bật mascot ví",
+  "worthTriggerButton": "Tính đáng không?",
+  "worthCollapseButton": "Thu gọn",
+  "worthExpectedUsesHint": "Bạn nghĩ sẽ dùng bao nhiêu lần?",
+  "worthCostPerUse": "Khoảng {amount} / lần dùng.",
+  "@worthCostPerUse": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "worthGoodValue": "Đắt lúc mua, nhưng nếu dùng đủ nhiều thì không tệ.",
+  "worthPoorValue": "Nếu chỉ dùng vài lần, mỗi lần dùng hơi đau.",
+  "worthUsesToWorth": "Cần dùng khoảng {n} lần để xuống mức {amount}/lần.",
+  "@worthUsesToWorth": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "worthAcceptablePriceHint": "Muốn xuống mức bao nhiêu đ/lần?"
 }

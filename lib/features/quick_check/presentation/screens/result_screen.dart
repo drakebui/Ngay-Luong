@@ -12,6 +12,7 @@ import 'package:ngay_luong/features/crush/domain/crush_models.dart';
 import 'package:ngay_luong/features/crush/presentation/screens/crush_editor_screen.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
 import 'package:ngay_luong/features/quick_check/domain/result_phrasing.dart';
+import 'package:ngay_luong/features/quick_check/presentation/widgets/worth_check_section.dart';
 import 'package:ngay_luong/features/save_card/domain/save_card_template.dart';
 import 'package:ngay_luong/l10n/app_localizations.dart';
 
@@ -99,6 +100,8 @@ class _ResultBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 _SubMetricsRow(result: result),
+                const SizedBox(height: AppSpacing.lg),
+                WorthCheckSection(price: price),
                 const SizedBox(height: AppSpacing.lg),
                 Text(
                   microcopy,
