@@ -203,3 +203,42 @@ Microcopy theo ngữ cảnh (chọn trong `result_phrasing.dart`):
 - `settings.mascot` = "Bật mascot ví"
 - `settings.theme` = "Giao diện"
 - `settings.deleteAll` = "Xóa toàn bộ dữ liệu"
+
+---
+
+## Phase 2 — Gen Z Layer copy bổ sung
+
+### §7 Mood Check
+
+- `crushEditorMoodLabel`: "Tâm trạng lúc này"
+- Mood labels: "Hào hứng", "Chán chán", "Căng thẳng", "Vui", "Mệt", "Bình thường", "Bốc đồng"
+
+### §9 Reminder copy cá nhân hóa + FOMO recall
+
+- `fomoRecallReason`: "{n} ngày trước bạn muốn mua vì: \"{reason}\". Giờ còn mê không?"
+- Pool private:
+  - "Mở app xem lại."
+  - "Cho mình thêm một nhịp dừng nhé."
+  - "Giờ còn mê không?"
+  - "Mở app xem cảm giác còn như cũ không."
+
+### §11 Anti-haul recap notifications
+
+- Weekly: "Tuần này bạn đã hết mê {count} món. +{days} ngày lương còn sống."
+- Monthly: "Tháng này bạn đã hết mê {count} món. +{days} ngày lương còn sống."
+
+### §13 Save Card templates
+
+- `payday`: "Lương về rồi.\nVẫn còn mê {days} ngày đi làm này không?"
+- `antiHaulCelebration`: "Tôi đã không mua {count} món.\n+{days} ngày lương còn sống."
+- Template labels: "Ngày lương", "Ăn mừng anti-haul"
+
+### §14 Salary Day Mode
+
+- Banner: "Lương vừa về. Có món nào đang chờ bạn mua không?"
+- Action: "Xem Crush"
+
+### §15 Mascot ví
+
+- Survived: "Tôi sống rồi."
+- Over-it/bought: "Tôi vừa thấy {days} ngày lương bay qua cửa sổ."

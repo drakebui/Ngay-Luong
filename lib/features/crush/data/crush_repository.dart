@@ -140,6 +140,41 @@ class CrushRepository {
     );
   }
 
+  Future<(int count, double days)> savedCardsSummaryThisWeek({
+    DateTime? now,
+  }) {
+    final current = now ?? DateTime.now();
+    final start = DateTime(current.year, current.month, current.day)
+        .subtract(const Duration(days: 6));
+    return _savedCardsSummarySince(start);
+  }
+
+  Future<(int count, double days)> savedCardsSummaryThisMonth({
+    DateTime? now,
+  }) {
+    final current = now ?? DateTime.now();
+    final start = DateTime(current.year, current.month);
+    return _savedCardsSummarySince(start);
+  }
+
+  Future<(int count, double days)> _savedCardsSummarySince(DateTime start) async {
+    final savedStatuses = CrushStatus.values
+        .where((status) => status.countsAsSaved)
+        .map((status) => status.name);
+    final query = _database.select(_database.crushCards)
+      ..where(
+        (table) =>
+            table.status.isIn(savedStatuses) &
+            table.updatedAt.isBiggerOrEqualValue(start),
+      );
+    final rows = await query.get();
+    final days = rows.fold<double>(
+      0,
+      (sum, row) => sum + row.daysOfWageSnapshot,
+    );
+    return (rows.length, days);
+  }
+
   CrushCard _toDomain(CrushCardData row) {
     return CrushCard(
       id: row.id,

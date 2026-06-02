@@ -471,4 +471,89 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get saveCardTemplateSkipped => 'Đã không mua';
+
+  @override
+  String cardPayday(String days) {
+    return 'Lương về rồi.\nVẫn còn mê $days ngày đi làm này không?';
+  }
+
+  @override
+  String cardAntiHaulCelebration(int count, String days) {
+    return 'Tôi đã không mua $count món.\n+$days ngày lương còn sống.';
+  }
+
+  @override
+  String get saveCardTemplatePayday => 'Ngày lương';
+
+  @override
+  String get saveCardTemplateAntiHaulCelebration => 'Ăn mừng anti-haul';
+
+  @override
+  String get crushEditorMoodLabel => 'Tâm trạng lúc này';
+
+  @override
+  String get moodExcited => 'Hào hứng';
+
+  @override
+  String get moodBored => 'Chán chán';
+
+  @override
+  String get moodStressed => 'Căng thẳng';
+
+  @override
+  String get moodHappy => 'Vui';
+
+  @override
+  String get moodTired => 'Mệt';
+
+  @override
+  String get moodNeutral => 'Bình thường';
+
+  @override
+  String get moodImpulsive => 'Bốc đồng';
+
+  @override
+  String fomoRecallReason(int n, String reason) {
+    return '$n ngày trước bạn muốn mua vì: "${reason}". Giờ còn mê không?';
+  }
+
+  @override
+  String get notiRecallPool1 => 'Mở app xem lại.';
+
+  @override
+  String get notiRecallPool2 => 'Cho mình thêm một nhịp dừng nhé.';
+
+  @override
+  String get notiRecallPool3 => 'Giờ còn mê không?';
+
+  @override
+  String get notiRecallPool4 => 'Mở app xem cảm giác còn như cũ không.';
+
+  @override
+  String antihaulWeekly(int count, String days) {
+    return 'Tuần này bạn đã hết mê $count món. +$days ngày lương còn sống.';
+  }
+
+  @override
+  String antihaulMonthly(int count, String days) {
+    return 'Tháng này bạn đã hết mê $count món. +$days ngày lương còn sống.';
+  }
+
+  @override
+  String get paydayPromptTitle =>
+      'Lương vừa về. Có món nào đang chờ bạn mua không?';
+
+  @override
+  String get paydayBannerAction => 'Xem Crush';
+
+  @override
+  String mascotSawDaysFly(String days) {
+    return 'Tôi vừa thấy $days ngày lương bay qua cửa sổ.';
+  }
+
+  @override
+  String get mascotSurvived => 'Tôi sống rồi.';
+
+  @override
+  String get settingsMascotTitle => 'Bật mascot ví';
 }

@@ -136,6 +136,10 @@ class _TemplatePicker extends StatelessWidget {
         return l10n.saveCardTemplateOnSale;
       case SaveCardTemplate.skipped:
         return l10n.saveCardTemplateSkipped;
+      case SaveCardTemplate.payday:
+        return l10n.saveCardTemplatePayday;
+      case SaveCardTemplate.antiHaulCelebration:
+        return l10n.saveCardTemplateAntiHaulCelebration;
     }
   }
 }
@@ -229,6 +233,10 @@ class _CardCanvas extends StatelessWidget {
         return l10n.cardOnSale(pctText, daysText);
       case SaveCardTemplate.skipped:
         return l10n.cardSkipped(daysText);
+      case SaveCardTemplate.payday:
+        return l10n.cardPayday(daysText);
+      case SaveCardTemplate.antiHaulCelebration:
+        return l10n.cardAntiHaulCelebration(input.savedCount ?? 0, daysText);
     }
   }
 
@@ -240,6 +248,10 @@ class _CardCanvas extends StatelessWidget {
         return AppColors.surfaceAltDark;
       case SaveCardTemplate.skipped:
         return AppColors.positive;
+      case SaveCardTemplate.payday:
+        return AppColors.primary;
+      case SaveCardTemplate.antiHaulCelebration:
+        return AppColors.accentDark;
     }
   }
 
@@ -248,6 +260,8 @@ class _CardCanvas extends StatelessWidget {
       case SaveCardTemplate.sleepOnIt:
       case SaveCardTemplate.onSale:
       case SaveCardTemplate.skipped:
+      case SaveCardTemplate.payday:
+      case SaveCardTemplate.antiHaulCelebration:
         return Colors.white;
     }
   }

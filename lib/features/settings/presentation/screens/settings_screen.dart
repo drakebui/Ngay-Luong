@@ -49,6 +49,12 @@ class SettingsScreen extends ConsumerWidget {
             value: state.notiDetailMode,
             onChanged: controller.setNotiDetailMode,
           ),
+          SwitchListTile(
+            secondary: const Icon(Icons.savings_outlined),
+            title: Text(l10n.settingsMascotTitle),
+            value: state.mascotEnabled,
+            onChanged: controller.setMascotEnabled,
+          ),
           ListTile(
             leading: const Icon(Icons.color_lens_outlined),
             title: Text(l10n.settingsTheme),

@@ -4,6 +4,25 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 
 ---
 
+## 2026-06-02 — Phase 2 Gen Z Layer
+
+### Hoàn thành: P2f + P2d + P2c/P2g + P2a + P2b + P2e
+
+**Đã làm:**
+- Thêm Save Card template `payday` và `antiHaulCelebration`, kèm điều kiện hiển thị theo `savedCount`.
+- Thêm Mood Check enum/domain, chip chọn mood trong Crush Editor, và hiển thị mood ở Still Crushing.
+- Thêm notification copy pool deterministic + FOMO recall và channel metadata cho scheduled notifications.
+- Thêm RecapNotificationService cho weekly/monthly anti-haul và salary-day notification, kèm summary repository methods và SharedPreferences keys.
+- Thêm Salary Day banner trên Home và toggle Mascot ví trong Settings.
+- Thêm mascot snackbar overlay sau quyết định over-it/bought khi toggle bật.
+- Đồng bộ copy ARB/l10n/docs và bổ sung tests cho logic mới.
+
+**Kết quả:**
+- `git diff --check`: OK.
+- Không chạy được Flutter/Dart checks nếu SDK không có trong container.
+
+---
+
 ## 2026-06-02 — Session 18
 
 ### Hoàn thành: M2a + M2b — Income secure storage + onboarding visual
