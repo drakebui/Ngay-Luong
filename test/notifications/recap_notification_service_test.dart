@@ -141,19 +141,19 @@ void main() {
       status: CrushStatus.overIt,
       days: 1.5,
       updatedAt: DateTime(2026, 6, 1),
-    ));
+    ),);
     await repository.insertCard(_card(
       id: 'month-saved',
       status: CrushStatus.skipped,
       days: 2,
       updatedAt: DateTime(2026, 5, 20),
-    ));
+    ),);
     await repository.insertCard(_card(
       id: 'pending',
       status: CrushStatus.sleepOnIt,
       days: 9,
       updatedAt: DateTime(2026, 6, 1),
-    ));
+    ),);
 
     final week = await repository.savedCardsSummaryThisWeek(
       now: DateTime(2026, 6, 2),

@@ -55,7 +55,7 @@ class SalaryDayBanner extends ConsumerWidget {
                 onPressed: () async {
                   await repo.setSalaryDayBannerDismissedMonth(monthKey);
                   ref.read(settingsControllerProvider.notifier).refresh();
-                  if (context.mounted) context.push(Routes.crush);
+                  if (context.mounted) await context.push(Routes.crush);
                 },
                 child: Text(l10n.paydayBannerAction),
               ),

@@ -17,9 +17,17 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 - Thêm mascot snackbar overlay sau quyết định over-it/bought khi toggle bật.
 - Đồng bộ copy ARB/l10n/docs và bổ sung tests cho logic mới.
 
+**Files thêm mới (9):** `crush_mood.dart`, `notification_copy.dart`, `recap_notification_service.dart`, `mascot_overlay.dart`, `salary_day_banner.dart`, `crush_mood_test.dart`, `mascot_overlay_test.dart`, `notification_copy_test.dart`, `recap_notification_service_test.dart`, `salary_day_banner_test.dart`, `save_card_template_p2_test.dart`
+
 **Kết quả:**
 - `git diff --check`: OK.
-- Không chạy được Flutter/Dart checks nếu SDK không có trong container.
+- CI GitHub Actions xác nhận kết quả (không có Flutter SDK trong container Codex).
+
+---
+
+## 2026-06-02 — Tình trạng dự án trước Phase 2 (tham khảo)
+
+### MVP M0–M9 + Midnight Matcha: ✅ Hoàn thành toàn bộ (CI run #30, commit `b69ed9d`)
 
 ---
 

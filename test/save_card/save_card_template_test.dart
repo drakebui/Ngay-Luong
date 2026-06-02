@@ -17,8 +17,8 @@ void main() {
     expect(input.defaultTemplate(), SaveCardTemplate.sleepOnIt);
   });
 
-  test('three templates exist in the enum', () {
-    expect(SaveCardTemplate.values.length, 3);
+  test('five templates exist in the enum (3 MVP + 2 Phase 2)', () {
+    expect(SaveCardTemplate.values.length, 5);
   });
 
   test('availableTemplates excludes onSale when no real percent', () {
