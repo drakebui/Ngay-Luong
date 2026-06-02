@@ -9,9 +9,12 @@ import 'package:ngay_luong/core/theme/app_spacing.dart';
 import 'package:ngay_luong/core/utils/formatters.dart';
 import 'package:ngay_luong/core/widgets/hero_number_view.dart';
 import 'package:ngay_luong/features/crush/domain/crush_models.dart';
+import 'package:ngay_luong/features/crush/domain/crush_mood.dart';
 import 'package:ngay_luong/features/crush/domain/remind_at_calculator.dart';
 import 'package:ngay_luong/features/crush/presentation/controllers/still_crushing_actions.dart';
 import 'package:ngay_luong/features/crush/presentation/providers/crush_providers.dart';
+import 'package:ngay_luong/features/crush/presentation/widgets/mascot_overlay.dart';
+import 'package:ngay_luong/features/settings/presentation/providers/settings_provider.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
 import 'package:ngay_luong/l10n/app_localizations.dart';
 
@@ -56,6 +59,7 @@ class _StillCrushingBodyState extends ConsumerState<_StillCrushingBody> {
   Future<void> _runAction(
     Future<void> Function(StillCrushingActions) run, {
     String? successMessage,
+    bool? mascotSurvived,
   }) async {
     if (_isSaving) return;
     setState(() => _isSaving = true);
@@ -74,6 +78,14 @@ class _StillCrushingBodyState extends ConsumerState<_StillCrushingBody> {
         if (successMessage != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(successMessage)),
+          );
+        }
+        if (mascotSurvived != null &&
+            ref.read(settingsControllerProvider).mascotEnabled) {
+          showMascotOverlay(
+            context,
+            days: widget.card.daysOfWageSnapshot,
+            isSurvived: mascotSurvived,
           );
         }
         context.go(Routes.calendar);
@@ -177,6 +189,7 @@ class _StillCrushingBodyState extends ConsumerState<_StillCrushingBody> {
     final card = widget.card;
     final name = card.name?.trim();
     final daysSinceCreated = _daysSince(card.createdAt);
+    final mood = crushMoodFromName(card.mood);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(
@@ -219,6 +232,14 @@ class _StillCrushingBodyState extends ConsumerState<_StillCrushingBody> {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
+          if (mood != null) ...[
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              '${mood.icon} ${mood.label}',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
           const SizedBox(height: AppSpacing.xxl),
           Text(
             l10n.stillScreenQuestion,
@@ -238,11 +259,15 @@ class _StillCrushingBodyState extends ConsumerState<_StillCrushingBody> {
                   card.daysOfWageSnapshot,
                 ).replaceAll(' ngày', ''),
               ),
+              mascotSurvived: true,
             ),
             onWaitingForSale: () => _runAction(
               (actions) => actions.waitingForSale(card),
             ),
-            onBought: () => _runAction((actions) => actions.bought(card)),
+            onBought: () => _runAction(
+              (actions) => actions.bought(card),
+              mascotSurvived: false,
+            ),
             onRemindAgain: _remindAgain,
             onDelete: () => _runAction((actions) => actions.delete(card)),
           ),

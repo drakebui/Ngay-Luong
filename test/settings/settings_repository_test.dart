@@ -6,7 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  Future<SettingsRepository> makeRepo([Map<String, Object> initial = const {}]) async {
+  Future<SettingsRepository> makeRepo([
+    Map<String, Object> initial = const {},
+  ]) async {
     SharedPreferences.setMockInitialValues(initial);
     final prefs = await SharedPreferences.getInstance();
     return SettingsRepository(prefs);
@@ -19,6 +21,9 @@ void main() {
     expect(repo.themeMode, ThemeMode.system);
     expect(repo.paydayDay, SettingsRepository.defaultPaydayDay);
     expect(repo.mascotEnabled, false);
+    expect(repo.antihaulMonthlyScheduledMonth, 0);
+    expect(repo.salaryDayNotifScheduledMonth, 0);
+    expect(repo.salaryDayBannerDismissedMonth, 0);
   });
 
   test('toggle app lock persists', () async {
@@ -55,6 +60,9 @@ void main() {
       'payday_day': 20,
       'mascot_enabled': true,
       'onboarding_done': true,
+      'antihaul_monthly_scheduled_month': 202606,
+      'salary_day_notif_scheduled_month': 202606,
+      'salary_day_banner_dismissed_month': 202606,
     });
     expect(repo.appLockEnabled, true);
     await repo.resetAll();
@@ -63,5 +71,8 @@ void main() {
     expect(repo.themeMode, ThemeMode.system);
     expect(repo.paydayDay, SettingsRepository.defaultPaydayDay);
     expect(repo.mascotEnabled, false);
+    expect(repo.antihaulMonthlyScheduledMonth, 0);
+    expect(repo.salaryDayNotifScheduledMonth, 0);
+    expect(repo.salaryDayBannerDismissedMonth, 0);
   });
 }

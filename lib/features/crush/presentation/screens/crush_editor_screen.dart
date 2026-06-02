@@ -9,6 +9,7 @@ import 'package:ngay_luong/core/theme/app_spacing.dart';
 import 'package:ngay_luong/core/utils/formatters.dart';
 import 'package:ngay_luong/core/widgets/hero_number_view.dart';
 import 'package:ngay_luong/features/crush/domain/crush_models.dart';
+import 'package:ngay_luong/features/crush/domain/crush_mood.dart';
 import 'package:ngay_luong/features/crush/domain/remind_at_calculator.dart';
 import 'package:ngay_luong/features/crush/presentation/providers/crush_providers.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
@@ -59,6 +60,7 @@ class _CrushEditorScreenState extends ConsumerState<CrushEditorScreen> {
 
   CrushCard? _loadedCard;
   CrushReason? _selectedReason;
+  CrushMood? _selectedMood;
   ReminderPreset _selectedPreset = ReminderPreset.after24h;
   DateTime? _customRemindAt;
   XFile? _pickedImage;
@@ -106,6 +108,7 @@ class _CrushEditorScreenState extends ConsumerState<CrushEditorScreen> {
       _loadedCard = card;
       _existingImagePath = card.imagePath;
       _selectedReason = card.reason;
+      _selectedMood = crushMoodFromName(card.mood);
       _nameController.text = card.name ?? '';
       _priceController.text =
           AppFormatters.formatMoney(card.price).replaceAll('đ', '');
@@ -208,7 +211,7 @@ class _CrushEditorScreenState extends ConsumerState<CrushEditorScreen> {
             ? existing!.pctOfMonthlyIncomeSnapshot
             : args.pctOfMonthlyIncome,
         reason: _selectedReason,
-        mood: existing?.mood,
+        mood: _selectedMood?.name,
         note: existing?.note,
         status: isEditing ? existing!.status : args.initialStatus,
         createdAt: existing?.createdAt ?? now,
@@ -351,6 +354,12 @@ class _CrushEditorScreenState extends ConsumerState<CrushEditorScreen> {
             title: l10n.fomoQuestion,
             selectedReason: _selectedReason,
             onSelected: (reason) => setState(() => _selectedReason = reason),
+          ),
+          const SizedBox(height: AppSpacing.base),
+          _MoodChips(
+            title: l10n.crushEditorMoodLabel,
+            selectedMood: _selectedMood,
+            onSelected: (mood) => setState(() => _selectedMood = mood),
           ),
           const SizedBox(height: AppSpacing.xxl),
           // ── Mốc nhắc ─────────────────────────────
@@ -581,6 +590,42 @@ class _ReasonChips extends StatelessWidget {
                   label: Text(reason.label),
                   selected: selectedReason == reason,
                   onSelected: (_) => onSelected(reason),
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    );
+  }
+}
+
+class _MoodChips extends StatelessWidget {
+  const _MoodChips({
+    required this.title,
+    required this.selectedMood,
+    required this.onSelected,
+  });
+
+  final String title;
+  final CrushMood? selectedMood;
+  final ValueChanged<CrushMood> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _SectionLabel(title),
+        const SizedBox(height: AppSpacing.sm),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: CrushMood.values
+              .map(
+                (mood) => ChoiceChip(
+                  label: Text('${mood.icon} ${mood.label}'),
+                  selected: selectedMood == mood,
+                  onSelected: (_) => onSelected(mood),
                 ),
               )
               .toList(),
