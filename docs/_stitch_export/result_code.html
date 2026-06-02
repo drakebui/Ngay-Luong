@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ngày Lương - Kết Quả</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#4b6454",
+                        "on-primary-fixed-variant": "#274e3d",
+                        "surface": "#f4fafd",
+                        "secondary-fixed": "#cde9d5",
+                        "primary": "#012d1d",
+                        "on-tertiary-fixed-variant": "#3f4945",
+                        "tertiary-fixed-dim": "#bfc9c3",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2b3234",
+                        "surface-container-high": "#e2e9ec",
+                        "on-background": "#161d1f",
+                        "surface-tint": "#3f6653",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#4f6858",
+                        "surface-dim": "#d4dbdd",
+                        "tertiary-fixed": "#dbe5df",
+                        "on-secondary-fixed-variant": "#344c3d",
+                        "secondary-container": "#cbe7d2",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#b2cdb9",
+                        "on-tertiary-container": "#9fa9a3",
+                        "on-surface-variant": "#414844",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f4fafd",
+                        "surface-container-highest": "#dde4e6",
+                        "outline-variant": "#c1c8c2",
+                        "tertiary-container": "#353e3a",
+                        "tertiary": "#1f2825",
+                        "inverse-primary": "#a5d0b9",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#151d1a",
+                        "on-primary-fixed": "#002114",
+                        "surface-variant": "#dde4e6",
+                        "on-primary-container": "#86af99",
+                        "on-surface": "#161d1f",
+                        "surface-container-low": "#eef5f7",
+                        "surface-container": "#e8eff1",
+                        "surface-bright": "#f4fafd",
+                        "primary-fixed-dim": "#a5d0b9",
+                        "inverse-on-surface": "#ebf2f4",
+                        "on-secondary-fixed": "#082013",
+                        "primary-container": "#1b4332",
+                        "outline": "#717973",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#c1ecd4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "lg": "48px",
+                        "sm": "12px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Be Vietnam Pro"],
+                        "headline-lg-mobile": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl docked full-width top-0 bg-transparent flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky top-0 z-50">
+<div class="flex items-center gap-sm cursor-pointer hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-full p-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-label-md text-label-md">
+                ND
+            </div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary dark:text-inverse-primary tracking-tighter text-primary dark:text-inverse-primary">Ngày Lương</h1>
+<div class="cursor-pointer hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-full p-2 text-primary dark:text-inverse-primary">
+<span class="material-symbols-outlined text-[28px]" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow pb-32 px-margin-mobile md:px-margin-desktop flex flex-col items-center pt-8">
+<!-- Hero Section -->
+<div class="relative w-full max-w-md flex justify-center mb-12">
+<!-- Decorative Background Element -->
+<div class="absolute inset-0 bg-secondary-container rounded-full opacity-40 blur-3xl scale-125 z-0"></div>
+<div class="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full bg-surface-container-lowest shadow-[0_20px_40px_rgba(1,45,29,0.08)] border border-outline-variant/30 flex items-center justify-center overflow-hidden p-6">
+<img alt="Premium noise-canceling headphones resting on a soft textured surface. The lighting is soft and natural, emphasizing the sleek, modern design and high-quality materials of the headphones. The aesthetic is clean, minimalist, and aligns with a calming, organic lifestyle theme, featuring subtle sage green and neutral gray undertones." class="w-full h-full object-cover rounded-full hover:scale-105 transition-transform duration-700 ease-in-out" data-alt="Premium noise-canceling headphones resting on a soft textured surface. The lighting is soft and natural, emphasizing the sleek, modern design and high-quality materials of the headphones. The aesthetic is clean, minimalist, and aligns with a calming, organic lifestyle theme, featuring subtle sage green and neutral gray undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVGU1WEC1t9qk19wtrgZZghRO9WDiRHv_aEiU02tx-_1Hr-YVWnYLxrWs6GGqGUj2y4yPZyLptUA-OwoyPC9pAPI3OaZvqaYnGwL2Hs407P8dwAFZY3QlHA42HrYdyybaw5x5A_ZoluqoDdfPS_ATiGFk3W49RuuBCXJJ8s6igBUlPyT2skGkX0K1Wzti4hy-tpGkHHVWUvC042ktc08AwqPrXRy-IhzSK3vvvBYWTbhnEkFwlzXEnTFGhVCC95Cq4smjnHV3BtABE"/>
+</div>
+</div>
+<!-- Conversion Result -->
+<div class="w-full max-w-md text-center mb-12">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">THỜI GIAN QUY ĐỔI</p>
+<h2 class="font-headline-xl text-headline-xl text-primary mb-4">4,4 ngày</h2>
+<p class="font-body-md text-body-md text-on-surface-variant px-4">Bạn cần làm việc 4,4 ngày để sở hữu chiếc tai nghe này.</p>
+</div>
+<!-- Info Cards Bento Grid -->
+<div class="w-full max-w-md grid grid-cols-2 gap-4 mb-12">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_8px_24px_rgba(1,45,29,0.04)] border border-outline-variant/30 flex flex-col items-center justify-center text-center hover:-translate-y-1 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary mb-2 text-[32px]" data-icon="schedule" style="font-variation-settings: 'FILL' 1;">schedule</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Giờ làm việc</p>
+<p class="font-headline-md text-headline-md text-on-background">35,2h</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_8px_24px_rgba(1,45,29,0.04)] border border-outline-variant/30 flex flex-col items-center justify-center text-center hover:-translate-y-1 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary mb-2 text-[32px]" data-icon="fitness_center" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Nỗ lực bỏ ra</p>
+<p class="font-headline-md text-headline-md text-on-background">Vừa đủ</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="w-full max-w-md flex flex-col gap-4">
+<button class="w-full py-4 rounded-full bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-colors flex items-center justify-center gap-2 shadow-[0_8px_16px_rgba(27,67,50,0.2)]">
+<span class="material-symbols-outlined" data-icon="bookmark_add">bookmark_add</span>
+                Lưu vào Wishlist
+            </button>
+<button class="w-full py-4 rounded-full bg-transparent text-primary font-label-md text-label-md border-2 border-primary-container hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+                Tính món khác
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-2xl fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] rounded-lg shadow-lg border border-outline-variant/30 dark:border-outline/20 fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center max-w-md mx-auto p-2 md:hidden">
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg px-6 py-2 hover:text-primary dark:hover:text-inverse-primary group">
+<span class="material-symbols-outlined text-[24px] mb-1 group-hover:scale-110 transition-transform" data-icon="calculate" style="font-variation-settings: 'FILL' 1;">calculate</span>
+<span class="font-label-sm text-label-sm">Tính toán</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-6 py-2 hover:text-primary dark:hover:text-inverse-primary group">
+<span class="material-symbols-outlined text-[24px] mb-1 group-hover:scale-110 transition-transform" data-icon="favorite">favorite</span>
+<span class="font-label-sm text-label-sm">Mơ ước</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-6 py-2 hover:text-primary dark:hover:text-inverse-primary group">
+<span class="material-symbols-outlined text-[24px] mb-1 group-hover:scale-110 transition-transform" data-icon="payments">payments</span>
+<span class="font-label-sm text-label-sm">Ví tiền</span>
+</button>
+</nav>
+<!-- Desktop Navigation (Hidden on Mobile, Visible on Desktop) -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-64 bg-surface-container-lowest border-r border-outline-variant/30 z-40 pt-24 px-4">
+<div class="flex flex-col gap-2">
+<button class="flex items-center gap-4 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 w-full text-left transition-colors">
+<span class="material-symbols-outlined" data-icon="calculate" style="font-variation-settings: 'FILL' 1;">calculate</span>
+<span class="font-label-md text-label-md">Tính toán</span>
+</button>
+<button class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 w-full text-left transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-md text-label-md">Mơ ước</span>
+</button>
+<button class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 w-full text-left transition-colors">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Ví tiền</span>
+</button>
+</div>
+</nav>
+</body></html>

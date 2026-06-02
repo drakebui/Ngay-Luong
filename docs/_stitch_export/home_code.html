@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ngày Lương - Tính toán</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#4b6454",
+                    "on-primary-fixed-variant": "#274e3d",
+                    "surface": "#f4fafd",
+                    "secondary-fixed": "#cde9d5",
+                    "primary": "#012d1d",
+                    "on-tertiary-fixed-variant": "#3f4945",
+                    "tertiary-fixed-dim": "#bfc9c3",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2b3234",
+                    "surface-container-high": "#e2e9ec",
+                    "on-background": "#161d1f",
+                    "surface-tint": "#3f6653",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#4f6858",
+                    "surface-dim": "#d4dbdd",
+                    "tertiary-fixed": "#dbe5df",
+                    "on-secondary-fixed-variant": "#344c3d",
+                    "secondary-container": "#cbe7d2",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#b2cdb9",
+                    "on-tertiary-container": "#9fa9a3",
+                    "on-surface-variant": "#414844",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f4fafd",
+                    "surface-container-highest": "#dde4e6",
+                    "outline-variant": "#c1c8c2",
+                    "tertiary-container": "#353e3a",
+                    "tertiary": "#1f2825",
+                    "inverse-primary": "#a5d0b9",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#151d1a",
+                    "on-primary-fixed": "#002114",
+                    "surface-variant": "#dde4e6",
+                    "on-primary-container": "#86af99",
+                    "on-surface": "#161d1f",
+                    "surface-container-low": "#eef5f7",
+                    "surface-container": "#e8eff1",
+                    "surface-bright": "#f4fafd",
+                    "primary-fixed-dim": "#a5d0b9",
+                    "inverse-on-surface": "#ebf2f4",
+                    "on-secondary-fixed": "#082013",
+                    "primary-container": "#1b4332",
+                    "outline": "#717973",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#c1ecd4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "md": "24px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "xl": "80px",
+                    "lg": "48px",
+                    "sm": "12px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "headline-md": [
+                            "Be Vietnam Pro"
+                    ],
+                    "headline-lg-mobile": [
+                            "Be Vietnam Pro"
+                    ],
+                    "label-md": [
+                            "Be Vietnam Pro"
+                    ],
+                    "body-lg": [
+                            "Be Vietnam Pro"
+                    ],
+                    "body-md": [
+                            "Be Vietnam Pro"
+                    ],
+                    "label-sm": [
+                            "Be Vietnam Pro"
+                    ],
+                    "headline-xl": [
+                            "Be Vietnam Pro"
+                    ],
+                    "headline-lg": [
+                            "Be Vietnam Pro"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-xl": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar to maintain clean aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #dde4e6;
+            border-radius: 10px;
+        }
+        /* Remove arrows from number input */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-background font-body-md min-h-screen flex flex-col relative antialiased">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 py-4 sticky top-0 z-50 bg-surface/80 backdrop-blur-xl transition-all duration-300" id="top-bar">
+<!-- Leading Avatar -->
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shadow-sm border border-secondary-container/50">
+<span class="material-symbols-outlined text-lg" data-icon="person">person</span>
+</div>
+<!-- Headline -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary tracking-tighter select-none">
+            Ngày Lương
+        </h1>
+<!-- Trailing Icon -->
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-container-high transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-6 pt-2 pb-32 flex flex-col gap-8 max-w-lg mx-auto w-full">
+<!-- Hero Card (Bento Grid Style) -->
+<section class="relative w-full h-56 rounded-3xl overflow-hidden shadow-sm border border-outline-variant/30 group animate-fade-in-up">
+<!-- Background Image -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A minimalist flat-lay photograph of a pristine white desk setup bathed in soft morning light. The composition features abstract geometric shapes in muted sage greens, a sleek metallic pen, and subtle shadows from a nearby plant. The overall mood is calm, organized, and focused on future planning, perfectly matching a premium light-mode corporate aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCFKQ0wDaQs7EZm6cMkB3SEtHfaqGvwzXdyIdf1Yqmbj6mtn_mG-EjP7aZGYeBlLBSmEGvVXSptrgKozcdHpT70ZzG_f8qwatJrPftEJPDvYSAcTDBnjsqcImU18NM9arQiGF9mWUXo4-3enP6KFb1Qm5nR0ECdrUHl6XFI1uem8Rihi1vpwBgk4mVeHQuO9ZeosWQ8sjm4VqU9GAP5MScpFdGAJrJdSsqqRfbNhm39lFtXImUJkLRcfjfNelbABP4zoHjAaX-YJPf7');">
+</div>
+<!-- Glassmorphism Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent"></div>
+<!-- Content -->
+<div class="absolute bottom-0 left-0 p-6 w-full">
+<div class="inline-flex items-center gap-1.5 bg-surface/20 backdrop-blur-md px-3 py-1 rounded-full border border-surface/30 mb-3">
+<span class="material-symbols-outlined text-xs text-on-primary" data-icon="auto_awesome" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-label-sm text-on-primary uppercase tracking-widest">Mục tiêu mới</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-primary tracking-tight">Xây dựng tương lai</h2>
+</div>
+</section>
+<!-- Input Forms Area -->
+<section class="flex flex-col gap-6 w-full">
+<!-- Text Input: Goal -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-2" for="goal-input">Mục tiêu của bạn</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-2xl px-5 py-4 font-body-lg text-body-lg text-on-surface placeholder:text-outline focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] transition-all duration-300" id="goal-input" placeholder="Tên món đồ..." type="text"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 text-outline-variant group-focus-within:text-primary transition-colors pointer-events-none">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</div>
+</div>
+</div>
+<!-- Numeric Input: Price -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-2" for="price-input">Giá trị</label>
+<div class="relative group">
+<div class="absolute left-5 top-1/2 -translate-y-1/2 flex items-center justify-center">
+<span class="font-headline-md text-headline-md text-primary font-semibold">₫</span>
+</div>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-2xl pl-12 pr-5 py-4 font-headline-lg-mobile text-headline-lg-mobile text-primary placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] transition-all duration-300 tracking-tight" id="price-input" placeholder="0" type="number"/>
+</div>
+</div>
+</section>
+<!-- Primary Action Button -->
+<div class="mt-auto pt-6 pb-4">
+<button class="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-4 rounded-full shadow-[0_8px_20px_-8px_rgba(27,67,50,0.5)] hover:shadow-[0_12px_24px_-8px_rgba(27,67,50,0.6)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 ease-out flex justify-center items-center gap-2 group relative overflow-hidden">
+<span class="relative z-10">Tính toán ngay</span>
+<span class="material-symbols-outlined relative z-10 group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+<!-- Subtle hover glow effect -->
+<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-surface/90 backdrop-blur-2xl rounded-2xl border border-outline-variant/30 shadow-lg z-50 p-2 flex justify-around items-center">
+<!-- Active Tab: Tính toán -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl w-24 py-2 scale-95 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined mb-1" data-icon="calculate" data-weight="fill" style="font-variation-settings: 'FILL' 1;">calculate</span>
+<span class="font-label-sm text-label-sm">Tính toán</span>
+</button>
+<!-- Inactive Tab: Mơ ước -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-24 py-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined mb-1 group-hover:-translate-y-0.5 transition-transform" data-icon="favorite">favorite</span>
+<span class="font-label-sm text-label-sm">Mơ ước</span>
+</button>
+<!-- Inactive Tab: Ví tiền -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-24 py-2 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined mb-1 group-hover:-translate-y-0.5 transition-transform" data-icon="payments">payments</span>
+<span class="font-label-sm text-label-sm">Ví tiền</span>
+</button>
+</nav>
+<!-- Lightweight JS for micro-interactions (Top Bar shadow on scroll) -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const topBar = document.getElementById('top-bar');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    topBar.classList.add('shadow-sm', 'border-b', 'border-outline-variant/20');
+                } else {
+                    topBar.classList.remove('shadow-sm', 'border-b', 'border-outline-variant/20');
+                }
+            });
+        });
+    </script>
+</body></html>

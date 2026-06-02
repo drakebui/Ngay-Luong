@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thiết lập thu nhập - Ngày Lương</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Brand Anchors -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#4b6454",
+                        "on-primary-fixed-variant": "#274e3d",
+                        "surface": "#f4fafd",
+                        "secondary-fixed": "#cde9d5",
+                        "primary": "#012d1d",
+                        "on-tertiary-fixed-variant": "#3f4945",
+                        "tertiary-fixed-dim": "#bfc9c3",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2b3234",
+                        "surface-container-high": "#e2e9ec",
+                        "on-background": "#161d1f",
+                        "surface-tint": "#3f6653",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#4f6858",
+                        "surface-dim": "#d4dbdd",
+                        "tertiary-fixed": "#dbe5df",
+                        "on-secondary-fixed-variant": "#344c3d",
+                        "secondary-container": "#cbe7d2",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#b2cdb9",
+                        "on-tertiary-container": "#9fa9a3",
+                        "on-surface-variant": "#414844",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f4fafd",
+                        "surface-container-highest": "#dde4e6",
+                        "outline-variant": "#c1c8c2",
+                        "tertiary-container": "#353e3a",
+                        "tertiary": "#1f2825",
+                        "inverse-primary": "#a5d0b9",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#151d1a",
+                        "on-primary-fixed": "#002114",
+                        "surface-variant": "#dde4e6",
+                        "on-primary-container": "#86af99",
+                        "on-surface": "#161d1f",
+                        "surface-container-low": "#eef5f7",
+                        "surface-container": "#e8eff1",
+                        "surface-bright": "#f4fafd",
+                        "primary-fixed-dim": "#a5d0b9",
+                        "inverse-on-surface": "#ebf2f4",
+                        "on-secondary-fixed": "#082013",
+                        "primary-container": "#1b4332",
+                        "outline": "#717973",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#c1ecd4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "lg": "48px",
+                        "sm": "12px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Be Vietnam Pro"],
+                        "headline-lg-mobile": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for an organic feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4fafd; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dde4e6; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c1c8c2; 
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-sans antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar JSON Translation -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl docked full-width top-0 bg-transparent flat no shadows flex justify-between items-center w-full px-container-padding py-4 sticky top-0 z-50 transition-all duration-300 px-margin-mobile md:px-margin-desktop">
+<!-- Leading Avatar -->
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant/30 overflow-hidden shrink-0 cursor-pointer hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+</div>
+<!-- Headline / Brand -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary dark:text-inverse-primary tracking-tighter absolute left-1/2 -translate-x-1/2">
+            Ngày Lương
+        </h1>
+<!-- Trailing Icon -->
+<button class="flex items-center justify-center w-10 h-10 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors shrink-0">
+<span class="material-symbols-outlined text-[24px]" data-icon="settings">settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<!-- Navigation Bottom shell is suppressed here because this is a transactional "Setup" focus screen -->
+<main class="flex-grow flex flex-col items-center w-full max-w-lg mx-auto px-margin-mobile md:px-0 py-lg gap-lg">
+<!-- Header Section -->
+<section class="text-center w-full flex flex-col gap-sm">
+<h2 class="font-headline-xl text-headline-xl text-primary px-sm">Thiết lập thu nhập của bạn</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm mx-auto">Thông tin này chỉ dùng để tính toán giá trị thời gian của bạn.</p>
+</section>
+<!-- Form Section -->
+<section class="w-full flex flex-col gap-md">
+<!-- Input Group: Monthly Income -->
+<div class="flex flex-col gap-xs group">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider ml-sm group-focus-within:text-primary transition-colors">THU NHẬP HÀNG THÁNG</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-4 font-body-lg text-body-lg text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all shadow-sm group-focus-within:shadow-md" inputmode="numeric" type="text" value="25.000.000"/>
+<span class="absolute right-md font-body-lg text-body-lg text-outline">₫</span>
+</div>
+</div>
+<!-- Grid for Days and Hours -->
+<div class="grid grid-cols-2 gap-md">
+<!-- Input Group: Days per month -->
+<div class="flex flex-col gap-xs group">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider ml-sm group-focus-within:text-primary transition-colors">SỐ NGÀY LÀM VIỆC/THÁNG</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-4 font-body-lg text-body-lg text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all shadow-sm group-focus-within:shadow-md" type="number" value="22"/>
+<span class="absolute right-md font-body-lg text-body-lg text-outline">ngày</span>
+</div>
+</div>
+<!-- Input Group: Hours per day -->
+<div class="flex flex-col gap-xs group">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider ml-sm group-focus-within:text-primary transition-colors">SỐ GIỜ LÀM VIỆC/NGÀY</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-xl px-md py-4 font-body-lg text-body-lg text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all shadow-sm group-focus-within:shadow-md" type="number" value="8"/>
+<span class="absolute right-md font-body-lg text-body-lg text-outline">giờ</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Highlighted Result Card (Vessel) -->
+<section class="w-full mt-sm">
+<div class="relative bg-primary-container rounded-xl p-[32px] overflow-hidden shadow-[0_8px_32px_rgba(1,45,29,0.15)] border border-primary/20 flex flex-col items-center justify-center text-center group transition-transform duration-300 hover:scale-[1.02]">
+<!-- Atmospheric Background Pattern -->
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary-fixed via-transparent to-transparent pointer-events-none"></div>
+<div class="absolute -bottom-10 -left-10 w-32 h-32 bg-primary rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-sm items-center">
+<div class="flex items-center gap-xs text-on-primary-container/80">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="font-label-md text-label-md uppercase tracking-widest">GIÁ TRỊ 1 GIỜ CỦA BẠN</span>
+</div>
+<div class="font-headline-xl text-headline-xl text-on-primary-container flex items-baseline gap-xs">
+<span>142.045</span>
+<span class="font-headline-md text-headline-md opacity-80">₫</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Spacer to push button down if needed -->
+<div class="flex-grow"></div>
+<!-- Sticky Action Button Area -->
+<section class="w-full sticky bottom-margin-mobile pt-md bg-gradient-to-t from-background via-background to-transparent pb-margin-mobile z-40">
+<button class="w-full bg-primary text-on-primary rounded-full py-4 px-lg font-label-md text-label-md flex justify-center items-center gap-sm shadow-[0_4px_16px_rgba(1,45,29,0.2)] hover:shadow-[0_6px_24px_rgba(1,45,29,0.3)] hover:-translate-y-1 transition-all duration-300 active:translate-y-0 active:shadow-sm group">
+<span>Hoàn tất</span>
+<span class="material-symbols-outlined transition-transform duration-300 group-hover:translate-x-1" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</section>
+</main>
+<script>
+        // Lightweight interaction: formatting number inputs (simple demo)
+        const inputs = document.querySelectorAll('input[type="text"][inputmode="numeric"]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function(e) {
+                // Strip non-digits
+                let value = this.value.replace(/\D/g, '');
+                if(value) {
+                    // Format with dots
+                    this.value = parseInt(value, 10).toLocaleString('vi-VN');
+                }
+            });
+        });
+    </script>
+</body></html>
