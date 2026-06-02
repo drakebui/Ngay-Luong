@@ -4,6 +4,73 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 
 ---
 
+## 2026-06-02 — Tình trạng dự án (kiểm tra tự động)
+
+### Trạng thái tổng quan
+
+| Hạng mục | Trạng thái |
+|---|---|
+| Branch phát triển | `claude/eloquent-bohr-AMZRb` |
+| Commit mới nhất | `b69ed9d` — feat: Midnight Matcha design system, router wiring, onboarding, secure income storage, formatters, and tests |
+| CI (GitHub Actions) | ✅ **Success** — run #30, 2026-06-02T20:52–20:54 UTC |
+| `flutter analyze` | ✅ 0 issue (xác nhận qua CI) |
+| `flutter test` | ✅ Pass (xác nhận qua CI) |
+
+### Milestone MVP — M0–M8: ✅ Hoàn thành toàn bộ
+
+| Milestone | Mô tả | Trạng thái |
+|---|---|---|
+| M0 | Project setup, cây thư mục, 3 file lõi, router rỗng | ✅ Done |
+| M1 | WageCalculator tests, AppFormatters, formatters tests | ✅ Done |
+| M2 | IncomeStorage (secure), IncomeRepository, S0 Onboarding | ✅ Done |
+| M3 | Quick Check S1 + Result S2, ResultPhrasing, DecisionRow | ✅ Done |
+| M4 | Drift DB `crush_cards`, CrushRepository, S3 Editor, ảnh nén | ✅ Done |
+| M5 | Crush Calendar S4, 3 tab Today/Upcoming/Month, CalendarProviders | ✅ Done |
+| M6 | NotificationService, S5 "Còn mê không?", 6 lựa chọn + reschedule | ✅ Done |
+| M7 | S6 Save Card, S7 Settings, AppLock (local_auth), DataResetService | ✅ Done |
+| M8 | Polish: count-up animation, NaN guards, empty/error states, l10n hoá | ✅ Done |
+| M9 | UI Polish: Be Vietnam Pro, Home/Result redesign, Editor sections, slide-up transition | ✅ Done |
+
+### Redesign Midnight Matcha (Sessions 12–18 / 2026-06-02)
+
+Đã hoàn thành overhaul visual sau M9:
+- `docs/11_VISUAL_LANGUAGE.md` — pattern library Midnight Matcha (17 section)
+- `lib/core/theme/` — toàn bộ tokens: AppColors, AppTypography, AppTheme theo Midnight Matcha
+- `docs/05_SCREENS.md` — rewrite theo Phương án D (bottom nav 2 tab + settings icon)
+- `lib/core/router/app_router.dart` — M0 shell 2-tab ShellRoute, /onboarding ngoài shell
+- `lib/features/income/presentation/screens/onboarding_screen.dart` — visual mới: pill input, live preview `GIÁ TRỊ 1 GIỜ CỦA BẠN`, privacy banner
+- `lib/features/income/data/income_storage.dart` — tách `SecureStringStorage` adapter testable
+- `lib/core/utils/formatters.dart` — guard non-finite, parse suffix `đ`
+- Tests: 17 file test / ~80+ test cases (tổng hợp M1–M2 + income + smoke)
+
+### File structure hiện tại
+
+- **Source**: 46 `.dart` files trong `lib/`
+- **Tests**: 17 file test trong `test/`
+- **L10n**: `app_vi.arb` → `app_localizations.dart` / `app_localizations_vi.dart`
+- **Codegen**: `app_database.g.dart`, `crush_providers.g.dart`, `income_provider.g.dart`
+
+### Vấn đề còn tồn đọng
+
+- `flutter analyze` / `flutter test` **không chạy được** trong container Codex web (không có Flutter SDK). Phải xác nhận qua CI tab Actions trên GitHub.
+- Chưa smoke test thực tế trên iOS/Android simulator (không có emulator trong môi trường web).
+- `noti_detail_mode` đã wire vào NotificationService (Session 10), Settings toggle OK.
+- Save Card chưa có nút "Chia sẻ" (không add `share_plus` theo kế hoạch).
+
+### Bước tiếp theo
+
+**Gần nhất:** Kiểm tra CI xanh trên branch `claude/eloquent-bohr-AMZRb` trước khi merge vào `main`.
+
+**Phase 1.5 — Widgets (sau MVP):**
+- W1 Quick Check Widget, W2 Preset Price Widget, W3 Private Crush Reminder Widget
+- iOS WidgetKit + Android Glance/AppWidgets
+- Deep link từ widget vào đúng màn
+
+**Phase 2 — Gen Z layer:**
+- FOMO recall, Mood Check, Anti-haul recap, Mascot ví, Salary Day Mode
+
+---
+
 ## 2026-06-02 — Session 18
 
 ### Hoàn thành: M2a + M2b — Income secure storage + onboarding visual
