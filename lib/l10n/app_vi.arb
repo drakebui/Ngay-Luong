@@ -33,6 +33,11 @@
   "homeShortcutPhoto": "Chụp món đồ",
   "homeShortcutCalendar": "Crush Calendar",
   "homeNeedIncome": "Cho mình biết thu nhập trước đã, để tính ngày lương nhé.",
+  "homeHeroChip": "MỤC TIÊU MỚI",
+  "homeHeroTitle": "Xây dựng tương lai",
+  "homeItemNameLabel": "Mục tiêu của bạn",
+  "homeItemNameHint": "Tên món đồ...",
+  "homePriceValueLabel": "Giá trị",
   "resultHeroUnit": "ngày đi làm",
   "resultHeroSubGeneric": "để mua món này",
   "resultHeroSubNamed": "để mua {name}",
@@ -59,6 +64,14 @@
       }
     }
   },
+  "resultConversionLabel": "THỜI GIAN QUY ĐỔI",
+  "resultHoursLabel": "Giờ làm việc",
+  "resultEffortLabel": "Nỗ lực bỏ ra",
+  "resultEffortTiny": "Nhẹ nhàng",
+  "resultEffortNormal": "Vừa đủ",
+  "resultEffortHeavy": "Nhiều",
+  "resultSaveToWishlist": "Lưu vào Wishlist",
+  "resultCheckAnother": "Tính món khác",
   "resultMsgNormal": "Món này lấy của bạn {days} ngày đi làm.",
   "@resultMsgNormal": {
     "placeholders": {

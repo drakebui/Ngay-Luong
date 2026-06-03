@@ -4,6 +4,16 @@ Ghi theo thứ tự mới nhất lên trên. Cập nhật sau mỗi thay đổi 
 
 ---
 
+## 2026-06-03 — Visual Redesign: Home + Result screen theo Stitch Midnight Matcha
+
+- Home: thêm hero card ảnh, name input field, đổi avatar icon, giữ settings_outlined.
+- Result: thay _HeroSection bằng decorative circle, _SubMetricsRow bằng 2 bento cards, _DecisionRow bằng 2 pill buttons.
+- Provider: thêm itemNameProvider.
+- Router: thêm ResultScreenArgs, giữ slide-up transition.
+- Xóa: _HeroSection, _SubMetricsRow, _MetricChip, _DecisionRow, _DecisionButton.
+
+---
+
 ## 2026-06-02 — Phase 2 Gen Z Layer
 
 ### Hoàn thành: P2f + P2d + P2c/P2g + P2a + P2b + P2e

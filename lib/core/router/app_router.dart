@@ -49,9 +49,28 @@ GoRouter makeAppRouter(String initialLocation) {
       ),
       GoRoute(
         path: Routes.result,
-        builder: (context, state) {
-          final price = state.extra as double;
-          return ResultScreen(price: price);
+        pageBuilder: (context, state) {
+          final args = state.extra as ResultScreenArgs;
+          return CustomTransitionPage(
+            child: ResultScreen(price: args.price, itemName: args.itemName),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0, 1),
+                end: Offset.zero,
+              ).animate(
+                CurvedAnimation(parent: animation, curve: Curves.easeOut),
+              ),
+              child: FadeTransition(
+                opacity: Tween<double>(begin: 0.4, end: 1.0).animate(
+                  animation,
+                ),
+                child: child,
+              ),
+            ),
+            transitionDuration: const Duration(milliseconds: 380),
+          );
         },
       ),
       GoRoute(

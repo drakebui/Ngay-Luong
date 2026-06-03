@@ -51,12 +51,25 @@
 - `home.shortcutPhoto` = "Chụp món đồ"
 - `home.shortcutCalendar` = "Crush Calendar"
 - `home.needIncome` = "Cho mình biết thu nhập trước đã, để tính ngày lương nhé."
+- `home.heroChip` = "MỤC TIÊU MỚI"
+- `home.heroTitle` = "Xây dựng tương lai"
+- `home.itemNameLabel` = "Mục tiêu của bạn"
+- `home.itemNameHint` = "Tên món đồ..."
+- `home.priceValueLabel` = "Giá trị"
 
 ## 5. Result (hero + microcopy)
 
 - `result.heroUnit` = "ngày đi làm"
 - `result.heroSubGeneric` = "để mua món này"
 - `result.heroSubNamed` = "để mua {name}"   // {name} = tên món
+- `result.conversionLabel` = "THỜI GIAN QUY ĐỔI"
+- `result.hoursLabel` = "Giờ làm việc"
+- `result.effortLabel` = "Nỗ lực bỏ ra"
+- `result.effortTiny` = "Nhẹ nhàng"
+- `result.effortNormal` = "Vừa đủ"
+- `result.effortHeavy` = "Nhiều"
+- `result.saveToWishlist` = "Lưu vào Wishlist"
+- `result.checkAnother` = "Tính món khác"
 - `result.subHours` = "{hours} giờ làm"
 - `result.subPct` = "{pct} thu nhập tháng"
 

@@ -12,13 +12,20 @@ import 'package:ngay_luong/features/crush/domain/crush_models.dart';
 import 'package:ngay_luong/features/crush/presentation/screens/crush_editor_screen.dart';
 import 'package:ngay_luong/features/income/presentation/providers/income_provider.dart';
 import 'package:ngay_luong/features/quick_check/domain/result_phrasing.dart';
-import 'package:ngay_luong/features/save_card/domain/save_card_template.dart';
 import 'package:ngay_luong/l10n/app_localizations.dart';
 
-class ResultScreen extends ConsumerWidget {
-  const ResultScreen({super.key, required this.price});
+class ResultScreenArgs {
+  const ResultScreenArgs({required this.price, this.itemName});
 
   final double price;
+  final String? itemName;
+}
+
+class ResultScreen extends ConsumerWidget {
+  const ResultScreen({super.key, required this.price, this.itemName});
+
+  final double price;
+  final String? itemName;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -61,127 +68,127 @@ class ResultScreen extends ConsumerWidget {
             );
           }
 
-          return _ResultBody(price: price, result: result);
+          return _ResultBody(
+            price: price,
+            result: result,
+            itemName: itemName,
+          );
         },
       ),
     );
   }
 }
 
-// ─────────────────────────────────────────────
-
-class _ResultBody extends StatelessWidget {
-  const _ResultBody({required this.price, required this.result});
+class _ResultBody extends StatefulWidget {
+  const _ResultBody({
+    required this.price,
+    required this.result,
+    this.itemName,
+  });
 
   final double price;
   final CheckResult result;
+  final String? itemName;
 
   @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final variant = ResultPhrasing.select(result);
+  State<_ResultBody> createState() => _ResultBodyState();
+}
 
-    final microcopy = _buildMicrocopy(l10n, variant, result, price);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _HeroSection(result: result),
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.screenPadding,
-              AppSpacing.xl,
-              AppSpacing.screenPadding,
-              AppSpacing.xxl,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _SubMetricsRow(result: result),
-                const SizedBox(height: AppSpacing.lg),
-                Text(
-                  microcopy,
-                  style: TextStyle(
-                    fontSize: 15,
-                    height: 1.6,
-                    color: Theme.of(context).textTheme.bodyMedium?.color,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppSpacing.xxl),
-                _DecisionRow(result: result, price: price),
-                const SizedBox(height: AppSpacing.base),
-                OutlinedButton.icon(
-                  icon: const Icon(Icons.share_outlined, size: 16),
-                  label: const Text('Tạo Save Card'),
-                  onPressed: () => context.push(
-                    Routes.saveCard,
-                    extra: SaveCardInput(days: result.daysOfWage),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+class _ResultBodyState extends State<_ResultBody> {
+  void _onSaveToWishlist(BuildContext context) {
+    context.push(
+      Routes.crushNew,
+      extra: CrushEditorArgs(
+        price: widget.price,
+        daysOfWage: widget.result.daysOfWage,
+        hoursOfWork: widget.result.hoursOfWork ?? 0,
+        pctOfMonthlyIncome: widget.result.pctOfMonthlyIncome,
+        initialStatus: CrushStatus.sleepOnIt,
+      ),
     );
   }
 
-  String _buildMicrocopy(
-    AppLocalizations l10n,
-    PhrasingVariant variant,
-    CheckResult result,
-    double price,
-  ) {
-    final daysDisplay =
-        AppFormatters.formatDays(result.daysOfWage).replaceAll(' ngày', '');
-    switch (variant) {
-      case PhrasingVariant.tiny:
-        return l10n.resultMsgTiny(daysDisplay);
-      case PhrasingVariant.heavy:
-        return l10n.resultMsgHeavy(
-          AppFormatters.formatMoney(price),
-          daysDisplay,
-        );
-      case PhrasingVariant.normal:
-        return l10n.resultMsgNormal(daysDisplay);
-    }
-  }
-}
-
-class _HeroSection extends StatelessWidget {
-  const _HeroSection({required this.result});
-  final CheckResult result;
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final accentSoft = isDark ? AppColors.accentSoftDark : AppColors.accentSoft;
+    final itemName = widget.itemName?.trim();
+    final subtitle = itemName != null && itemName.isNotEmpty
+        ? l10n.resultHeroSubNamed(itemName)
+        : l10n.resultHeroSubGeneric;
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.fromLTRB(
-        AppSpacing.screenPadding,
-        MediaQuery.of(context).padding.top + 64,
-        AppSpacing.screenPadding,
-        AppSpacing.xxxl,
-      ),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(32),
-          bottomRight: Radius.circular(32),
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.screenPadding,
         ),
-      ).copyWith(color: accentSoft),
-      child: TweenAnimationBuilder<double>(
-        tween: Tween(begin: 0, end: result.daysOfWage),
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeOut,
-        builder: (context, value, _) => HeroNumberView(
-          numberText: _formatHeroNumber(value),
-          unitText: l10n.resultHeroUnit,
-          subText: l10n.resultHeroSubGeneric,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: AppSpacing.base),
+            const _HeroCircle(),
+            const SizedBox(height: 28),
+            Text(
+              l10n.resultConversionLabel,
+              style: GoogleFonts.beVietnamPro(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.5,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: widget.result.daysOfWage),
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeOut,
+              builder: (context, value, _) => HeroNumberView(
+                numberText: _formatHeroNumber(value),
+                unitText: l10n.resultHeroUnit,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              subtitle,
+              style: GoogleFonts.beVietnamPro(
+                fontSize: 14,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                height: 1.4,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 28),
+            _BentoMetricsRow(result: widget.result),
+            const SizedBox(height: AppSpacing.xxl),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                icon: const Icon(Icons.bookmark_add_outlined, size: 18),
+                label: Text(l10n.resultSaveToWishlist),
+                onPressed: () => _onSaveToWishlist(context),
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.base,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.md),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                icon: const Icon(Icons.refresh_outlined, size: 18),
+                label: Text(l10n.resultCheckAnother),
+                onPressed: () => context.pop(),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.base,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.xxl),
+          ],
         ),
       ),
     );
@@ -199,248 +206,161 @@ class _HeroSection extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────
+class _HeroCircle extends StatelessWidget {
+  const _HeroCircle();
 
-class _SubMetricsRow extends StatelessWidget {
-  const _SubMetricsRow({required this.result});
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 280,
+      height: 280,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: 280,
+            height: 280,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.accentSoft.withValues(alpha: 0.6),
+            ),
+          ),
+          Container(
+            width: 240,
+            height: 240,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.surfaceContainerLowest,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.organicShadow,
+                  blurRadius: 24,
+                  offset: Offset(0, 8),
+                ),
+              ],
+            ),
+            child: ClipOval(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      AppColors.accentSoft,
+                      AppColors.accentSoft.withValues(alpha: 0.3),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BentoMetricsRow extends StatelessWidget {
+  const _BentoMetricsRow({required this.result});
 
   final CheckResult result;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final secondary = Theme.of(context).textTheme.bodyMedium?.color;
-
-    final chips = <String>[];
-
-    if (result.hoursOfWork != null) {
-      chips.add(
-        l10n.resultSubHours(AppFormatters.formatHours(result.hoursOfWork!)),
-      );
-    }
-    if (result.pctOfMonthlyIncome != null) {
-      chips.add(
-        l10n.resultSubPct(AppFormatters.formatPct(result.pctOfMonthlyIncome!)),
-      );
-    }
-
-    if (chips.isEmpty) return const SizedBox.shrink();
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: chips
-          .expand(
-            (chip) => [
-              _MetricChip(text: chip),
-              if (chip != chips.last)
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.sm,
-                  ),
-                  child: Text('·', style: TextStyle(color: secondary)),
-                ),
-            ],
-          )
-          .toList(),
-    );
-  }
-}
-
-class _MetricChip extends StatelessWidget {
-  const _MetricChip({required this.text});
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    final secondary = Theme.of(context).textTheme.bodyMedium?.color;
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: secondary,
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────
-
-class _DecisionRow extends StatefulWidget {
-  const _DecisionRow({required this.result, required this.price});
-  final CheckResult result;
-  final double price;
-
-  @override
-  State<_DecisionRow> createState() => _DecisionRowState();
-}
-
-class _DecisionRowState extends State<_DecisionRow> {
-  String? _feedbackText;
-
-  void _onBuy() {
-    final l10n = AppLocalizations.of(context)!;
-    setState(() => _feedbackText = l10n.decisionBought);
-    Future<void>.delayed(const Duration(milliseconds: 1200), () {
-      if (mounted) context.pop();
-    });
-  }
-
-  void _onSkip() {
-    final l10n = AppLocalizations.of(context)!;
-    setState(() => _feedbackText = l10n.decisionSkipped);
-    Future<void>.delayed(const Duration(milliseconds: 1800), () {
-      if (mounted) context.pop();
-    });
-  }
-
-  void _onSleepOnIt() {
-    context.push(
-      Routes.crushNew,
-      extra: CrushEditorArgs(
-        price: widget.price,
-        daysOfWage: widget.result.daysOfWage,
-        hoursOfWork: widget.result.hoursOfWork ?? 0,
-        pctOfMonthlyIncome: widget.result.pctOfMonthlyIncome,
-        initialStatus: CrushStatus.sleepOnIt,
-      ),
-    );
-  }
-
-  void _onSaveToCalendar() {
-    context.push(
-      Routes.crushNew,
-      extra: CrushEditorArgs(
-        price: widget.price,
-        daysOfWage: widget.result.daysOfWage,
-        hoursOfWork: widget.result.hoursOfWork ?? 0,
-        pctOfMonthlyIncome: widget.result.pctOfMonthlyIncome,
-        initialStatus: CrushStatus.crushing,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (_feedbackText != null) ...[
-          Text(
-            _feedbackText!,
-            style: const TextStyle(fontSize: 14, height: 1.4),
-            textAlign: TextAlign.center,
+        Expanded(
+          child: _BentoCard(
+            icon: Icons.schedule_outlined,
+            label: l10n.resultHoursLabel,
+            value: result.hoursOfWork != null
+                ? AppFormatters.formatHours(result.hoursOfWork!)
+                : '—',
           ),
-          const SizedBox(height: AppSpacing.base),
-        ],
-        Row(
-          children: [
-            Expanded(
-              child: _DecisionButton(
-                label: l10n.decisionBuy,
-                icon: Icons.check_circle_outline,
-                onTap: _onBuy,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: _DecisionButton(
-                label: l10n.decisionSleepOnIt,
-                icon: Icons.bedtime_outlined,
-                onTap: _onSleepOnIt,
-              ),
-            ),
-          ],
         ),
-        const SizedBox(height: AppSpacing.sm),
-        Row(
-          children: [
-            Expanded(
-              child: _DecisionButton(
-                label: l10n.decisionSkip,
-                icon: Icons.close_outlined,
-                onTap: _onSkip,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: _DecisionButton(
-                label: l10n.decisionSaveToCalendar,
-                icon: Icons.calendar_today_outlined,
-                onTap: _onSaveToCalendar,
-              ),
-            ),
-          ],
+        const SizedBox(width: AppSpacing.md),
+        Expanded(
+          child: _BentoCard(
+            icon: Icons.fitness_center_outlined,
+            label: l10n.resultEffortLabel,
+            value: switch (ResultPhrasing.select(result)) {
+              PhrasingVariant.tiny => l10n.resultEffortTiny,
+              PhrasingVariant.normal => l10n.resultEffortNormal,
+              PhrasingVariant.heavy => l10n.resultEffortHeavy,
+            },
+          ),
         ),
       ],
     );
   }
 }
 
-class _DecisionButton extends StatelessWidget {
-  const _DecisionButton({
-    required this.label,
+class _BentoCard extends StatelessWidget {
+  const _BentoCard({
     required this.icon,
-    required this.onTap,
+    required this.label,
+    required this.value,
   });
 
-  final String label;
   final IconData icon;
-  final VoidCallback onTap;
+  final String label;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
-    final textColor = Theme.of(context).colorScheme.onSurface;
-
-    return Material(
-      color: Theme.of(context).cardColor,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-        side: BorderSide(
-          color: Theme.of(context).dividerColor.withValues(alpha: 0.5),
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.screenPadding),
+      decoration: BoxDecoration(
+        color: AppColors.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppColors.outlineVariant.withValues(alpha: 0.4),
         ),
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.organicShadow,
+            blurRadius: 12,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppSpacing.cardRadius),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.sm,
-            vertical: AppSpacing.base,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 28, color: AppColors.accent),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            label,
+            style: GoogleFonts.beVietnamPro(
+              fontSize: 12,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              fontWeight: FontWeight.w500,
+              height: 1.25,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon,
-                size: 24,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const SizedBox(height: AppSpacing.xs),
-              Text(
-                label,
-                style: GoogleFonts.beVietnamPro(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: textColor,
-                  height: 1.3,
-                ),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            value,
+            style: GoogleFonts.beVietnamPro(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).colorScheme.onSurface,
+              height: 1.2,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-        ),
+        ],
       ),
     );
   }
 }
-
-// ─────────────────────────────────────────────
 
 class _NoIncomeBody extends StatelessWidget {
   const _NoIncomeBody({required this.onSetup});

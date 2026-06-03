@@ -111,6 +111,21 @@ class AppLocalizationsVi extends AppLocalizations {
       'Cho mình biết thu nhập trước đã, để tính ngày lương nhé.';
 
   @override
+  String get homeHeroChip => 'MỤC TIÊU MỚI';
+
+  @override
+  String get homeHeroTitle => 'Xây dựng tương lai';
+
+  @override
+  String get homeItemNameLabel => 'Mục tiêu của bạn';
+
+  @override
+  String get homeItemNameHint => 'Tên món đồ...';
+
+  @override
+  String get homePriceValueLabel => 'Giá trị';
+
+  @override
   String get resultHeroUnit => 'ngày đi làm';
 
   @override
@@ -130,6 +145,30 @@ class AppLocalizationsVi extends AppLocalizations {
   String resultSubPct(String pct) {
     return '$pct thu nhập tháng';
   }
+
+  @override
+  String get resultConversionLabel => 'THỜI GIAN QUY ĐỔI';
+
+  @override
+  String get resultHoursLabel => 'Giờ làm việc';
+
+  @override
+  String get resultEffortLabel => 'Nỗ lực bỏ ra';
+
+  @override
+  String get resultEffortTiny => 'Nhẹ nhàng';
+
+  @override
+  String get resultEffortNormal => 'Vừa đủ';
+
+  @override
+  String get resultEffortHeavy => 'Nhiều';
+
+  @override
+  String get resultSaveToWishlist => 'Lưu vào Wishlist';
+
+  @override
+  String get resultCheckAnother => 'Tính món khác';
 
   @override
   String resultMsgNormal(String days) {
@@ -514,7 +553,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String fomoRecallReason(int n, String reason) {
-    return '$n ngày trước bạn muốn mua vì: "${reason}". Giờ còn mê không?';
+    return '$n ngày trước bạn muốn mua vì: \"$reason\". Giờ còn mê không?';
   }
 
   @override

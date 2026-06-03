@@ -292,6 +292,36 @@ abstract class AppLocalizations {
   /// **'Cho mình biết thu nhập trước đã, để tính ngày lương nhé.'**
   String get homeNeedIncome;
 
+  /// No description provided for @homeHeroChip.
+  ///
+  /// In vi, this message translates to:
+  /// **'MỤC TIÊU MỚI'**
+  String get homeHeroChip;
+
+  /// No description provided for @homeHeroTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xây dựng tương lai'**
+  String get homeHeroTitle;
+
+  /// No description provided for @homeItemNameLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mục tiêu của bạn'**
+  String get homeItemNameLabel;
+
+  /// No description provided for @homeItemNameHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên món đồ...'**
+  String get homeItemNameHint;
+
+  /// No description provided for @homePriceValueLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giá trị'**
+  String get homePriceValueLabel;
+
   /// No description provided for @resultHeroUnit.
   ///
   /// In vi, this message translates to:
@@ -321,6 +351,54 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'{pct} thu nhập tháng'**
   String resultSubPct(String pct);
+
+  /// No description provided for @resultConversionLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'THỜI GIAN QUY ĐỔI'**
+  String get resultConversionLabel;
+
+  /// No description provided for @resultHoursLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ làm việc'**
+  String get resultHoursLabel;
+
+  /// No description provided for @resultEffortLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nỗ lực bỏ ra'**
+  String get resultEffortLabel;
+
+  /// No description provided for @resultEffortTiny.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhẹ nhàng'**
+  String get resultEffortTiny;
+
+  /// No description provided for @resultEffortNormal.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vừa đủ'**
+  String get resultEffortNormal;
+
+  /// No description provided for @resultEffortHeavy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhiều'**
+  String get resultEffortHeavy;
+
+  /// No description provided for @resultSaveToWishlist.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu vào Wishlist'**
+  String get resultSaveToWishlist;
+
+  /// No description provided for @resultCheckAnother.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tính món khác'**
+  String get resultCheckAnother;
 
   /// No description provided for @resultMsgNormal.
   ///
@@ -928,29 +1006,148 @@ abstract class AppLocalizations {
   /// **'Đã không mua'**
   String get saveCardTemplateSkipped;
 
+  /// No description provided for @cardPayday.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lương về rồi.\nVẫn còn mê {days} ngày đi làm này không?'**
   String cardPayday(String days);
+
+  /// No description provided for @cardAntiHaulCelebration.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tôi đã không mua {count} món.\n+{days} ngày lương còn sống.'**
   String cardAntiHaulCelebration(int count, String days);
+
+  /// No description provided for @saveCardTemplatePayday.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày lương'**
   String get saveCardTemplatePayday;
+
+  /// No description provided for @saveCardTemplateAntiHaulCelebration.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ăn mừng anti-haul'**
   String get saveCardTemplateAntiHaulCelebration;
+
+  /// No description provided for @crushEditorMoodLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tâm trạng lúc này'**
   String get crushEditorMoodLabel;
+
+  /// No description provided for @moodExcited.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hào hứng'**
   String get moodExcited;
+
+  /// No description provided for @moodBored.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chán chán'**
   String get moodBored;
+
+  /// No description provided for @moodStressed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Căng thẳng'**
   String get moodStressed;
+
+  /// No description provided for @moodHappy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vui'**
   String get moodHappy;
+
+  /// No description provided for @moodTired.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mệt'**
   String get moodTired;
+
+  /// No description provided for @moodNeutral.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bình thường'**
   String get moodNeutral;
+
+  /// No description provided for @moodImpulsive.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bốc đồng'**
   String get moodImpulsive;
+
+  /// No description provided for @fomoRecallReason.
+  ///
+  /// In vi, this message translates to:
+  /// **'{n} ngày trước bạn muốn mua vì: \"{reason}\". Giờ còn mê không?'**
   String fomoRecallReason(int n, String reason);
+
+  /// No description provided for @notiRecallPool1.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở app xem lại.'**
   String get notiRecallPool1;
+
+  /// No description provided for @notiRecallPool2.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cho mình thêm một nhịp dừng nhé.'**
   String get notiRecallPool2;
+
+  /// No description provided for @notiRecallPool3.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ còn mê không?'**
   String get notiRecallPool3;
+
+  /// No description provided for @notiRecallPool4.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở app xem cảm giác còn như cũ không.'**
   String get notiRecallPool4;
+
+  /// No description provided for @antihaulWeekly.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tuần này bạn đã hết mê {count} món. +{days} ngày lương còn sống.'**
   String antihaulWeekly(int count, String days);
+
+  /// No description provided for @antihaulMonthly.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tháng này bạn đã hết mê {count} món. +{days} ngày lương còn sống.'**
   String antihaulMonthly(int count, String days);
+
+  /// No description provided for @paydayPromptTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lương vừa về. Có món nào đang chờ bạn mua không?'**
   String get paydayPromptTitle;
+
+  /// No description provided for @paydayBannerAction.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem Crush'**
   String get paydayBannerAction;
+
+  /// No description provided for @mascotSawDaysFly.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tôi vừa thấy {days} ngày lương bay qua cửa sổ.'**
   String mascotSawDaysFly(String days);
+
+  /// No description provided for @mascotSurvived.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tôi sống rồi.'**
   String get mascotSurvived;
+
+  /// No description provided for @settingsMascotTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bật mascot ví'**
   String get settingsMascotTitle;
 }
 
